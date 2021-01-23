@@ -9,4 +9,18 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
 
-message(STATUS "Hello! This is ${PROJECT_NAME} v.${PROJECT_VERSION}: ${PROJECT_DESCRIPTION}.")
+option(CMAGIC_WITH_EXTRA_WARNINGS "Enable extra compilation warnings" ON)
+
+add_library(cmagic src/memory.c)
+target_include_directories(cmagic PUBLIC include)
+if(CMAGIC_WITH_EXTRA_WARNINGS)
+    target_compile_options(cmagic PRIVATE
+        $<$<C_COMPILER_ID:Clang,GNU>: -Wall
+                                      -Wextra
+                                      -Winit-self
+                                      -Wmissing-declarations
+                                      -Wc++-compat
+                                      -Wsign-conversion
+                                      -Wconversion >
+    )
+endif()
