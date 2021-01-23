@@ -14,5 +14,11 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
 
 option(CMAGIC_WITH_EXTRA_WARNINGS "Enable extra compilation warnings" ON)
+option(CMAGIC_WITH_TESTS "Enable unit tests of CMagic library" ON)
 
 add_subdirectory(src)
+if(CMAGIC_WITH_TESTS)
+    enable_testing()
+    add_subdirectory(deps/unity)
+    add_subdirectory(test)
+endif()
