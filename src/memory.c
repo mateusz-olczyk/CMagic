@@ -1,6 +1,15 @@
 #include <stdbool.h>
+#include <string.h>
 #include "cmagic/memory.h"
 #include "cmagic/utils.h"
+
+#if !defined(CMAGIC_C_ANONYMOUS_STRUCT_SUPPORT) || !defined(CMAGIC_C_ALIGN_OPERATORS_SUPPORT)
+    #error "Needs info about anonymous struct support and align operators support"
+#elif !CMAGIC_C_ANONYMOUS_STRUCT_SUPPORT && !CMAGIC_C_ALIGN_OPERATORS_SUPPORT
+    #error "Missing required compiler features"
+#endif
+
+#if CMAGIC_C_ALIGN_OPERATORS_SUPPORT
 
 typedef struct chunk chunk_t;
 
@@ -11,20 +20,49 @@ struct chunk {
     size_t allocated_bytes;
 };
 
+#elif CMAGIC_C_ANONYMOUS_STRUCT_SUPPORT
+
+union max_align {
+    void *ptr;
+    void (*fptr)();
+    long double ld;
+    intmax_t i;
+};
+
+#define alignof(type) offsetof(struct { char padding; type value; }, value)
+
+typedef union chunk chunk_t;
+
+union chunk {
+    struct chunk_raw {
+        chunk_t *node_next;
+        chunk_t *node_prev;
+        size_t allocated_bytes;
+    };
+    union max_align padding[CMAGIC_UTILS_DIV_CEIL(sizeof(struct chunk_raw),
+                                                  sizeof(union max_align))];
+};
+
+#endif
+
 static chunk_t *g_pool_begin;
 static const chunk_t *g_pool_end;
 
 void
 cmagic_memory_init(void *static_memory_pool, size_t static_memory_pool_size) {
+#if CMAGIC_C_ALIGN_OPERATORS_SUPPORT
+    const size_t alignment = _Alignof(chunk_t);
+#else
+    const size_t alignment = alignof(chunk_t);
+#endif
     chunk_t *pool_begin_aligned = (chunk_t *)cmagic_utils_align_address_up(
-        (uintptr_t)static_memory_pool, _Alignof(chunk_t));
+        (uintptr_t)static_memory_pool, alignment);
     const chunk_t *pool_end_aligned =
         (chunk_t *)cmagic_utils_align_address_down(
-            (uintptr_t)static_memory_pool + static_memory_pool_size,
-            _Alignof(chunk_t));
+            (uintptr_t)static_memory_pool + static_memory_pool_size, alignment);
 
     if (pool_end_aligned - pool_begin_aligned > 0) {
-        pool_begin_aligned[0] = (chunk_t){0};
+        memset(pool_begin_aligned, 0, sizeof(chunk_t));
         g_pool_begin = pool_begin_aligned;
         g_pool_end = pool_end_aligned;
     } else {

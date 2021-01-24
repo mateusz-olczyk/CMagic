@@ -9,6 +9,9 @@ struct CustomAllocator {
     typedef T value_type;
     CustomAllocator() = default;
 
+    template <class U>
+    constexpr CustomAllocator(const CustomAllocator<U>&) noexcept {}
+
     T* allocate(std::size_t n) {
         auto ptr = static_cast<T*>(cmagic_memory_malloc(n * sizeof(T)));
         TEST_ASSERT_NOT_NULL_MESSAGE(ptr, "Allocation fail");
@@ -26,7 +29,7 @@ struct CustomAllocator {
 /* Test body */
 
 void setUp(void) {
-    static uint8_t memory_pool[500]; 
+    static uint8_t memory_pool[600]; 
     cmagic_memory_init(memory_pool, sizeof(memory_pool));
 }
 
