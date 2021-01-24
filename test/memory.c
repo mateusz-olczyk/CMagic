@@ -3,7 +3,10 @@
 #include "cmagic/utils.h"
 #include "unity.h"
 
-void setUp(void) {}
+void setUp(void) {
+    static uint8_t memory_pool[100]; 
+    cmagic_memory_init(memory_pool, sizeof(memory_pool));
+}
 
 void tearDown(void) {}
 
@@ -51,7 +54,7 @@ static void test_MemoryFull(void) {
     TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocated_bytes());
     TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocations());
 
-    void *memory_blocks[5000];
+    void *memory_blocks[100];
     size_t successful_allocations = 0;
     for (size_t i = 0; i < CMAGIC_UTILS_ARRAY_SIZE(memory_blocks); i++) {
         memory_blocks[i] = cmagic_memory_malloc(sizeof(int));

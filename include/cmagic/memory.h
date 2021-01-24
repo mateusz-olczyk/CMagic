@@ -7,6 +7,9 @@
 extern "C" {
 #endif
 
+void
+cmagic_memory_init(void *static_memory_pool, size_t static_memory_pool_size);
+
 void *
 cmagic_memory_malloc(size_t size);
 
@@ -15,6 +18,7 @@ enum cmagic_memory_free_result {
     CMAGIC_MEMORY_FREE_RESULT_OK_NULLPTR,
     CMAGIC_MEMORY_FREE_RESULT_ERR_NOT_ALLOCATED_BEFORE,
     CMAGIC_MEMORY_FREE_RESULT_ERR_ADDRESS_OUTSIDE_MEMORY_POOL,
+    CMAGIC_MEMORY_FREE_RESULT_ERR_UNINITIALIZED
 };
 
 enum cmagic_memory_free_result
