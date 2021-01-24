@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
+include(utils)
 
 function(cmagic_add_test_case TEST_SOURCE_PATH)
     get_filename_component(TEST_SOURCE_FILENAME "${TEST_SOURCE_PATH}" NAME_WE)

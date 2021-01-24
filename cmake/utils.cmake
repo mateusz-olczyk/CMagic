@@ -2,14 +2,14 @@ cmake_minimum_required(VERSION 3.16)
 include_guard()
 
 function(cmagic_target_add_warnings TARGET)
+    set(GNU_CXX_FLAGS -Wall -Wextra -Wmissing-declarations -Wsign-conversion
+        -Wconversion -pedantic)
+    set(GNU_C_FLAGS ${GNU_CXX_FLAGS} -Wc++-compat)
+    set(MSVC_FLAGS /Wall)
     target_compile_options(${TARGET} PRIVATE
-        $<$<C_COMPILER_ID:Clang,GNU>: -Wall
-                                      -Wextra
-                                      -Winit-self
-                                      -Wmissing-declarations
-                                      -Wc++-compat
-                                      -Wsign-conversion
-                                      -Wconversion >
-        $<$<C_COMPILER_ID:MSVC>: /Wall >
+        $<$<COMPILE_LANG_AND_ID:C,Clang,GNU>:${GNU_C_FLAGS}>
+        $<$<COMPILE_LANG_AND_ID:CXX,Clang,GNU>:${GNU_CXX_FLAGS}>
+        $<$<COMPILE_LANG_AND_ID:C,MSVC>:${MSVC_FLAGS}>
+        $<$<COMPILE_LANG_AND_ID:CXX,MSVC>:${MSVC_FLAGS}>
     )
 endfunction()
