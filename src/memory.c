@@ -1,4 +1,3 @@
-#include <stdalign.h>
 #include <stdbool.h>
 #include "cmagic/memory.h"
 #include "cmagic/utils.h"
@@ -8,7 +7,7 @@
 typedef struct chunk chunk_t;
 
 struct chunk {
-    alignas(max_align_t)
+    _Alignas(max_align_t)
     chunk_t *node_next;
     chunk_t *node_prev;
     size_t allocated_bytes;
