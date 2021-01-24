@@ -14,3 +14,4 @@ endfunction()
 
 cmagic_add_test_case(memory.c)
 cmagic_add_test_case(memory_cxx.cpp)
+cmagic_add_test_case(utils.c)

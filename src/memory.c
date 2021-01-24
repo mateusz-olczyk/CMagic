@@ -17,7 +17,7 @@ static chunk_t pool[MEMORY_BLOCKS_COUNT];
 static const chunk_t *const pool_end = pool + CMAGIC_UTILS_ARRAY_SIZE(pool);
 
 static size_t _count_needed_blocks(size_t bytes_count) {
-    return 1 /* for node block */ + CMAGIC_DIV_CEIL(bytes_count, sizeof(chunk_t));
+    return 1 /* for node block */ + CMAGIC_UTILS_DIV_CEIL(bytes_count, sizeof(chunk_t));
 }
 
 static chunk_t *_data_begin(chunk_t *node) {
