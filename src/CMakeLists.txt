@@ -20,7 +20,9 @@ check_c_source_compiles("
     " CMAGIC_C_ALIGN_OPERATORS_SUPPORT)
 
 add_library(cmagic
-    memory.c utils.c
+    memory.c
+    utils.c
+    vector.c
 )
 
 cmagic_target_bool_compile_definitions(cmagic

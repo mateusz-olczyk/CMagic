@@ -9,6 +9,8 @@
 
 #define CMAGIC_UTILS_ARRAY_SIZE(array) (sizeof(array) / sizeof((array)[0]))
 
+#define CMAGIC_ASSERT_SAME_TYPE(expr1, expr2) ((void)sizeof(&(expr1)-&(expr2)))
+
 uintptr_t
 cmagic_utils_align_address_up(uintptr_t unaligned_addr,
                               size_t required_alignment);
