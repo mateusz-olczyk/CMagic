@@ -20,7 +20,7 @@ struct CustomAllocator {
 
     void deallocate(T* p, std::size_t n) noexcept {
         (void)n;
-        TEST_ASSERT_EQUAL_MESSAGE(CMAGIC_MEMORY_FREE_RESULT_OK, cmagic_memory_free(p), "Deallocation fail");
+        TEST_ASSERT_EQUAL_MESSAGE(CMAGIC_MEMORY_FREE_RESULT_OK, cmagic_memory_free_ext(p), "Deallocation fail");
     }
 };
 

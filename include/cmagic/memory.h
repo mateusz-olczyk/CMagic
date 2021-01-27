@@ -22,7 +22,10 @@ enum cmagic_memory_free_result {
 };
 
 enum cmagic_memory_free_result
-cmagic_memory_free(void *ptr);
+cmagic_memory_free_ext(void *ptr);
+
+static inline void
+cmagic_memory_free(void *ptr) { (void)cmagic_memory_free_ext(ptr); }
 
 size_t
 cmagic_memory_get_allocated_bytes(void);

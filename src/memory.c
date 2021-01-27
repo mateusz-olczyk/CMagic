@@ -133,7 +133,7 @@ cmagic_memory_malloc(size_t size) {
 }
 
 enum cmagic_memory_free_result
-cmagic_memory_free(void *ptr) {
+cmagic_memory_free_ext(void *ptr) {
     if (!g_pool_begin || !g_pool_end) {
         return CMAGIC_MEMORY_FREE_RESULT_ERR_UNINITIALIZED;
     }
