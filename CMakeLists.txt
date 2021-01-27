@@ -5,8 +5,7 @@ project(CMagic
         HOMEPAGE_URL "https://github.com/mateusz-olczyk/CMagic"
         LANGUAGES C CXX)
 
-set(CMAGIC_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
-list(APPEND CMAKE_MODULE_PATH "${CMAGIC_SOURCE_DIR}/cmake")
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)

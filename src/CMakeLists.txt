@@ -28,7 +28,7 @@ cmagic_target_bool_compile_definitions(cmagic
 )
 
 target_include_directories(cmagic
-    PUBLIC "${CMAGIC_SOURCE_DIR}/include"
+    PUBLIC "${PROJECT_SOURCE_DIR}/include"
 )
 
 if(CMAGIC_WITH_EXTRA_WARNINGS)
