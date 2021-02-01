@@ -147,16 +147,24 @@ cmagic_memory_realloc(void *ptr, size_t size) {
         return NULL;
     }
 
+    void *original_data = (void *)_data_begin(node);
+    const size_t bytes_to_copy = CMAGIC_MIN(size, node->allocated_bytes);
+
     chunk_t *potential_free_space_begin = _data_end(node->node_prev);
     const chunk_t *potential_free_space_end = node->node_next ? node->node_next : g_pool_end;
     const size_t free_blocks = (size_t)(potential_free_space_end - potential_free_space_begin);
     if (_count_needed_blocks(size) <= free_blocks) {
-        return (void *)_data_begin(_insert_node(potential_free_space_begin, size, node->node_prev,
+        void *result = _data_begin(_insert_node(potential_free_space_begin, size, node->node_prev,
                                                 node->node_next));
+        if (result != original_data) {
+            memmove(result, original_data, bytes_to_copy);
+        }
+        return result;
     }
 
     void *result = cmagic_memory_malloc(size);
     if (result) {
+        memcpy(result, original_data, bytes_to_copy);
         cmagic_memory_free(ptr);
         return result;
     }

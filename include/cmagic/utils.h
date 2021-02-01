@@ -11,6 +11,8 @@
 
 #define CMAGIC_ASSERT_SAME_TYPE(expr1, expr2) ((void)sizeof(&(expr1)-&(expr2)))
 
+#define CMAGIC_MIN(val1, val2) ((val1) < (val2) ? (val1) : (val2))
+
 uintptr_t
 cmagic_utils_align_address_up(uintptr_t unaligned_addr,
                               size_t required_alignment);
