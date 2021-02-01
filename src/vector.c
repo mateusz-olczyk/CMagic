@@ -15,6 +15,7 @@ typedef struct {
     int_least32_t magic_value;
 #endif
     malloc_fptr malloc_function;
+    realloc_fptr realloc_function;
     free_fptr free_function;
     size_t size;
     size_t capacity;
@@ -23,7 +24,8 @@ typedef struct {
 } vector_descriptor_t;
 
 void **
-cmagic_vector_new(size_t member_size, malloc_fptr malloc_function, free_fptr free_function) {
+cmagic_vector_new(size_t member_size, malloc_fptr malloc_function, realloc_fptr realloc_function,
+                  free_fptr free_function) {
     vector_descriptor_t *vector_descriptor =
         (vector_descriptor_t *)malloc_function(sizeof(vector_descriptor_t));
     if (!vector_descriptor) {
@@ -41,6 +43,7 @@ cmagic_vector_new(size_t member_size, malloc_fptr malloc_function, free_fptr fre
         .magic_value = VECTOR_MAGIC_VALUE,
 #endif
         .malloc_function = malloc_function,
+        .realloc_function = realloc_function,
         .free_function = free_function,
         .size = 0,
         .capacity = VECTOR_MIN_CAPACITY,

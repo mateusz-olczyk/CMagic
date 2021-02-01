@@ -10,10 +10,12 @@ extern "C" {
 #include "cmagic/utils.h"
 
 typedef void* (*malloc_fptr)(size_t size);
+typedef void* (*realloc_fptr)(void* ptr, size_t size);
 typedef void (*free_fptr)(void *ptr);
 
 void **
-cmagic_vector_new(size_t member_size, malloc_fptr malloc_function, free_fptr free_function);
+cmagic_vector_new(size_t member_size, malloc_fptr malloc_function, realloc_fptr realloc_function,
+                  free_fptr free_function);
 
 void
 cmagic_vector_free(void **vector_ptr);
@@ -31,10 +33,11 @@ cmagic_vector_size(void **vector_ptr);
 
 #define CMAGIC_VECTOR_DATA(cmagic_vector) (*(cmagic_vector))
 
-#define CMAGIC_VECTOR_NEW_NOSTD_ALLOC(type, malloc_function, free_function) \
-    ((CMAGIC_VECTOR(type))cmagic_vector_new(sizeof(type), (malloc_function), (free_function)))
+#define CMAGIC_VECTOR_NEW_NOSTD_ALLOC(type, malloc_function, realloc_function, free_function) \
+    ((CMAGIC_VECTOR(type))cmagic_vector_new(sizeof(type), (malloc_function), (realloc_function), \
+                                            (free_function)))
 
-#define CMAGIC_VECTOR_NEW(type) CMAGIC_VECTOR_NEW_NOSTD_ALLOC(type, malloc, free)
+#define CMAGIC_VECTOR_NEW(type) CMAGIC_VECTOR_NEW_NOSTD_ALLOC(type, malloc, realloc, free)
 
 #define CMAGIC_VECTOR_FREE(cmagic_vector) cmagic_vector_free((void**)(cmagic_vector))
 
