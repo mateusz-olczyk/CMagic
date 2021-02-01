@@ -77,23 +77,16 @@ static void _push_back_no_capacity_resize(
         new_element_ptr, vector_descriptor->member_size);
 }
 
-static void _copy_data(const vector_descriptor_t *vector_descriptor, void *out_data) {
-    memcpy(out_data, vector_descriptor->data_begin,
-        vector_descriptor->size * vector_descriptor->member_size);
-}
-
 static int _change_capacity(vector_descriptor_t *vector_descriptor,
                             size_t new_capacity) {
     assert(vector_descriptor->size <= new_capacity);
-    void *new_data_begin = vector_descriptor->malloc_function(
+    void *new_data_begin = vector_descriptor->realloc_function(vector_descriptor->data_begin,
         new_capacity * vector_descriptor->member_size);
     if (!new_data_begin) {
         return -1;
     }
 
-    _copy_data(vector_descriptor, new_data_begin);
     vector_descriptor->capacity = new_capacity;
-    vector_descriptor->free_function(vector_descriptor->data_begin);
     vector_descriptor->data_begin = new_data_begin;
     return 0;
 }
