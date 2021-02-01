@@ -97,11 +97,35 @@ static void test_Errors(void) {
     TEST_ASSERT_EQUAL(CMAGIC_MEMORY_FREE_RESULT_ERR_NOT_ALLOCATED_BEFORE, cmagic_memory_free_ext(memptr));
 }
 
+static void test_realloc(void) {
+    TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocated_bytes());
+
+    void *memptr = cmagic_memory_malloc(70);
+    TEST_ASSERT_NOT_NULL(memptr);
+    TEST_ASSERT_EQUAL_size_t(70, cmagic_memory_get_allocated_bytes());
+
+    memptr = cmagic_memory_realloc(memptr, 35);
+    TEST_ASSERT_NOT_NULL(memptr);
+    TEST_ASSERT_EQUAL_size_t(35, cmagic_memory_get_allocated_bytes());
+
+    memptr = cmagic_memory_realloc(memptr, 140);
+    TEST_ASSERT_NOT_NULL(memptr);
+    TEST_ASSERT_EQUAL_size_t(140, cmagic_memory_get_allocated_bytes());
+
+    void *failed_memptr = cmagic_memory_realloc(memptr, 1500);
+    TEST_ASSERT_NULL(failed_memptr);
+    TEST_ASSERT_EQUAL_size_t(140, cmagic_memory_get_allocated_bytes());
+
+    TEST_ASSERT_EQUAL(CMAGIC_MEMORY_FREE_RESULT_OK, cmagic_memory_free_ext(memptr));
+    TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocations());
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_String);
     RUN_TEST(test_Fail);
     RUN_TEST(test_MemoryFull);
     RUN_TEST(test_Errors);
+    RUN_TEST(test_realloc);
     return UNITY_END();
 }

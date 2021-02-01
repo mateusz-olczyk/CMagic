@@ -108,6 +108,20 @@ static bool _is_existing_memory_node(chunk_t *node) {
     return false;
 }
 
+static chunk_t *_insert_node(chunk_t *const new_node, size_t new_node_allocated_bytes,
+                             chunk_t *const prev_node, chunk_t *const next_node) {
+    new_node->node_next = next_node;
+    new_node->node_prev = prev_node;
+    new_node->allocated_bytes = new_node_allocated_bytes;
+
+    prev_node->node_next = new_node;
+    if (next_node) {
+        next_node->node_prev = new_node;
+    }
+
+    return new_node;
+}
+
 void *
 cmagic_memory_malloc(size_t size) {
     if (!g_pool_begin || !g_pool_end) {
@@ -116,19 +130,37 @@ cmagic_memory_malloc(size_t size) {
 
     for (chunk_t *node = g_pool_begin; node; node = node->node_next) {
         if (_available_free_space_after_node(node, size)) {
-            chunk_t *new_node = _data_end(node);
-            new_node->node_next = node->node_next;
-            new_node->node_prev = node;
-            new_node->allocated_bytes = size;
-
-            node->node_next = new_node;
-            if (new_node->node_next) {
-                new_node->node_next->node_prev = new_node;
-            }
-
-            return (void *)_data_begin(new_node);
+            return (void *)_data_begin(_insert_node(_data_end(node), size, node, node->node_next));
         }
     }
+    return NULL;
+}
+
+void *
+cmagic_memory_realloc(void *ptr, size_t size) {
+    if (!ptr) {
+        return cmagic_memory_malloc(size);
+    }
+
+    chunk_t *node = _associated_node(ptr);
+    if (!_is_existing_memory_node(node)) {
+        return NULL;
+    }
+
+    chunk_t *potential_free_space_begin = _data_end(node->node_prev);
+    const chunk_t *potential_free_space_end = node->node_next ? node->node_next : g_pool_end;
+    const size_t free_blocks = (size_t)(potential_free_space_end - potential_free_space_begin);
+    if (_count_needed_blocks(size) <= free_blocks) {
+        return (void *)_data_begin(_insert_node(potential_free_space_begin, size, node->node_prev,
+                                                node->node_next));
+    }
+
+    void *result = cmagic_memory_malloc(size);
+    if (result) {
+        cmagic_memory_free(ptr);
+        return result;
+    }
+
     return NULL;
 }
 
