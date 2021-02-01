@@ -226,7 +226,8 @@ cmagic_memory_get_free_bytes(void) {
         return 0;
     }
 
-    return sizeof(g_pool_begin) - (1 + _get_memory_allocated_blocks()) * sizeof(chunk_t);
+    return sizeof(chunk_t) * ((size_t)(g_pool_end - g_pool_begin)
+                              - 1 - _get_memory_allocated_blocks());
 }
 
 size_t
