@@ -148,7 +148,7 @@ cmagic_memory_realloc(void *ptr, size_t size) {
     }
 
     void *original_data = (void *)_data_begin(node);
-    const size_t bytes_to_copy = CMAGIC_MIN(size, node->allocated_bytes);
+    const size_t bytes_to_copy = CMAGIC_UTILS_MIN(size, node->allocated_bytes);
 
     chunk_t *potential_free_space_begin = _data_end(node->node_prev);
     const chunk_t *potential_free_space_end = node->node_next ? node->node_next : g_pool_end;

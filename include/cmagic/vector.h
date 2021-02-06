@@ -42,7 +42,7 @@ cmagic_vector_size(void **vector_ptr);
 #define CMAGIC_VECTOR_FREE(cmagic_vector) cmagic_vector_free((void**)(cmagic_vector))
 
 #define CMAGIC_VECTOR_PUSH_BACK(cmagic_vector, new_element_ptr) \
-    (CMAGIC_ASSERT_SAME_TYPE(**(cmagic_vector), *(new_element_ptr)), \
+    (CMAGIC_UTILS_ASSERT_SAME_TYPE(**(cmagic_vector), *(new_element_ptr)), \
     cmagic_vector_push_back((void**)(cmagic_vector), (new_element_ptr)))
 
 #define CMAGIC_VECTOR_POP_BACK(cmagic_vector) cmagic_vector_pop_back((void**)(cmagic_vector))
