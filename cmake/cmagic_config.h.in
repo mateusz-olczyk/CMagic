@@ -1,0 +1,24 @@
+#ifndef CMAGIC_CONFIG_H
+#define CMAGIC_CONFIG_H
+
+#cmakedefine CMAGIC_C_ALIGNAS_OPERATOR_SUPPORT
+#cmakedefine CMAGIC_C_ALIGNOF_OPERATOR_SUPPORT
+#cmakedefine CMAGIC_C_ANONYMOUS_STRUCT_SUPPORT
+#cmakedefine CMAGIC_C_MAX_ALIGN_TYPE_SUPPORT
+
+#ifndef CMAGIC_C_ALIGNOF_OPERATOR_SUPPORT
+    #include <stddef.h>
+    #define _Alignof(type) offsetof(struct { char padding; type value; }, value)
+#endif // CMAGIC_C_ALIGNOF_OPERATOR_SUPPORT
+
+#ifndef CMAGIC_C_MAX_ALIGN_TYPE_SUPPORT
+    #include <stddef.h>
+    typedef union {
+        void *ptr;
+        void (*fptr)();
+        long double ld;
+        intmax_t i;
+    } max_align_t;
+#endif // CMAGIC_C_MAX_ALIGN_TYPE_SUPPORT
+
+#endif /* CMAGIC_CONFIG_H */

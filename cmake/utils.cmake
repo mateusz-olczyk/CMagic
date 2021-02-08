@@ -13,10 +13,3 @@ function(cmagic_target_add_warnings TARGET)
         $<$<COMPILE_LANG_AND_ID:CXX,MSVC>:${MSVC_FLAGS}>
     )
 endfunction()
-
-function(cmagic_target_bool_compile_definitions TARGET)
-    foreach(VARIABLE IN LISTS ARGN)
-        target_compile_definitions(${TARGET}
-            PRIVATE "${VARIABLE}=$<BOOL:${${VARIABLE}}>")
-    endforeach()
-endfunction()
