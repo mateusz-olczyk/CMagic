@@ -1,7 +1,6 @@
 /**
- * @file utils.h
- *
- * General purpose utilities.
+ * @file    utils.h
+ * @brief   General purpose utilities.
  */
 
 #ifndef CMAGIC_UTILS_H
