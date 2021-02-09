@@ -11,9 +11,11 @@ namespace cmagic {
 
 template<typename T>
 class vector {
+
 public:
     using value_type = T;
     using size_type = size_t;
+
 private:
     static_assert(std::is_copy_assignable<T>(), "value type must be copy-assignable");
     static_assert(std::is_copy_constructible<T>(), "value type must be copy-constructible");
@@ -23,9 +25,57 @@ private:
         return &(*this)[size() - 1];
     }
 
+    const value_type *last_element_addr() const {
+        return last_element_addr();
+    }
+
+    explicit vector(const cmagic_memory_alloc_packet_t *alloc_packet)
+    : vector_handle(CMAGIC_VECTOR_NEW(value_type, alloc_packet)) {}
+
 public:
-    explicit vector()
-    : vector_handle(CMAGIC_VECTOR_NEW(value_type, &CMAGIC_MEMORY_ALLOC_PACKET_STD)) {}
+    explicit vector() : vector(&CMAGIC_MEMORY_ALLOC_PACKET_STD) {}
+
+    static vector custom_allocation_vector() {
+        return vector(&CMAGIC_MEMORY_ALLOC_PACKET_CUSTOM_CMAGIC);
+    }
+
+    vector &operator=(const vector &x) {
+        assert(*this);
+        if (&x == this) {
+            return *this;
+        }
+
+        clear();
+        for (const value_type &val : x) {
+            if (!push_back(val)) {
+                clear();
+                CMAGIC_VECTOR_FREE(vector_handle);
+                vector_handle = nullptr;
+                return *this;
+            }
+        }
+        return *this;
+    }
+
+    vector(const vector &x) : vector(CMAGIC_VECTOR_GET_ALLOC_PACKET(x.vector_handle)) {
+        if (*this) {
+            operator=(x);
+        }
+    }
+
+    vector &operator=(vector &&x) {
+        assert(*this);
+        clear();
+        CMAGIC_VECTOR_FREE(vector_handle);
+        vector_handle = x.vector_handle;
+        x.vector_handle = CMAGIC_VECTOR_NEW(value_type,
+                                            CMAGIC_VECTOR_GET_ALLOC_PACKET(x.vector_handle));
+    }
+
+    vector(vector &&x) : vector_handle(x.vector_handle) {
+        x.vector_handle = CMAGIC_VECTOR_NEW(value_type,
+                                            CMAGIC_VECTOR_GET_ALLOC_PACKET(x.vector_handle));
+    }
 
     size_type size() const {
         assert(*this);
@@ -71,7 +121,7 @@ public:
         return &(*this)[0];
     }
 
-    const value_type *cbegin() const {
+    const value_type *begin() const {
         assert(*this);
         return &(*this)[0];
     }
@@ -81,7 +131,7 @@ public:
         return &(*this)[size()];
     }
 
-    const value_type *cend() const {
+    const value_type *end() const {
         assert(*this);
         return &(*this)[size()];
     }
@@ -96,6 +146,7 @@ public:
             CMAGIC_VECTOR_FREE(vector_handle);
         }
     }
+
 };
 
 } // namespace cmagic

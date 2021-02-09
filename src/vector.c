@@ -118,3 +118,8 @@ size_t
 cmagic_vector_size(void **vector_ptr) {
     return _get_vector_descriptor(vector_ptr)->size;
 }
+
+const cmagic_memory_alloc_packet_t *
+cmagic_vector_get_alloc_packet(void **vector_ptr) {
+    return _get_vector_descriptor(vector_ptr)->alloc_packet;
+}

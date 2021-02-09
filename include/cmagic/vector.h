@@ -24,6 +24,9 @@ cmagic_vector_pop_back(void **vector_ptr);
 size_t
 cmagic_vector_size(void **vector_ptr);
 
+const cmagic_memory_alloc_packet_t *
+cmagic_vector_get_alloc_packet(void **vector_ptr);
+
 #define CMAGIC_VECTOR(type) type**
 
 #define CMAGIC_VECTOR_DATA(cmagic_vector) (*(cmagic_vector))
@@ -40,6 +43,9 @@ cmagic_vector_size(void **vector_ptr);
 #define CMAGIC_VECTOR_POP_BACK(cmagic_vector) cmagic_vector_pop_back((void**)(cmagic_vector))
 
 #define CMAGIC_VECTOR_SIZE(cmagic_vector) cmagic_vector_size((void**)(cmagic_vector))
+
+#define CMAGIC_VECTOR_GET_ALLOC_PACKET(cmagic_vector) \
+    cmagic_vector_get_alloc_packet((void**)(cmagic_vector))
 
 #ifdef __cplusplus
 } // extern "C"
