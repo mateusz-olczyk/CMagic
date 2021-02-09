@@ -14,9 +14,7 @@ typedef struct {
 #ifndef NDEBUG
     int_least32_t magic_value;
 #endif
-    cmagic_utils_malloc_fptr_t malloc_function;
-    cmagic_utils_realloc_fptr_t realloc_function;
-    cmagic_utils_free_fptr_t free_function;
+    const cmagic_memory_alloc_packet_t *alloc_packet;
     size_t size;
     size_t capacity;
     size_t member_size;
@@ -24,18 +22,16 @@ typedef struct {
 } vector_descriptor_t;
 
 void **
-cmagic_vector_new(size_t member_size, cmagic_utils_malloc_fptr_t malloc_function,
-                  cmagic_utils_realloc_fptr_t realloc_function,
-                  cmagic_utils_free_fptr_t free_function) {
+cmagic_vector_new(size_t member_size, const cmagic_memory_alloc_packet_t *alloc_packet) {
     vector_descriptor_t *vector_descriptor =
-        (vector_descriptor_t *)malloc_function(sizeof(vector_descriptor_t));
+        (vector_descriptor_t *) alloc_packet->malloc_function(sizeof(vector_descriptor_t));
     if (!vector_descriptor) {
         return NULL;
     }
 
-    void *data_begin = malloc_function(VECTOR_MIN_CAPACITY * member_size);
+    void *data_begin = alloc_packet->malloc_function(VECTOR_MIN_CAPACITY * member_size);
     if (!data_begin) {
-        free_function(vector_descriptor);
+        alloc_packet->free_function(vector_descriptor);
         return NULL;
     }
 
@@ -43,9 +39,7 @@ cmagic_vector_new(size_t member_size, cmagic_utils_malloc_fptr_t malloc_function
 #ifndef NDEBUG
         .magic_value = VECTOR_MAGIC_VALUE,
 #endif
-        .malloc_function = malloc_function,
-        .realloc_function = realloc_function,
-        .free_function = free_function,
+        .alloc_packet = alloc_packet,
         .size = 0,
         .capacity = VECTOR_MIN_CAPACITY,
         .member_size = member_size,
@@ -66,8 +60,8 @@ static vector_descriptor_t *_get_vector_descriptor(void **vector_ptr) {
 void
 cmagic_vector_free(void **vector_ptr) {
     vector_descriptor_t *vector_descriptor = _get_vector_descriptor(vector_ptr);
-    vector_descriptor->free_function(vector_descriptor->data_begin);
-    vector_descriptor->free_function(vector_descriptor);
+    vector_descriptor->alloc_packet->free_function(vector_descriptor->data_begin);
+    vector_descriptor->alloc_packet->free_function(vector_descriptor);
 }
 
 static void _push_back_no_capacity_resize(
@@ -81,8 +75,8 @@ static void _push_back_no_capacity_resize(
 static int _change_capacity(vector_descriptor_t *vector_descriptor,
                             size_t new_capacity) {
     assert(vector_descriptor->size <= new_capacity);
-    void *new_data_begin = vector_descriptor->realloc_function(vector_descriptor->data_begin,
-        new_capacity * vector_descriptor->member_size);
+    void *new_data_begin = vector_descriptor->alloc_packet->realloc_function(
+        vector_descriptor->data_begin, new_capacity * vector_descriptor->member_size);
     if (!new_data_begin) {
         return -1;
     }

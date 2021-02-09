@@ -11,14 +11,14 @@ void setUp(void) {
 void tearDown(void) {}
 
 static void test_Empty(void) {
-    CMAGIC_VECTOR(int) vector = CMAGIC_VECTOR_NEW(int);
+    CMAGIC_VECTOR(int) vector = CMAGIC_VECTOR_NEW(int, &CMAGIC_MEMORY_ALLOC_PACKET_STD);
     TEST_ASSERT_NOT_NULL(vector);
     TEST_ASSERT_EQUAL_size_t(0, CMAGIC_VECTOR_SIZE(vector));
     CMAGIC_VECTOR_FREE(vector);
 }
 
 static void test_Single(void) {
-    CMAGIC_VECTOR(int) vector = CMAGIC_VECTOR_NEW(int);
+    CMAGIC_VECTOR(int) vector = CMAGIC_VECTOR_NEW(int, &CMAGIC_MEMORY_ALLOC_PACKET_STD);
     TEST_ASSERT_NOT_NULL(vector);
     CMAGIC_VECTOR_PUSH_BACK(vector, &(int){123});
     TEST_ASSERT_EQUAL_size_t(1, CMAGIC_VECTOR_SIZE(vector));
@@ -28,9 +28,7 @@ static void test_Single(void) {
 
 static void test_100(void) {
     TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocations());
-    CMAGIC_VECTOR(int) vector =
-        CMAGIC_VECTOR_NEW_NOSTD_ALLOC(int, cmagic_memory_malloc, cmagic_memory_realloc,
-                                      cmagic_memory_free);
+    CMAGIC_VECTOR(int) vector = CMAGIC_VECTOR_NEW(int, &CMAGIC_MEMORY_ALLOC_PACKET_CUSTOM_CMAGIC);
     TEST_ASSERT_NOT_NULL(vector);
     TEST_ASSERT_GREATER_THAN_size_t(0, cmagic_memory_get_allocations());
     for (int i = 1; i <= 100; i++) {
@@ -46,9 +44,7 @@ static void test_100(void) {
 
 static void test_PushMaximum(void) {
     TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocations());
-    CMAGIC_VECTOR(int) vector =
-        CMAGIC_VECTOR_NEW_NOSTD_ALLOC(int, cmagic_memory_malloc, cmagic_memory_realloc,
-                                      cmagic_memory_free);
+    CMAGIC_VECTOR(int) vector = CMAGIC_VECTOR_NEW(int, &CMAGIC_MEMORY_ALLOC_PACKET_CUSTOM_CMAGIC);
     const size_t empty_vector_size = cmagic_memory_get_allocated_bytes();
     while (!CMAGIC_VECTOR_PUSH_BACK(vector, &(int){123})) {
         TEST_ASSERT_EQUAL_size_t(2, cmagic_memory_get_allocations());

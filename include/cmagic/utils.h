@@ -9,6 +9,10 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * @brief Performs division of two integers and returns ceiling of the result.
  */
@@ -53,19 +57,8 @@ uintptr_t
 cmagic_utils_align_address_down(uintptr_t unaligned_addr,
                                 size_t required_alignment);
 
-/**
- * @brief   A pointer to @c malloc like function.
- */
-typedef void* (*cmagic_utils_malloc_fptr_t)(size_t size);
-
-/**
- * @brief   A pointer to @c realloc like function.
- */
-typedef void* (*cmagic_utils_realloc_fptr_t)(void* ptr, size_t size);
-
-/**
- * @brief   A pointer to @c free like function.
- */
-typedef void (*cmagic_utils_free_fptr_t)(void *ptr);
+#ifdef __cplusplus
+} // extern "C"
+#endif
 
 #endif /* CMAGIC_UTILS_H */

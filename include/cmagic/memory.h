@@ -9,6 +9,7 @@
 #define CMAGIC_MEMORY_H
 
 #include <stddef.h>
+#include <stdlib.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -152,8 +153,47 @@ cmagic_memory_get_free_bytes(void);
 size_t
 cmagic_memory_get_allocations(void);
 
+/**
+ * @brief   A pointer to @c malloc like function.
+ */
+typedef void* (*cmagic_memory_malloc_fptr_t)(size_t size);
+
+/**
+ * @brief   A pointer to @c realloc like function.
+ */
+typedef void* (*cmagic_memory_realloc_fptr_t)(void* ptr, size_t size);
+
+/**
+ * @brief   A pointer to @c free like function.
+ */
+typedef void (*cmagic_memory_free_fptr_t)(void *ptr);
+
+/**
+ * @brief   Set of allocation functions. Used in some CMagic structures to specify a desired memory
+ *          pool.
+ */
+typedef struct {
+    cmagic_memory_malloc_fptr_t malloc_function;
+    cmagic_memory_realloc_fptr_t realloc_function;
+    cmagic_memory_free_fptr_t free_function;
+} cmagic_memory_alloc_packet_t;
+
+/**
+ * @brief   Allocation from the standard library.
+ */
+static const cmagic_memory_alloc_packet_t CMAGIC_MEMORY_ALLOC_PACKET_STD = {
+    malloc, realloc, free
+};
+
+/**
+ * @brief   Custom allocation from the CMagic library.
+ */
+static const cmagic_memory_alloc_packet_t CMAGIC_MEMORY_ALLOC_PACKET_CUSTOM_CMAGIC = {
+    cmagic_memory_malloc, cmagic_memory_realloc, cmagic_memory_free
+};
+
 #ifdef __cplusplus
-}
+} // extern "C"
 #endif
 
 #endif /* CMAGIC_MEMORY_H */

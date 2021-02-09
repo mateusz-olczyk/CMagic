@@ -24,7 +24,8 @@ private:
     }
 
 public:
-    explicit vector() : vector_handle(CMAGIC_VECTOR_NEW(value_type)) {}
+    explicit vector()
+    : vector_handle(CMAGIC_VECTOR_NEW(value_type, &CMAGIC_MEMORY_ALLOC_PACKET_STD)) {}
 
     size_type size() const {
         assert(*this);
