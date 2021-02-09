@@ -4,9 +4,11 @@
 #include "cmagic/utils.h"
 #include "unity.h"
 
+
 template <typename T>
 struct CustomAllocator {
-    typedef T value_type;
+    using value_type = T;
+
     CustomAllocator() = default;
 
     template <class U>
@@ -23,10 +25,6 @@ struct CustomAllocator {
         TEST_ASSERT_EQUAL_MESSAGE(CMAGIC_MEMORY_FREE_RESULT_OK, cmagic_memory_free_ext(p), "Deallocation fail");
     }
 };
-
-//------------------------------------------------------------------------------
-
-/* Test body */
 
 void setUp(void) {
     static uint8_t memory_pool[600]; 

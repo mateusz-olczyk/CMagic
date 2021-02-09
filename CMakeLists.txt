@@ -15,6 +15,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 option(CMAGIC_WITH_EXTRA_WARNINGS "Enable extra compilation warnings" ON)
 option(CMAGIC_WITH_TESTS "Enable unit tests of CMagic library" ON)
+option(CMAGIC_WITH_CXX_BINDINGS "Add C++ bindings headers to the library interface" ON)
 
 add_subdirectory(src)
 if(CMAGIC_WITH_TESTS)
