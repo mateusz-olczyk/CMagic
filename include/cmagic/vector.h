@@ -9,13 +9,10 @@ extern "C" {
 #include <stdlib.h>
 #include "cmagic/utils.h"
 
-typedef void* (*malloc_fptr)(size_t size);
-typedef void* (*realloc_fptr)(void* ptr, size_t size);
-typedef void (*free_fptr)(void *ptr);
-
 void **
-cmagic_vector_new(size_t member_size, malloc_fptr malloc_function, realloc_fptr realloc_function,
-                  free_fptr free_function);
+cmagic_vector_new(size_t member_size, cmagic_utils_malloc_fptr_t malloc_function,
+                  cmagic_utils_realloc_fptr_t realloc_function,
+                  cmagic_utils_free_fptr_t free_function);
 
 void
 cmagic_vector_free(void **vector_ptr);

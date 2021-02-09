@@ -14,9 +14,9 @@ typedef struct {
 #ifndef NDEBUG
     int_least32_t magic_value;
 #endif
-    malloc_fptr malloc_function;
-    realloc_fptr realloc_function;
-    free_fptr free_function;
+    cmagic_utils_malloc_fptr_t malloc_function;
+    cmagic_utils_realloc_fptr_t realloc_function;
+    cmagic_utils_free_fptr_t free_function;
     size_t size;
     size_t capacity;
     size_t member_size;
@@ -24,8 +24,9 @@ typedef struct {
 } vector_descriptor_t;
 
 void **
-cmagic_vector_new(size_t member_size, malloc_fptr malloc_function, realloc_fptr realloc_function,
-                  free_fptr free_function) {
+cmagic_vector_new(size_t member_size, cmagic_utils_malloc_fptr_t malloc_function,
+                  cmagic_utils_realloc_fptr_t realloc_function,
+                  cmagic_utils_free_fptr_t free_function) {
     vector_descriptor_t *vector_descriptor =
         (vector_descriptor_t *)malloc_function(sizeof(vector_descriptor_t));
     if (!vector_descriptor) {
