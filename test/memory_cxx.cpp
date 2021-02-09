@@ -5,6 +5,15 @@
 #include "unity.h"
 
 
+void setUp() {
+    static uint8_t memory_pool[600]; 
+    cmagic_memory_init(memory_pool, sizeof(memory_pool));
+}
+
+void tearDown() {}
+
+namespace {
+
 template <typename T>
 struct CustomAllocator {
     using value_type = T;
@@ -26,14 +35,7 @@ struct CustomAllocator {
     }
 };
 
-void setUp(void) {
-    static uint8_t memory_pool[600]; 
-    cmagic_memory_init(memory_pool, sizeof(memory_pool));
-}
-
-void tearDown(void) {}
-
-static void test_Vector(void) {
+void test_Vector() {
     TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocated_bytes());
     TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocations());
     {
@@ -66,7 +68,7 @@ static void test_Vector(void) {
     TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocations());
 }
 
-static void test_Sort(void) {
+void test_Sort() {
     TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocated_bytes());
     TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocations());
     {
@@ -105,7 +107,9 @@ static void test_Sort(void) {
     TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocations());
 }
 
-int main(void) {
+} // namespace
+
+int main() {
     UNITY_BEGIN();
     RUN_TEST(test_Vector);
     RUN_TEST(test_Sort);
