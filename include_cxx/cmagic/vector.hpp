@@ -86,7 +86,7 @@ public:
     }
 
     operator bool() const {
-        return bool {vector_handle};
+        return static_cast<bool>(vector_handle);
     }
 
     ~vector() {

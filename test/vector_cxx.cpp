@@ -1,5 +1,4 @@
 #include <memory>
-#include <iostream>
 #include "cmagic/vector.hpp"
 #include "unity.h"
 
