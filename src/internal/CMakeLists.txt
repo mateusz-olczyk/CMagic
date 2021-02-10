@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 include(utils)
 
-add_library(cmagic_internals
+add_library(cmagic_internals STATIC
     avl_tree.c
 )
 

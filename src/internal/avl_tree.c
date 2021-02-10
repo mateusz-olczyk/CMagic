@@ -1,6 +1,5 @@
 #include <assert.h>
 #include <stdint.h>
-#include <string.h>
 #include "cmagic/utils.h"
 #include "avl_tree.h"
 
@@ -9,7 +8,7 @@ static const int_least32_t AVL_TREE_MAGIC_VALUE = 'T' << 24 | 'R' << 16 | 'E' <<
 #endif
 
 typedef struct tree_node {
-    void *key;
+    const void *key;
     void *value;
     struct tree_node *left_kid;
     struct tree_node *right_kid;
@@ -20,15 +19,17 @@ typedef struct {
 #ifndef NDEBUG
     int_least32_t magic_value;
 #endif
+    cmagic_avl_tree_key_comparator_t key_comparator;
     const cmagic_memory_alloc_packet_t *alloc_packet;
-    size_t key_size;
-    size_t value_size;
     tree_node_t *root;
 } tree_descriptor_t;
 
 void **
-cmagic_avl_tree_new(size_t key_size, size_t value_size,
+cmagic_avl_tree_new(cmagic_avl_tree_key_comparator_t key_comparator,
                     const cmagic_memory_alloc_packet_t *alloc_packet) {
+    assert(key_comparator);
+    assert(alloc_packet);
+
     tree_descriptor_t *tree_descriptor =
         (tree_descriptor_t *) alloc_packet->malloc_function(sizeof(tree_descriptor));
     if (!tree_descriptor) {
@@ -39,9 +40,8 @@ cmagic_avl_tree_new(size_t key_size, size_t value_size,
 #ifndef NDEBUG
         .magic_value = AVL_TREE_MAGIC_VALUE,
 #endif
+        .key_comparator = key_comparator,
         .alloc_packet = alloc_packet,
-        .key_size = key_size,
-        .value_size = value_size,
         .root = NULL
     };
 
@@ -56,18 +56,27 @@ static tree_descriptor_t *_get_avl_tree_descriptor(void **tree_ptr) {
     return result;
 }
 
-static int _get_height(tree_node_t *node) {
+static int _get_height(const tree_node_t *node) {
     return node ? node->subtree_height : 0;
 }
 
-static tree_node_t *_allocate_node(tree_descriptor_t *tree_descriptor) {
-    tree_node_t *new_node =
-        (tree_node_t *) tree_descriptor->alloc_packet->malloc_function(sizeof(tree_node_t));
+static tree_node_t *_new_node(tree_descriptor_t *tree, const void *key, void *value) {
+    assert(tree);
+    assert(key);
+    
+    tree_node_t *new_node = (tree_node_t *)tree->alloc_packet->malloc_function(sizeof(tree_node_t));
     if (!new_node) {
         return NULL;
     }
 
-    memset(new_node, 0, sizeof(tree_node_t));
+    *new_node = (tree_node_t) {
+        .key = key,
+        .value = value,
+        .left_kid = NULL,
+        .right_kid = NULL,
+        .subtree_height = 1
+    };
+
     return new_node;
 }
 
@@ -105,6 +114,98 @@ static tree_node_t *_rotate_left(tree_node_t *x) {
     return y;
 }
 
-static int _get_balance(tree_node_t *node) {
+static int _get_balance(const tree_node_t *node) {
     return node ? _get_height(node->left_kid) - _get_height(node->right_kid) : 0;
+}
+
+static bool _internal_insert(tree_descriptor_t *tree, tree_node_t **node_ptr, const void *key,
+                             void *value) {
+    assert(tree);
+    assert(node_ptr);
+
+    if (!*node_ptr) {
+        *node_ptr = _new_node(tree, key, value);
+        return (bool)(*node_ptr);
+    }
+
+    tree_node_t *node = *node_ptr;
+    int comparison_result = tree->key_comparator(key, node->key);
+    if (comparison_result == 0 ||
+        (comparison_result < 0 && !_internal_insert(tree, &node->left_kid, key, value)) ||
+        (comparison_result > 0 && !_internal_insert(tree, &node->right_kid, key, value))) {
+        return false;
+    }
+
+    node->subtree_height = 1 + CMAGIC_UTILS_MAX(_get_height(node->left_kid),
+                                                _get_height(node->right_kid));
+
+    // Handle balance violation cases, see https://en.wikipedia.org/wiki/AVL_tree#Rebalancing
+    int balance = _get_balance(node);
+
+    /* Left-Left case
+     *         z
+     *         / \
+     *        y   T4
+     *       / \
+     *      x   T3
+     *     / \
+     *   T1   T2
+     */
+    if (balance > 1 && tree->key_comparator(key, node->left_kid->key) < 0) {
+        *node_ptr = _rotate_right(node);
+        return true;
+    }
+
+    /* Right-Right case
+     *     z
+     *    /  \
+     *   T1   y
+     *       /  \
+     *      T2   x
+     *          / \
+     *        T3  T4
+     */
+    if (balance < -1 && tree->key_comparator(key, node->right_kid->key) > 0) {
+        *node_ptr = _rotate_left(node);
+        return true;
+    }
+
+    /* Left-Right case
+     *        z
+     *       / \
+     *      y   T4
+     *     / \
+     *   T1   x
+     *       / \
+     *     T2   T3
+     */
+    if (balance > 1 && tree->key_comparator(key, node->left_kid->key) > 0) {
+        node->left_kid = _rotate_left(node->left_kid);
+        *node_ptr = _rotate_right(node);
+        return true;
+    }
+
+    /* Right-Left case
+     *      z
+     *     / \
+     *   T1   y
+     *       / \
+     *      x   T4
+     *     / \
+     *   T2   T3
+     */
+    if (balance < -1 && tree->key_comparator(key, node->right_kid->key) < 0) {
+        node->right_kid = _rotate_right(node->right_kid);
+        *node_ptr = _rotate_left(node);
+        return true;
+    }
+
+    // Already balanced
+    return true;
+}
+
+bool
+cmagic_avl_tree_insert(void **avl_tree, const void *key, void *value) {
+    tree_descriptor_t *tree = _get_avl_tree_descriptor(avl_tree);
+    return _internal_insert(tree, &tree->root, key, value);
 }
