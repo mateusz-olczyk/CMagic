@@ -209,3 +209,20 @@ cmagic_avl_tree_insert(void **avl_tree, const void *key, void *value) {
     tree_descriptor_t *tree = _get_avl_tree_descriptor(avl_tree);
     return _internal_insert(tree, &tree->root, key, value);
 }
+
+static void _internal_free(tree_descriptor_t *tree, tree_node_t *node) {
+    assert(tree);
+    if (!node) {
+        return;
+    }
+
+    _internal_free(tree, node->left_kid);
+    _internal_free(tree, node->right_kid);
+    tree->alloc_packet->free_function(node);
+}
+
+void
+cmagic_avl_tree_free(void **avl_tree) {
+    tree_descriptor_t *tree = _get_avl_tree_descriptor(avl_tree);
+    _internal_free(tree, tree->root);
+}

@@ -14,6 +14,9 @@ void **
 cmagic_avl_tree_new(cmagic_avl_tree_key_comparator_t key_comparator,
                     const cmagic_memory_alloc_packet_t *alloc_packet);
 
+void
+cmagic_avl_tree_free(void **avl_tree);
+
 bool
 cmagic_avl_tree_insert(void **avl_tree, const void *key, void *value);
 
