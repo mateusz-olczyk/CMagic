@@ -38,6 +38,11 @@ extern "C" {
 #define CMAGIC_UTILS_MIN(val1, val2) ((val1) < (val2) ? (val1) : (val2))
 
 /**
+ * @brief Returns greater of two values.
+ */
+#define CMAGIC_UTILS_MAX(val1, val2) ((val1) > (val2) ? (val1) : (val2))
+
+/**
  * @brief   Increases the address if it's not aligned.
  * @param   unaligned_addr      original address
  * @param   required_alignment  required alignment of the resulting address

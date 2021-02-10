@@ -22,3 +22,5 @@ target_include_directories(cmagic
 if(CMAGIC_WITH_EXTRA_WARNINGS)
     cmagic_target_add_warnings(cmagic)
 endif()
+
+add_subdirectory(internal)
