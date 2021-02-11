@@ -32,7 +32,7 @@ cmagic_avl_tree_new(cmagic_avl_tree_key_comparator_t key_comparator,
     assert(alloc_packet);
 
     tree_descriptor_t *tree_descriptor =
-        (tree_descriptor_t *) alloc_packet->malloc_function(sizeof(tree_descriptor));
+        (tree_descriptor_t *) alloc_packet->malloc_function(sizeof(tree_descriptor_t));
     if (!tree_descriptor) {
         return NULL;
     }
