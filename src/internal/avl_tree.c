@@ -87,14 +87,17 @@ static tree_node_t *_new_node(tree_descriptor_t *tree, const void *key, void *va
  *    / \                   / \
  *   T1  T2               T2  T3
  */
-static tree_node_t *_rotate_right(tree_node_t *y) {
+static void _rotate_right(tree_node_t **y_ptr) {
+    tree_node_t *y = *y_ptr;
     tree_node_t *x = y->left_kid;
     tree_node_t *T2 = x->right_kid;
-    x->right_kid = y; 
-    y->left_kid = T2; 
+
+    x->right_kid = y;
+    y->left_kid = T2;
+    *y_ptr = x;
+
     y->subtree_height = CMAGIC_UTILS_MAX(_get_height(y->left_kid), _get_height(y->right_kid)) + 1;
     x->subtree_height = CMAGIC_UTILS_MAX(_get_height(x->left_kid), _get_height(x->right_kid)) + 1;
-    return x;
 }
 
 /*
@@ -104,14 +107,17 @@ static tree_node_t *_rotate_right(tree_node_t *y) {
  *       / \             / \
  *     T2  T3           T1  T2
  */
-static tree_node_t *_rotate_left(tree_node_t *x) {
+static void _rotate_left(tree_node_t **x_ptr) {
+    tree_node_t *x = *x_ptr;
     tree_node_t *y = x->right_kid;
     tree_node_t *T2 = y->left_kid;
+
     y->left_kid = x;
     x->right_kid = T2;
+    *x_ptr = y;
+
     y->subtree_height = CMAGIC_UTILS_MAX(_get_height(y->left_kid), _get_height(y->right_kid)) + 1;
     x->subtree_height = CMAGIC_UTILS_MAX(_get_height(x->left_kid), _get_height(x->right_kid)) + 1;
-    return y;
 }
 
 static int _get_balance(const tree_node_t *node) {
@@ -125,7 +131,7 @@ static bool _internal_insert(tree_descriptor_t *tree, tree_node_t **node_ptr, co
 
     if (!*node_ptr) {
         *node_ptr = _new_node(tree, key, value);
-        return (bool)(*node_ptr);
+        return (bool)(uintptr_t)(*node_ptr);
     }
 
     tree_node_t *node = *node_ptr;
@@ -152,7 +158,7 @@ static bool _internal_insert(tree_descriptor_t *tree, tree_node_t **node_ptr, co
      *   T1   T2
      */
     if (balance > 1 && tree->key_comparator(key, node->left_kid->key) < 0) {
-        *node_ptr = _rotate_right(node);
+        _rotate_right(node_ptr);
         return true;
     }
 
@@ -166,7 +172,7 @@ static bool _internal_insert(tree_descriptor_t *tree, tree_node_t **node_ptr, co
      *        T3  T4
      */
     if (balance < -1 && tree->key_comparator(key, node->right_kid->key) > 0) {
-        *node_ptr = _rotate_left(node);
+        _rotate_left(node_ptr);
         return true;
     }
 
@@ -180,8 +186,8 @@ static bool _internal_insert(tree_descriptor_t *tree, tree_node_t **node_ptr, co
      *     T2   T3
      */
     if (balance > 1 && tree->key_comparator(key, node->left_kid->key) > 0) {
-        node->left_kid = _rotate_left(node->left_kid);
-        *node_ptr = _rotate_right(node);
+        _rotate_left(&node->left_kid);
+        _rotate_right(node_ptr);
         return true;
     }
 
@@ -195,8 +201,8 @@ static bool _internal_insert(tree_descriptor_t *tree, tree_node_t **node_ptr, co
      *   T2   T3
      */
     if (balance < -1 && tree->key_comparator(key, node->right_kid->key) < 0) {
-        node->right_kid = _rotate_right(node->right_kid);
-        *node_ptr = _rotate_left(node);
+        _rotate_right(&node->right_kid);
+        _rotate_left(node_ptr);
         return true;
     }
 
