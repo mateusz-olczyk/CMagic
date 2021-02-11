@@ -10,6 +10,7 @@ static const int_least32_t AVL_TREE_MAGIC_VALUE = 'T' << 24 | 'R' << 16 | 'E' <<
 typedef struct tree_node {
     const void *key;
     void *value;
+    struct tree_node *parent;
     struct tree_node *left_kid;
     struct tree_node *right_kid;
     int subtree_height;
@@ -60,7 +61,8 @@ static int _get_height(const tree_node_t *node) {
     return node ? node->subtree_height : 0;
 }
 
-static tree_node_t *_new_node(tree_descriptor_t *tree, const void *key, void *value) {
+static tree_node_t *_new_node(tree_descriptor_t *tree, tree_node_t *parent, const void *key,
+                              void *value) {
     assert(tree);
     assert(key);
     
@@ -72,6 +74,7 @@ static tree_node_t *_new_node(tree_descriptor_t *tree, const void *key, void *va
     *new_node = (tree_node_t) {
         .key = key,
         .value = value,
+        .parent = parent,
         .left_kid = NULL,
         .right_kid = NULL,
         .subtree_height = 1
@@ -93,8 +96,11 @@ static void _rotate_right(tree_node_t **y_ptr) {
     tree_node_t *T2 = x->right_kid;
 
     x->right_kid = y;
+    x->parent = y->parent;
     y->left_kid = T2;
+    y->parent = x;
     *y_ptr = x;
+    T2->parent = y;
 
     y->subtree_height = CMAGIC_UTILS_MAX(_get_height(y->left_kid), _get_height(y->right_kid)) + 1;
     x->subtree_height = CMAGIC_UTILS_MAX(_get_height(x->left_kid), _get_height(x->right_kid)) + 1;
@@ -113,8 +119,11 @@ static void _rotate_left(tree_node_t **x_ptr) {
     tree_node_t *T2 = y->left_kid;
 
     y->left_kid = x;
+    y->parent = x->parent;
     x->right_kid = T2;
+    x->parent = y;
     *x_ptr = y;
+    T2->parent = x;
 
     y->subtree_height = CMAGIC_UTILS_MAX(_get_height(y->left_kid), _get_height(y->right_kid)) + 1;
     x->subtree_height = CMAGIC_UTILS_MAX(_get_height(x->left_kid), _get_height(x->right_kid)) + 1;
@@ -124,21 +133,21 @@ static int _get_balance(const tree_node_t *node) {
     return node ? _get_height(node->left_kid) - _get_height(node->right_kid) : 0;
 }
 
-static bool _internal_insert(tree_descriptor_t *tree, tree_node_t **node_ptr, const void *key,
-                             void *value) {
+static bool _internal_insert(tree_descriptor_t *tree, tree_node_t *node_parent,
+                             tree_node_t **node_ptr, const void *key, void *value) {
     assert(tree);
     assert(node_ptr);
 
     if (!*node_ptr) {
-        *node_ptr = _new_node(tree, key, value);
+        *node_ptr = _new_node(tree, node_parent, key, value);
         return (bool)(uintptr_t)(*node_ptr);
     }
 
     tree_node_t *node = *node_ptr;
     int comparison_result = tree->key_comparator(key, node->key);
     if (comparison_result == 0 ||
-        (comparison_result < 0 && !_internal_insert(tree, &node->left_kid, key, value)) ||
-        (comparison_result > 0 && !_internal_insert(tree, &node->right_kid, key, value))) {
+        (comparison_result < 0 && !_internal_insert(tree, node, &node->left_kid, key, value)) ||
+        (comparison_result > 0 && !_internal_insert(tree, node, &node->right_kid, key, value))) {
         return false;
     }
 
@@ -213,7 +222,7 @@ static bool _internal_insert(tree_descriptor_t *tree, tree_node_t **node_ptr, co
 bool
 cmagic_avl_tree_insert(void **avl_tree, const void *key, void *value) {
     tree_descriptor_t *tree = _get_avl_tree_descriptor(avl_tree);
-    return _internal_insert(tree, &tree->root, key, value);
+    return _internal_insert(tree, NULL, &tree->root, key, value);
 }
 
 static void _internal_free(tree_descriptor_t *tree, tree_node_t *node) {
