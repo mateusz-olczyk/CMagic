@@ -20,6 +20,17 @@ cmagic_avl_tree_free(void **avl_tree);
 bool
 cmagic_avl_tree_insert(void **avl_tree, const void *key, void *value);
 
+typedef struct {
+    const void *key;
+    void *value;
+} *cmagic_avl_tree_iterator_t;
+
+cmagic_avl_tree_iterator_t
+cmagic_avl_tree_begin(void **avl_tree);
+
+cmagic_avl_tree_iterator_t
+cmagic_avl_tree_iterator_next(cmagic_avl_tree_iterator_t iterator);
+
 #ifdef __cplusplus
 } // extern "C"
 #endif
