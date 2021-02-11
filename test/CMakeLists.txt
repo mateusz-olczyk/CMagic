@@ -17,11 +17,12 @@ function(cmagic_add_test_case TEST_SOURCE_PATH)
 
     add_executable(${TEST_EXECUTABLE_TARGET} "${TEST_SOURCE_PATH}")
     cmagic_target_add_warnings(${TEST_EXECUTABLE_TARGET})
-    target_link_libraries(${TEST_EXECUTABLE_TARGET} PRIVATE cmagic unity)
+    target_link_libraries(${TEST_EXECUTABLE_TARGET} PRIVATE cmagic cmagic_internals unity)
 
     add_test(NAME "test_${TEST_SOURCE_FILENAME}" COMMAND "${TEST_EXECUTABLE_TARGET}")
 endfunction()
 
+cmagic_add_test_case(avl_tree.c)
 cmagic_add_test_case(memory.c)
 cmagic_add_test_case(memory_cxx.cpp)
 cmagic_add_test_case(utils.c)

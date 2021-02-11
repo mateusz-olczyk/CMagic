@@ -1,6 +1,7 @@
 #ifndef CMAGIC_AVL_TREE_H
 #define CMAGIC_AVL_TREE_H
 
+#include <assert.h>
 #include <stdbool.h>
 #include "cmagic/memory.h"
 
@@ -30,6 +31,24 @@ cmagic_avl_tree_begin(void **avl_tree);
 
 cmagic_avl_tree_iterator_t
 cmagic_avl_tree_iterator_next(cmagic_avl_tree_iterator_t iterator);
+
+#define CMAGIC_AVL_TREE(key_type) key_type**
+
+#define CMAGIC_AVL_TREE_NEW(key_type, key_comparator, alloc_packet) \
+    ((CMAGIC_AVL_TREE(key_type))cmagic_avl_tree_new((key_comparator), (alloc_packet)))
+
+#define CMAGIC_AVL_TREE_FREE(avl_tree) cmagic_avl_tree_free((void**)(avl_tree))
+
+#define CMAGIC_AVL_TREE_INSERT(avl_tree, key, value) \
+    (CMAGIC_UTILS_ASSERT_SAME_TYPE(**(avl_tree), *(key)), \
+    cmagic_avl_tree_insert((void**)(avl_tree), (key), (value)))
+
+#define CMAGIC_AVL_TREE_BEGIN(avl_tree) cmagic_avl_tree_begin((void**)(avl_tree))
+
+#define CMAGIC_AVL_TREE_ITERATOR_NEXT(iterator) cmagic_avl_tree_iterator_next(iterator)
+
+#define CMAGIC_AVL_TREE_GET_KEY(key_type, iterator) \
+    (assert(iterator), assert((iterator)->key), *((key_type*)(iterator)->key))
 
 #ifdef __cplusplus
 } // extern "C"
