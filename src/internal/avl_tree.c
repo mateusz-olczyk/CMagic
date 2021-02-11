@@ -240,6 +240,7 @@ void
 cmagic_avl_tree_free(void **avl_tree) {
     tree_descriptor_t *tree = _get_avl_tree_descriptor(avl_tree);
     _internal_free(tree, tree->root);
+    tree->alloc_packet->free_function(tree);
 }
 
 cmagic_avl_tree_iterator_t
