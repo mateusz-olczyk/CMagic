@@ -100,7 +100,9 @@ static void _rotate_right(tree_node_t **y_ptr) {
     y->left_kid = T2;
     y->parent = x;
     *y_ptr = x;
-    T2->parent = y;
+    if (T2) {
+        T2->parent = y;
+    }
 
     y->subtree_height = CMAGIC_UTILS_MAX(_get_height(y->left_kid), _get_height(y->right_kid)) + 1;
     x->subtree_height = CMAGIC_UTILS_MAX(_get_height(x->left_kid), _get_height(x->right_kid)) + 1;
@@ -123,7 +125,9 @@ static void _rotate_left(tree_node_t **x_ptr) {
     x->right_kid = T2;
     x->parent = y;
     *x_ptr = y;
-    T2->parent = x;
+    if (T2) {
+        T2->parent = x;
+    }
 
     y->subtree_height = CMAGIC_UTILS_MAX(_get_height(y->left_kid), _get_height(y->right_kid)) + 1;
     x->subtree_height = CMAGIC_UTILS_MAX(_get_height(x->left_kid), _get_height(x->right_kid)) + 1;
