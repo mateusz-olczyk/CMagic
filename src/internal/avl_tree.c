@@ -318,3 +318,22 @@ cmagic_avl_tree_iterator_prev(cmagic_avl_tree_iterator_t iterator) {
     }
     return (cmagic_avl_tree_iterator_t)node->parent;
 }
+
+cmagic_avl_tree_iterator_t
+cmagic_avl_tree_find(void **avl_tree, const void *key) {
+    tree_descriptor_t *tree = _get_avl_tree_descriptor(avl_tree);
+    tree_node_t *node = tree->root;
+
+    while (node) {
+        int comparison_result = tree->key_comparator(key, node->key);
+        if (comparison_result < 0) {
+            node = node->left_kid;
+        } else if (comparison_result > 0) {
+            node = node->right_kid;
+        } else {
+            return (cmagic_avl_tree_iterator_t)node;
+        }
+    }
+
+    return NULL;
+}

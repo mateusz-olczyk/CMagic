@@ -119,9 +119,44 @@ static void test_IntTree(void) {
     TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocated_bytes());
 }
 
+static void test_FindValue(void) {
+    CMAGIC_AVL_TREE(int) tree = CMAGIC_AVL_TREE_NEW(int, int_ptr_comparator,
+                                                    &CMAGIC_MEMORY_ALLOC_PACKET_STD);
+
+    const int keys[] = { 4, 2, 5, 1, 3, 6, 9, 0, 7, 8 };
+    char values[] = { 'A'+4, 'A'+2, 'A'+5, 'A'+1, 'A'+3, 'A'+6, 'A'+9, 'A'+0, 'A'+7, 'A'+8 };
+    for (size_t i = 0; i < CMAGIC_UTILS_ARRAY_SIZE(keys); i++) {
+        TEST_ASSERT_TRUE(CMAGIC_AVL_TREE_INSERT(tree, &keys[i], &values[i]));
+    }
+
+    const char expected_values[] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J' };
+    size_t iteration;
+    cmagic_avl_tree_iterator_t it;
+    for (iteration = 0, it = CMAGIC_AVL_TREE_FIRST(tree);
+         it;
+         iteration++, it = CMAGIC_AVL_TREE_ITERATOR_NEXT(it)) {
+        TEST_ASSERT_LESS_THAN_size_t(CMAGIC_UTILS_ARRAY_SIZE(keys), iteration);
+        TEST_ASSERT_NOT_NULL(it->value);
+        int key = CMAGIC_AVL_TREE_GET_KEY(int, it);
+        char value = *(char *)it->value;
+        TEST_ASSERT_EQUAL_size_t(iteration, (size_t)key);
+        TEST_ASSERT_EQUAL_CHAR(expected_values[iteration], value);
+    }
+
+    it = CMAGIC_AVL_TREE_FIND(tree, &(int){3});
+    TEST_ASSERT_NOT_NULL(it);
+    TEST_ASSERT_NOT_NULL(it->key);
+    TEST_ASSERT_EQUAL_INT(3, CMAGIC_AVL_TREE_GET_KEY(int, it));
+    TEST_ASSERT_NOT_NULL(it->value);
+    TEST_ASSERT_EQUAL_CHAR('D', *(char *)it->value);
+
+    CMAGIC_AVL_TREE_FREE(tree);
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_StringTree);
     RUN_TEST(test_IntTree);
+    RUN_TEST(test_FindValue);
     return UNITY_END();
 }
