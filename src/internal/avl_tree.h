@@ -27,10 +27,16 @@ typedef struct {
 } *cmagic_avl_tree_iterator_t;
 
 cmagic_avl_tree_iterator_t
-cmagic_avl_tree_begin(void **avl_tree);
+cmagic_avl_tree_first(void **avl_tree);
+
+cmagic_avl_tree_iterator_t
+cmagic_avl_tree_last(void **avl_tree);
 
 cmagic_avl_tree_iterator_t
 cmagic_avl_tree_iterator_next(cmagic_avl_tree_iterator_t iterator);
+
+cmagic_avl_tree_iterator_t
+cmagic_avl_tree_iterator_prev(cmagic_avl_tree_iterator_t iterator);
 
 #define CMAGIC_AVL_TREE(key_type) key_type**
 
@@ -43,9 +49,13 @@ cmagic_avl_tree_iterator_next(cmagic_avl_tree_iterator_t iterator);
     (CMAGIC_UTILS_ASSERT_SAME_TYPE(**(avl_tree), *(key)), \
     cmagic_avl_tree_insert((void**)(avl_tree), (key), (value)))
 
-#define CMAGIC_AVL_TREE_BEGIN(avl_tree) cmagic_avl_tree_begin((void**)(avl_tree))
+#define CMAGIC_AVL_TREE_FIRST(avl_tree) cmagic_avl_tree_first((void**)(avl_tree))
+
+#define CMAGIC_AVL_TREE_LAST(avl_tree) cmagic_avl_tree_last((void**)(avl_tree))
 
 #define CMAGIC_AVL_TREE_ITERATOR_NEXT(iterator) cmagic_avl_tree_iterator_next(iterator)
+
+#define CMAGIC_AVL_TREE_ITERATOR_PREV(iterator) cmagic_avl_tree_iterator_prev(iterator)
 
 #define CMAGIC_AVL_TREE_GET_KEY(key_type, iterator) \
     (assert(iterator), assert((iterator)->key), *((key_type*)(iterator)->key))

@@ -48,7 +48,7 @@ static void test_StringTree(void) {
 
     size_t iteration;
     cmagic_avl_tree_iterator_t it;
-    for (iteration = 0, it = CMAGIC_AVL_TREE_BEGIN(tree);
+    for (iteration = 0, it = CMAGIC_AVL_TREE_FIRST(tree);
          it;
          iteration++, it = CMAGIC_AVL_TREE_ITERATOR_NEXT(it)) {
         TEST_ASSERT_LESS_THAN_size_t(CMAGIC_UTILS_ARRAY_SIZE(keys), iteration);
@@ -97,12 +97,20 @@ static void test_IntTree(void) {
 
     size_t iteration;
     cmagic_avl_tree_iterator_t it;
-    for (iteration = 0, it = CMAGIC_AVL_TREE_BEGIN(tree);
+    for (iteration = 0, it = CMAGIC_AVL_TREE_FIRST(tree);
          it;
          iteration++, it = CMAGIC_AVL_TREE_ITERATOR_NEXT(it)) {
         TEST_ASSERT_LESS_THAN_size_t(CMAGIC_UTILS_ARRAY_SIZE(keys), iteration);
         int int_key = CMAGIC_AVL_TREE_GET_KEY(int, it);
         TEST_ASSERT_EQUAL_INT(keys_sorted[iteration], int_key);
+    }
+
+    for (iteration = 0, it = CMAGIC_AVL_TREE_LAST(tree);
+         it;
+         iteration++, it = CMAGIC_AVL_TREE_ITERATOR_PREV(it)) {
+        TEST_ASSERT_LESS_THAN_size_t(CMAGIC_UTILS_ARRAY_SIZE(keys), iteration);
+        int int_key = CMAGIC_AVL_TREE_GET_KEY(int, it);
+        TEST_ASSERT_EQUAL_INT(keys_sorted[CMAGIC_UTILS_ARRAY_SIZE(keys) - 1 - iteration], int_key);
     }
 
     TEST_ASSERT_FALSE(CMAGIC_AVL_TREE_INSERT(tree, &keys[0], NULL));

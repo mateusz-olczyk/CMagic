@@ -248,7 +248,7 @@ cmagic_avl_tree_free(void **avl_tree) {
 }
 
 cmagic_avl_tree_iterator_t
-cmagic_avl_tree_begin(void **avl_tree) {
+cmagic_avl_tree_first(void **avl_tree) {
     tree_descriptor_t *tree = _get_avl_tree_descriptor(avl_tree);
     if (!tree->root) {
         return NULL;
@@ -257,6 +257,21 @@ cmagic_avl_tree_begin(void **avl_tree) {
     tree_node_t *node = tree->root;
     while (node->left_kid) {
         node = node->left_kid;
+    }
+
+    return (cmagic_avl_tree_iterator_t)node;
+}
+
+cmagic_avl_tree_iterator_t
+cmagic_avl_tree_last(void **avl_tree) {
+    tree_descriptor_t *tree = _get_avl_tree_descriptor(avl_tree);
+    if (!tree->root) {
+        return NULL;
+    }
+
+    tree_node_t *node = tree->root;
+    while (node->right_kid) {
+        node = node->right_kid;
     }
 
     return (cmagic_avl_tree_iterator_t)node;
@@ -278,6 +293,27 @@ cmagic_avl_tree_iterator_next(cmagic_avl_tree_iterator_t iterator) {
     }
 
     while (node->parent && node->parent->right_kid == node) {
+        node = node->parent;
+    }
+    return (cmagic_avl_tree_iterator_t)node->parent;
+}
+
+cmagic_avl_tree_iterator_t
+cmagic_avl_tree_iterator_prev(cmagic_avl_tree_iterator_t iterator) {
+    if (!iterator) {
+        return NULL;
+    }
+
+    tree_node_t *node = (tree_node_t *) iterator;
+    if (node->left_kid) {
+        node = node->left_kid;
+        while (node->right_kid) {
+            node = node->right_kid;
+        }
+        return (cmagic_avl_tree_iterator_t)node;
+    }
+
+    while (node->parent && node->parent->left_kid == node) {
         node = node->parent;
     }
     return (cmagic_avl_tree_iterator_t)node->parent;
