@@ -1,6 +1,7 @@
 #ifndef CMAGIC_VECTOR_H
 #define CMAGIC_VECTOR_H
 
+#include <assert.h>
 #include <stddef.h>
 #include "cmagic/utils.h"
 #include "cmagic/memory.h"
@@ -30,6 +31,9 @@ cmagic_vector_get_alloc_packet(void **vector_ptr);
 #define CMAGIC_VECTOR(type) type**
 
 #define CMAGIC_VECTOR_DATA(cmagic_vector) (*(cmagic_vector))
+
+#define CMAGIC_VECTOR_BACK(cmagic_vector) (assert(CMAGIC_VECTOR_SIZE(cmagic_vector) > 0), \
+    *(cmagic_vector) + CMAGIC_VECTOR_SIZE(cmagic_vector) - 1)
 
 #define CMAGIC_VECTOR_NEW(type, alloc_packet) \
     ((CMAGIC_VECTOR(type))cmagic_vector_new(sizeof(type), (alloc_packet)))

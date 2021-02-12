@@ -21,19 +21,11 @@ private:
     static_assert(std::is_copy_constructible<T>(), "value type must be copy-constructible");
     CMAGIC_VECTOR(T) vector_handle;
 
-    value_type *last_element_addr() {
-        return &(*this)[size() - 1];
-    }
-
-    const value_type *last_element_addr() const {
-        return last_element_addr();
-    }
-
     explicit vector(const cmagic_memory_alloc_packet_t *alloc_packet)
     : vector_handle(CMAGIC_VECTOR_NEW(value_type, alloc_packet)) {}
 
 public:
-    explicit vector() : vector(&CMAGIC_MEMORY_ALLOC_PACKET_STD) {}
+    vector() : vector(&CMAGIC_MEMORY_ALLOC_PACKET_STD) {}
 
     static vector custom_allocation_vector() {
         return vector(&CMAGIC_MEMORY_ALLOC_PACKET_CUSTOM_CMAGIC);
@@ -98,7 +90,7 @@ public:
             return false;
         }
 
-        new(last_element_addr()) value_type {val};
+        new(CMAGIC_VECTOR_BACK(vector_handle)) value_type {val};
         return true;
     }
 
@@ -106,7 +98,7 @@ public:
         assert(*this);
         assert(size() > 0);
 
-        last_element_addr()->~value_type();
+        CMAGIC_VECTOR_BACK(vector_handle)->~value_type();
         CMAGIC_VECTOR_POP_BACK(vector_handle);
     }
 
