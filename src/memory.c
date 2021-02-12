@@ -1,3 +1,4 @@
+#include <assert.h>
 #include <stdbool.h>
 #include <string.h>
 #include "cmagic/memory.h"
@@ -172,6 +173,14 @@ cmagic_memory_free_ext(void *ptr) {
     }
 
     return CMAGIC_MEMORY_FREE_RESULT_OK;
+}
+
+void
+cmagic_memory_free(void *ptr) {
+    enum cmagic_memory_free_result result = cmagic_memory_free_ext(ptr);
+    (void) result;
+    assert(result == CMAGIC_MEMORY_FREE_RESULT_OK
+           || result == CMAGIC_MEMORY_FREE_RESULT_OK_NULLPTR);
 }
 
 size_t

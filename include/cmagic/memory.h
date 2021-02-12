@@ -118,13 +118,14 @@ cmagic_memory_free_ext(void *ptr);
  *          It never causes <i>undefined behavior</i>. But <i>undefined behavior</i> occurs if user
  *          dereferences pointer after calling this function (<i>use after free</i>). Notice that
  *          this function does not change the value of ptr itself, hence it still points to the same
- *          (now invalid) location.
+ *          (now invalid) location. For @a Debug build configuration this function triggers an
+ *          assertion if @p ptr is invalid or already freed.
  * @par     Complexity
  *          O(1)
  * @param   ptr address of a memory block to be freed or @c NULL
  */
-static inline void
-cmagic_memory_free(void *ptr) { (void)cmagic_memory_free_ext(ptr); }
+void
+cmagic_memory_free(void *ptr);
 
 /**
  * @brief Returns the sum of currently allocated bytes.
