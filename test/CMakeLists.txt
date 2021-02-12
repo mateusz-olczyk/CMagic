@@ -12,14 +12,19 @@ else()
 endif()
 
 function(cmagic_add_test_case TEST_SOURCE_PATH)
-    get_filename_component(TEST_SOURCE_FILENAME "${TEST_SOURCE_PATH}" NAME_WE)
-    set(TEST_EXECUTABLE_TARGET "test_${TEST_SOURCE_FILENAME}_app")
+    get_filename_component(TEST_SOURCE_FILENAME_WITHOUT_EXTENSION "${TEST_SOURCE_PATH}" NAME_WE)
+    set(TEST_NAME "${TEST_SOURCE_FILENAME_WITHOUT_EXTENSION}")
+    set(TEST_EXECUTABLE "test_${TEST_NAME}")
 
-    add_executable(${TEST_EXECUTABLE_TARGET} "${TEST_SOURCE_PATH}")
-    cmagic_target_add_warnings(${TEST_EXECUTABLE_TARGET})
-    target_link_libraries(${TEST_EXECUTABLE_TARGET} PRIVATE cmagic cmagic_internals unity)
+    add_executable(${TEST_EXECUTABLE} "${TEST_SOURCE_PATH}")
+    cmagic_target_add_warnings(${TEST_EXECUTABLE})
+    target_link_libraries(${TEST_EXECUTABLE}
+        PRIVATE cmagic
+        PRIVATE cmagic_internals
+        PRIVATE unity
+    )
 
-    add_test(NAME "test_${TEST_SOURCE_FILENAME}" COMMAND "${TEST_EXECUTABLE_TARGET}")
+    add_test(NAME "${TEST_NAME}" COMMAND "${TEST_EXECUTABLE}")
 endfunction()
 
 cmagic_add_test_case(avl_tree.c)
