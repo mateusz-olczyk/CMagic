@@ -219,6 +219,35 @@ void test_custom_alloc_vector() {
     TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocations());
 }
 
+void test_emplace_back() {
+    const char *cstr = "Hello World";
+    cmagic::vector<std::string> vec;
+    TEST_ASSERT_TRUE(vec.emplace_back(static_cast<size_t>(5), '*'));
+    TEST_ASSERT_TRUE(vec.emplace_back(&cstr[0], &cstr[5]));
+    TEST_ASSERT_TRUE(vec.emplace_back(static_cast<size_t>(10), '$'));
+
+    TEST_ASSERT_EQUAL_size_t(3, vec.size());
+
+    int iteration = 0;
+    for (const auto &str : vec) {
+        switch (iteration) {
+        case 0:
+            TEST_ASSERT_TRUE(str == "*****");
+            break;
+        case 1:
+            TEST_ASSERT_TRUE(str == "Hello");
+            break;
+        case 2:
+            TEST_ASSERT_TRUE(str == "$$$$$$$$$$");
+            break;
+        default:
+            TEST_FAIL();
+        }
+        iteration++;
+    }
+
+}
+
 } // namespace
 
 int main() {
@@ -228,5 +257,6 @@ int main() {
     RUN_TEST(test_copy);
     RUN_TEST(test_moving_semantics);
     RUN_TEST(test_custom_alloc_vector);
+    RUN_TEST(test_emplace_back);
     return UNITY_END();
 }

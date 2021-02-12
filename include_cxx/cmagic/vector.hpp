@@ -94,6 +94,17 @@ public:
         return true;
     }
 
+    template<typename... Args>
+    bool emplace_back(Args&&... args) {
+        assert(*this);
+        if (CMAGIC_VECTOR_ALLOCATE_BACK(vector_handle)) {
+            return false;
+        }
+
+        new(CMAGIC_VECTOR_BACK(vector_handle)) value_type(std::forward<Args>(args)...);
+        return true;
+    }
+
     void pop_back() {
         assert(*this);
         assert(size() > 0);
