@@ -17,6 +17,9 @@ void
 cmagic_vector_free(void **vector_ptr);
 
 int
+cmagic_vector_allocate_back(void **vector_ptr);
+
+int
 cmagic_vector_push_back(void **vector_ptr, const void *new_element_ptr);
 
 void
@@ -39,6 +42,9 @@ cmagic_vector_get_alloc_packet(void **vector_ptr);
     ((CMAGIC_VECTOR(type))cmagic_vector_new(sizeof(type), (alloc_packet)))
 
 #define CMAGIC_VECTOR_FREE(cmagic_vector) cmagic_vector_free((void**)(cmagic_vector))
+
+#define CMAGIC_VECTOR_ALLOCATE_BACK(cmagic_vector) \
+    cmagic_vector_allocate_back((void**)(cmagic_vector))
 
 #define CMAGIC_VECTOR_PUSH_BACK(cmagic_vector, new_element_ptr) \
     (CMAGIC_UTILS_ASSERT_SAME_TYPE(**(cmagic_vector), *(new_element_ptr)), \

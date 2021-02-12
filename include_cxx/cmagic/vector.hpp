@@ -86,7 +86,7 @@ public:
 
     bool push_back(const value_type &val) {
         assert(*this);
-        if (CMAGIC_VECTOR_PUSH_BACK(vector_handle, &val)) {
+        if (CMAGIC_VECTOR_ALLOCATE_BACK(vector_handle)) {
             return false;
         }
 

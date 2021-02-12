@@ -63,14 +63,6 @@ cmagic_vector_free(void **vector_ptr) {
     vector_descriptor->alloc_packet->free_function(vector_descriptor);
 }
 
-static void _push_back_no_capacity_resize(
-    vector_descriptor_t *vector_descriptor, const void *new_element_ptr) {
-    assert(vector_descriptor->size < vector_descriptor->capacity);
-    memcpy((char *)vector_descriptor->data_begin
-        + vector_descriptor->size++ * vector_descriptor->member_size,
-        new_element_ptr, vector_descriptor->member_size);
-}
-
 static int _change_capacity(vector_descriptor_t *vector_descriptor,
                             size_t new_capacity) {
     assert(vector_descriptor->size <= new_capacity);
@@ -86,7 +78,7 @@ static int _change_capacity(vector_descriptor_t *vector_descriptor,
 }
 
 int
-cmagic_vector_push_back(void **vector_ptr, const void *new_element_ptr) {
+cmagic_vector_allocate_back(void **vector_ptr) {
     vector_descriptor_t *vector_descriptor = _get_vector_descriptor(vector_ptr);
 
     if (vector_descriptor->size == vector_descriptor->capacity) {
@@ -97,7 +89,23 @@ cmagic_vector_push_back(void **vector_ptr, const void *new_element_ptr) {
         }
     }
 
-    _push_back_no_capacity_resize(vector_descriptor, new_element_ptr);
+    assert(vector_descriptor->size < vector_descriptor->capacity);
+    vector_descriptor->size++;
+    return 0;
+}
+
+int
+cmagic_vector_push_back(void **vector_ptr, const void *new_element_ptr) {
+    int allocate_result = cmagic_vector_allocate_back(vector_ptr);
+    if (allocate_result) {
+        return allocate_result;
+    }
+
+    vector_descriptor_t *vector_descriptor = _get_vector_descriptor(vector_ptr);
+    void *last_element = (char *)vector_descriptor->data_begin
+        + (vector_descriptor->size - 1) * vector_descriptor->member_size;
+    memcpy(last_element, new_element_ptr, vector_descriptor->member_size);
+
     return 0;
 }
 
