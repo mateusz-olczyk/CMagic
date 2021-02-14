@@ -8,6 +8,7 @@
 #ifndef CMAGIC_MEMORY_H
 #define CMAGIC_MEMORY_H
 
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdlib.h>
 
@@ -126,6 +127,16 @@ cmagic_memory_free_ext(void *ptr);
  */
 void
 cmagic_memory_free(void *ptr);
+
+/**
+ * @brief   Checks if the memory block was allocated before with @ref cmagic_memory_malloc or @ref
+ *          cmagic_memory_realloc and not freed yet.
+ * @details Mainly for debug purposes. Allows to detect invalid dynamic memory management.
+ * @param   ptr address of a memory block to checked
+ * @return  true if the memory block is allocated and can be freed, false otherwise
+ */
+bool
+cmagic_memory_is_allocated(void *ptr);
 
 /**
  * @brief Returns the sum of currently allocated bytes.

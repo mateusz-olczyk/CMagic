@@ -1,5 +1,4 @@
 #include <assert.h>
-#include <stdbool.h>
 #include <string.h>
 #include "cmagic/memory.h"
 #include "cmagic/utils.h"
@@ -181,6 +180,12 @@ cmagic_memory_free(void *ptr) {
     (void) result;
     assert(result == CMAGIC_MEMORY_FREE_RESULT_OK
            || result == CMAGIC_MEMORY_FREE_RESULT_OK_NULLPTR);
+}
+
+bool
+cmagic_memory_is_allocated(void *ptr) {
+    return (const void *)_node_list_head() <= ptr && ptr < (const void *)g_pool_end
+           && _is_existing_memory_node(_associated_node(ptr));
 }
 
 size_t
