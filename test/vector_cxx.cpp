@@ -11,6 +11,7 @@ namespace {
 
 static void test_push_back_int() {
     cmagic::vector<int> vec;
+    TEST_ASSERT_TRUE(vec);
     TEST_ASSERT_TRUE(vec.push_back(1));
     TEST_ASSERT_TRUE(vec.push_back(2));
     TEST_ASSERT_TRUE(vec.push_back(3));
@@ -80,6 +81,7 @@ void test_memory_management() {
     auto mgmt {std::make_shared<mem_mgmt>()}; 
     {
         cmagic::vector<object> vec;
+        TEST_ASSERT_TRUE(vec);
         TEST_ASSERT_EQUAL_INT(0, mgmt->allocations);
         TEST_ASSERT_EQUAL_INT(0, mgmt->deallocations);
 
@@ -118,6 +120,7 @@ void test_copy() {
     auto mgmt {std::make_shared<mem_mgmt>()}; 
     {
         cmagic::vector<object> vec;
+        TEST_ASSERT_TRUE(vec);
         TEST_ASSERT_EQUAL_INT(0, mgmt->allocations);
         TEST_ASSERT_EQUAL_INT(0, mgmt->deallocations);
 
@@ -132,6 +135,8 @@ void test_copy() {
         TEST_ASSERT_EQUAL_INT(2, mgmt->deallocations);
 
         cmagic::vector<object> vec_copy {vec};
+        TEST_ASSERT_TRUE(vec);
+        TEST_ASSERT_TRUE(vec_copy);
         // mgmt->allocations += 2 because we've copied 2 elements
         TEST_ASSERT_EQUAL_INT(6, mgmt->allocations); 
         TEST_ASSERT_EQUAL_INT(2, mgmt->deallocations);
@@ -160,6 +165,7 @@ void test_moving_semantics() {
     auto mgmt {std::make_shared<mem_mgmt>()}; 
     {
         cmagic::vector<object> vec;
+        TEST_ASSERT_TRUE(vec);
         TEST_ASSERT_EQUAL_INT(0, mgmt->allocations);
         TEST_ASSERT_EQUAL_INT(0, mgmt->deallocations);
 
@@ -174,6 +180,8 @@ void test_moving_semantics() {
         TEST_ASSERT_EQUAL_INT(2, mgmt->deallocations);
 
         cmagic::vector<object> vec_moved {std::move(vec)};
+        TEST_ASSERT_TRUE(vec);
+        TEST_ASSERT_TRUE(vec_moved);
         TEST_ASSERT_EQUAL_size_t(0, vec.size());
         TEST_ASSERT_EQUAL_size_t(2, vec_moved.size());
         TEST_ASSERT_EQUAL_INT(4, mgmt->allocations); 
@@ -192,6 +200,7 @@ void test_custom_alloc_vector() {
     cmagic_memory_init(memory_pool, sizeof(memory_pool));
     {
         auto str_vector = cmagic::vector<std::string>::custom_allocation_vector();
+        TEST_ASSERT_TRUE(str_vector);
 
         // One allocation for metadata, one for effective data
         TEST_ASSERT_EQUAL_size_t(2, cmagic_memory_get_allocations());
@@ -222,6 +231,7 @@ void test_custom_alloc_vector() {
 void test_emplace_back() {
     const char *cstr = "Hello World";
     cmagic::vector<std::string> vec;
+    TEST_ASSERT_TRUE(vec);
     TEST_ASSERT_TRUE(vec.emplace_back(static_cast<size_t>(5), '*'));
     TEST_ASSERT_TRUE(vec.emplace_back(&cstr[0], &cstr[5]));
     TEST_ASSERT_TRUE(vec.emplace_back(static_cast<size_t>(10), '$'));
