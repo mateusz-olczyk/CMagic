@@ -43,7 +43,9 @@ static void test_StringTree(void) {
 
 
     for (size_t i = 0; i < CMAGIC_UTILS_ARRAY_SIZE(keys); i++) {
-        TEST_ASSERT_TRUE(CMAGIC_AVL_TREE_INSERT(tree, &keys[i], NULL));
+        cmagic_avl_tree_insert_result_t insert_result = CMAGIC_AVL_TREE_INSERT(tree, &keys[i], NULL);
+        TEST_ASSERT_NOT_NULL(insert_result.inserted_or_existing);
+        TEST_ASSERT_FALSE(insert_result.already_exists);
     }
 
     size_t iteration;
@@ -57,7 +59,9 @@ static void test_StringTree(void) {
         TEST_ASSERT_EQUAL_STRING(keys_sorted[iteration], string_key);
     }
 
-    TEST_ASSERT_FALSE(CMAGIC_AVL_TREE_INSERT(tree, &keys[0], NULL));
+    cmagic_avl_tree_insert_result_t insert_result = CMAGIC_AVL_TREE_INSERT(tree, &keys[0], NULL);
+    TEST_ASSERT_NOT_NULL(insert_result.inserted_or_existing);
+    TEST_ASSERT_TRUE(insert_result.already_exists);
 
     CMAGIC_AVL_TREE_FREE(tree);
     TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocated_bytes());
@@ -86,13 +90,18 @@ static void test_IntTree(void) {
     qsort(keys_sorted, CMAGIC_UTILS_ARRAY_SIZE(keys_sorted), sizeof(*keys_sorted),
           int_ptr_comparator);
 
+    cmagic_avl_tree_insert_result_t insert_result;
 
     for (size_t i = 0; i < CMAGIC_UTILS_ARRAY_SIZE(keys); i++) {
-        TEST_ASSERT_TRUE(CMAGIC_AVL_TREE_INSERT(tree, &keys[i], NULL));
+        insert_result = CMAGIC_AVL_TREE_INSERT(tree, &keys[i], NULL);
+        TEST_ASSERT_NOT_NULL(insert_result.inserted_or_existing);
+        TEST_ASSERT_FALSE(insert_result.already_exists);
     }
 
     for (size_t i = 0; i < CMAGIC_UTILS_ARRAY_SIZE(keys); i++) {
-        TEST_ASSERT_FALSE(CMAGIC_AVL_TREE_INSERT(tree, &keys[i], NULL));
+        insert_result = CMAGIC_AVL_TREE_INSERT(tree, &keys[i], NULL);
+        TEST_ASSERT_NOT_NULL(insert_result.inserted_or_existing);
+        TEST_ASSERT_TRUE(insert_result.already_exists);
     }
 
     size_t iteration;
@@ -113,7 +122,9 @@ static void test_IntTree(void) {
         TEST_ASSERT_EQUAL_INT(keys_sorted[CMAGIC_UTILS_ARRAY_SIZE(keys) - 1 - iteration], int_key);
     }
 
-    TEST_ASSERT_FALSE(CMAGIC_AVL_TREE_INSERT(tree, &keys[0], NULL));
+    insert_result = CMAGIC_AVL_TREE_INSERT(tree, &keys[0], NULL);
+    TEST_ASSERT_NOT_NULL(insert_result.inserted_or_existing);
+    TEST_ASSERT_TRUE(insert_result.already_exists);
 
     CMAGIC_AVL_TREE_FREE(tree);
     TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocated_bytes());
@@ -126,7 +137,10 @@ static void test_FindValue(void) {
     const int keys[] = { 4, 2, 5, 1, 3, 6, 9, 0, 7, 8 };
     char values[] = { 'A'+4, 'A'+2, 'A'+5, 'A'+1, 'A'+3, 'A'+6, 'A'+9, 'A'+0, 'A'+7, 'A'+8 };
     for (size_t i = 0; i < CMAGIC_UTILS_ARRAY_SIZE(keys); i++) {
-        TEST_ASSERT_TRUE(CMAGIC_AVL_TREE_INSERT(tree, &keys[i], &values[i]));
+        cmagic_avl_tree_insert_result_t insert_result = CMAGIC_AVL_TREE_INSERT(tree, &keys[i],
+                                                                               &values[i]);
+        TEST_ASSERT_NOT_NULL(insert_result.inserted_or_existing);
+        TEST_ASSERT_FALSE(insert_result.already_exists);
     }
 
     const char expected_values[] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J' };

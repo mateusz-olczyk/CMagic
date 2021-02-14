@@ -18,13 +18,18 @@ cmagic_avl_tree_new(cmagic_avl_tree_key_comparator_t key_comparator,
 void
 cmagic_avl_tree_free(void **avl_tree);
 
-bool
-cmagic_avl_tree_insert(void **avl_tree, const void *key, void *value);
-
 typedef struct {
     const void *key;
     void *value;
 } *cmagic_avl_tree_iterator_t;
+
+typedef struct {
+    cmagic_avl_tree_iterator_t inserted_or_existing;
+    bool already_exists;
+} cmagic_avl_tree_insert_result_t;
+
+cmagic_avl_tree_insert_result_t
+cmagic_avl_tree_insert(void **avl_tree, const void *key, void *value);
 
 cmagic_avl_tree_iterator_t
 cmagic_avl_tree_first(void **avl_tree);

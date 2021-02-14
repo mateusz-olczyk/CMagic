@@ -137,22 +137,35 @@ static int _get_balance(const tree_node_t *node) {
     return node ? _get_height(node->left_kid) - _get_height(node->right_kid) : 0;
 }
 
-static bool _internal_insert(tree_descriptor_t *tree, tree_node_t *node_parent,
-                             tree_node_t **node_ptr, const void *key, void *value) {
+static cmagic_avl_tree_insert_result_t _internal_insert(tree_descriptor_t *tree,
+                                                        tree_node_t *node_parent,
+                                                        tree_node_t **node_ptr,
+                                                        const void *key, void *value) {
     assert(tree);
     assert(node_ptr);
 
     if (!*node_ptr) {
         *node_ptr = _new_node(tree, node_parent, key, value);
-        return (bool)(uintptr_t)(*node_ptr);
+        return (cmagic_avl_tree_insert_result_t) {
+            .inserted_or_existing = (cmagic_avl_tree_iterator_t)*node_ptr,
+            .already_exists = false
+        };
     }
 
     tree_node_t *node = *node_ptr;
     int comparison_result = tree->key_comparator(key, node->key);
-    if (comparison_result == 0 ||
-        (comparison_result < 0 && !_internal_insert(tree, node, &node->left_kid, key, value)) ||
-        (comparison_result > 0 && !_internal_insert(tree, node, &node->right_kid, key, value))) {
-        return false;
+    if (comparison_result == 0) {
+        return (cmagic_avl_tree_insert_result_t) {
+            .inserted_or_existing = (cmagic_avl_tree_iterator_t)node,
+            .already_exists = true
+        };
+    }
+
+    cmagic_avl_tree_insert_result_t insert_result = comparison_result < 0
+        ? _internal_insert(tree, node, &node->left_kid, key, value)
+        : _internal_insert(tree, node, &node->right_kid, key, value);
+    if (!insert_result.inserted_or_existing || insert_result.already_exists) {
+        return insert_result;
     }
 
     node->subtree_height = 1 + CMAGIC_UTILS_MAX(_get_height(node->left_kid),
@@ -172,7 +185,7 @@ static bool _internal_insert(tree_descriptor_t *tree, tree_node_t *node_parent,
      */
     if (balance > 1 && tree->key_comparator(key, node->left_kid->key) < 0) {
         _rotate_right(node_ptr);
-        return true;
+        return insert_result;
     }
 
     /* Right-Right case
@@ -186,7 +199,7 @@ static bool _internal_insert(tree_descriptor_t *tree, tree_node_t *node_parent,
      */
     if (balance < -1 && tree->key_comparator(key, node->right_kid->key) > 0) {
         _rotate_left(node_ptr);
-        return true;
+        return insert_result;
     }
 
     /* Left-Right case
@@ -201,7 +214,7 @@ static bool _internal_insert(tree_descriptor_t *tree, tree_node_t *node_parent,
     if (balance > 1 && tree->key_comparator(key, node->left_kid->key) > 0) {
         _rotate_left(&node->left_kid);
         _rotate_right(node_ptr);
-        return true;
+        return insert_result;
     }
 
     /* Right-Left case
@@ -216,14 +229,14 @@ static bool _internal_insert(tree_descriptor_t *tree, tree_node_t *node_parent,
     if (balance < -1 && tree->key_comparator(key, node->right_kid->key) < 0) {
         _rotate_right(&node->right_kid);
         _rotate_left(node_ptr);
-        return true;
+        return insert_result;
     }
 
     // Already balanced
-    return true;
+    return insert_result;
 }
 
-bool
+cmagic_avl_tree_insert_result_t
 cmagic_avl_tree_insert(void **avl_tree, const void *key, void *value) {
     tree_descriptor_t *tree = _get_avl_tree_descriptor(avl_tree);
     return _internal_insert(tree, NULL, &tree->root, key, value);
