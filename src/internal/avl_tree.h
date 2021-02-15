@@ -31,6 +31,9 @@ typedef struct {
 cmagic_avl_tree_insert_result_t
 cmagic_avl_tree_insert(void **avl_tree, const void *key, void *value);
 
+void
+cmagic_avl_tree_erase(void **avl_tree, const void *key);
+
 cmagic_avl_tree_iterator_t
 cmagic_avl_tree_first(void **avl_tree);
 
@@ -56,6 +59,10 @@ cmagic_avl_tree_find(void **avl_tree, const void *key);
 #define CMAGIC_AVL_TREE_INSERT(avl_tree, key, value) \
     (CMAGIC_UTILS_ASSERT_SAME_TYPE(**(avl_tree), *(key)), \
     cmagic_avl_tree_insert((void**)(avl_tree), (key), (value)))
+
+#define CMAGIC_AVL_TREE_ERASE(avl_tree, key) \
+    (CMAGIC_UTILS_ASSERT_SAME_TYPE(**(avl_tree), *(key)), \
+    cmagic_avl_tree_erase((void**)(avl_tree), (key)))
 
 #define CMAGIC_AVL_TREE_FIRST(avl_tree) cmagic_avl_tree_first((void**)(avl_tree))
 

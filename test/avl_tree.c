@@ -167,10 +167,80 @@ static void test_FindValue(void) {
     CMAGIC_AVL_TREE_FREE(tree);
 }
 
+static void test_InsertOneDeleteOne(void) {
+    TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocated_bytes());
+
+    CMAGIC_AVL_TREE(int) tree = CMAGIC_AVL_TREE_NEW(int, int_ptr_comparator,
+                                                    &CMAGIC_MEMORY_ALLOC_PACKET_CUSTOM_CMAGIC);
+    TEST_ASSERT_NOT_NULL(tree);
+    TEST_ASSERT_GREATER_THAN_size_t(0, cmagic_memory_get_allocated_bytes());
+
+    cmagic_avl_tree_insert_result_t insert_result;
+    cmagic_avl_tree_iterator_t it;
+    
+    insert_result = CMAGIC_AVL_TREE_INSERT(tree, &(int){123}, NULL);
+    TEST_ASSERT_NOT_NULL(insert_result.inserted_or_existing);
+    TEST_ASSERT_FALSE(insert_result.already_exists);
+    it = CMAGIC_AVL_TREE_FIND(tree, &(int){123});
+    TEST_ASSERT_NOT_NULL(it);
+    TEST_ASSERT_NOT_NULL(it->key);
+    TEST_ASSERT_EQUAL_INT(123, CMAGIC_AVL_TREE_GET_KEY(int, it));
+    insert_result = CMAGIC_AVL_TREE_INSERT(tree, &(int){123}, NULL);
+    TEST_ASSERT_NOT_NULL(insert_result.inserted_or_existing);
+    TEST_ASSERT_TRUE(insert_result.already_exists);
+    CMAGIC_AVL_TREE_ERASE(tree, &(int){123});
+    it = CMAGIC_AVL_TREE_FIND(tree, &(int){123});
+    TEST_ASSERT_NULL(it);
+    insert_result = CMAGIC_AVL_TREE_INSERT(tree, &(int){123}, NULL);
+    TEST_ASSERT_NOT_NULL(insert_result.inserted_or_existing);
+    TEST_ASSERT_FALSE(insert_result.already_exists);
+
+    CMAGIC_AVL_TREE_FREE(tree);
+    TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocated_bytes());
+}
+
+static void test_InsertManyDeleteOne(void) {
+    TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocated_bytes());
+
+    CMAGIC_AVL_TREE(int) tree = CMAGIC_AVL_TREE_NEW(int, int_ptr_comparator,
+                                                    &CMAGIC_MEMORY_ALLOC_PACKET_CUSTOM_CMAGIC);
+    TEST_ASSERT_NOT_NULL(tree);
+    TEST_ASSERT_GREATER_THAN_size_t(0, cmagic_memory_get_allocated_bytes());
+
+    const int keys[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    cmagic_avl_tree_insert_result_t insert_result;
+
+    for (size_t i = 0; i < CMAGIC_UTILS_ARRAY_SIZE(keys); i++) {
+        insert_result = CMAGIC_AVL_TREE_INSERT(tree, &keys[i], NULL);
+        TEST_ASSERT_NOT_NULL(insert_result.inserted_or_existing);
+        TEST_ASSERT_FALSE(insert_result.already_exists);
+    }
+
+    CMAGIC_AVL_TREE_ERASE(tree, &(int){5});
+    size_t iteration;
+    cmagic_avl_tree_iterator_t it;
+    for (iteration = 1, it = CMAGIC_AVL_TREE_FIRST(tree);
+         it;
+         iteration++, it = CMAGIC_AVL_TREE_ITERATOR_NEXT(it)) {
+        TEST_ASSERT_LESS_THAN_size_t(CMAGIC_UTILS_ARRAY_SIZE(keys), iteration);
+        TEST_ASSERT_NOT_NULL(it->key);
+        if (iteration < 5) {
+            TEST_ASSERT_EQUAL_INT(iteration, CMAGIC_AVL_TREE_GET_KEY(int, it));
+        } else {
+            TEST_ASSERT_EQUAL_INT(iteration + 1, CMAGIC_AVL_TREE_GET_KEY(int, it));
+        }
+    }
+
+    CMAGIC_AVL_TREE_FREE(tree);
+    TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocated_bytes());
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_StringTree);
     RUN_TEST(test_IntTree);
     RUN_TEST(test_FindValue);
+    RUN_TEST(test_InsertOneDeleteOne);
+    RUN_TEST(test_InsertManyDeleteOne);
     return UNITY_END();
 }

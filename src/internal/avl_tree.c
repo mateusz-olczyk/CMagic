@@ -143,6 +143,7 @@ static cmagic_avl_tree_insert_result_t _internal_insert(tree_descriptor_t *tree,
                                                         const void *key, void *value) {
     assert(tree);
     assert(node_ptr);
+    assert(key);
 
     if (!*node_ptr) {
         *node_ptr = _new_node(tree, node_parent, key, value);
@@ -238,8 +239,123 @@ static cmagic_avl_tree_insert_result_t _internal_insert(tree_descriptor_t *tree,
 
 cmagic_avl_tree_insert_result_t
 cmagic_avl_tree_insert(void **avl_tree, const void *key, void *value) {
+    assert(key);
     tree_descriptor_t *tree = _get_avl_tree_descriptor(avl_tree);
     return _internal_insert(tree, NULL, &tree->root, key, value);
+}
+
+static void _internal_erase(tree_descriptor_t *tree, tree_node_t **node_ptr, const void *key) {
+    assert(tree);
+    assert(node_ptr);
+    assert(key);
+
+    if (!*node_ptr) {
+        return;
+    }
+
+    tree_node_t *node = *node_ptr;
+    int comparison_result = tree->key_comparator(key, node->key);
+    if (comparison_result < 0) {
+        _internal_erase(tree, &node->left_kid, key);
+    } else if (comparison_result > 0) {
+        _internal_erase(tree, &node->right_kid, key);
+    } else {
+        if (node->left_kid && node->right_kid) {
+            tree_node_t *successor =
+                (tree_node_t *)cmagic_avl_tree_iterator_next((cmagic_avl_tree_iterator_t)node);
+            assert(successor);
+            assert(!successor->left_kid);
+            successor->parent = node->parent;
+            successor->left_kid = node->left_kid;
+            *node_ptr = successor;
+            tree->alloc_packet->free_function(node);
+        } else {
+            tree_node_t *kid = node->left_kid ? node->left_kid : node->right_kid;
+            if (kid) {
+                kid->parent = node->parent;
+            }
+            *node_ptr = kid;
+            tree->alloc_packet->free_function(node);
+        }
+    }
+
+    node = *node_ptr;
+    if (!node) {
+        return;
+    }
+
+    node->subtree_height = 1 + CMAGIC_UTILS_MAX(_get_height(node->left_kid),
+                                                _get_height(node->right_kid));
+
+    // Handle balance violation cases, see https://en.wikipedia.org/wiki/AVL_tree#Rebalancing
+    int balance = _get_balance(node);
+
+    /* Left-Left case
+     *         z
+     *         / \
+     *        y   T4
+     *       / \
+     *      x   T3
+     *     / \
+     *   T1   T2
+     */
+    if (balance > 1 && tree->key_comparator(key, node->left_kid->key) < 0) {
+        _rotate_right(node_ptr);
+        return;
+    }
+
+    /* Right-Right case
+     *     z
+     *    /  \
+     *   T1   y
+     *       /  \
+     *      T2   x
+     *          / \
+     *        T3  T4
+     */
+    if (balance < -1 && tree->key_comparator(key, node->right_kid->key) > 0) {
+        _rotate_left(node_ptr);
+        return;
+    }
+
+    /* Left-Right case
+     *        z
+     *       / \
+     *      y   T4
+     *     / \
+     *   T1   x
+     *       / \
+     *     T2   T3
+     */
+    if (balance > 1 && tree->key_comparator(key, node->left_kid->key) > 0) {
+        _rotate_left(&node->left_kid);
+        _rotate_right(node_ptr);
+        return;
+    }
+
+    /* Right-Left case
+     *      z
+     *     / \
+     *   T1   y
+     *       / \
+     *      x   T4
+     *     / \
+     *   T2   T3
+     */
+    if (balance < -1 && tree->key_comparator(key, node->right_kid->key) < 0) {
+        _rotate_right(&node->right_kid);
+        _rotate_left(node_ptr);
+        return;
+    }
+
+    // Already balanced
+}
+
+void
+cmagic_avl_tree_erase(void **avl_tree, const void *key) {
+    assert(key);
+    tree_descriptor_t *tree = _get_avl_tree_descriptor(avl_tree);
+    _internal_erase(tree, &tree->root, key);
 }
 
 static void _internal_free(tree_descriptor_t *tree, tree_node_t *node) {
@@ -334,6 +450,7 @@ cmagic_avl_tree_iterator_prev(cmagic_avl_tree_iterator_t iterator) {
 
 cmagic_avl_tree_iterator_t
 cmagic_avl_tree_find(void **avl_tree, const void *key) {
+    assert(key);
     tree_descriptor_t *tree = _get_avl_tree_descriptor(avl_tree);
     tree_node_t *node = tree->root;
 
