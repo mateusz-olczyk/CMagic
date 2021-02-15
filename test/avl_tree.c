@@ -5,7 +5,7 @@
 #include "unity.h"
 
 void setUp(void) {
-    static uint8_t memory_pool[3000];
+    static uint8_t memory_pool[3200];
     cmagic_memory_init(memory_pool, sizeof(memory_pool));
 }
 
