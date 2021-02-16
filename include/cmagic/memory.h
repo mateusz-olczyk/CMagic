@@ -146,8 +146,8 @@ cmagic_memory_get_allocated_bytes(void);
 
 /**
  * @brief   Returns number of free bytes in the memory pool.
- * @details There is not a guarantee that a next @ref cmagic_memory_malloc with a size under the
- *          result returned from this function won't fail. It is so beacuse the free bytes may not
+ * @details There is not a guarantee that a next @ref cmagic_memory_malloc with a size less than the
+ *          result returned from this function won't fail. It is so because the free bytes may not
  *          form continuous free space range.
  */
 size_t
