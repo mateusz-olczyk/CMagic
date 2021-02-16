@@ -2,6 +2,7 @@
 #define CMAGIC_VECTOR_H
 
 #include <assert.h>
+#include <stdbool.h>
 #include <stddef.h>
 #include "cmagic/utils.h"
 #include "cmagic/memory.h"
@@ -16,10 +17,10 @@ cmagic_vector_new(size_t member_size, const cmagic_memory_alloc_packet_t *alloc_
 void
 cmagic_vector_free(void **vector_ptr);
 
-int
+bool
 cmagic_vector_allocate_back(void **vector_ptr);
 
-int
+bool
 cmagic_vector_push_back(void **vector_ptr, const void *new_element_ptr);
 
 void

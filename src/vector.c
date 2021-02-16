@@ -1,4 +1,3 @@
-#include <stdbool.h>
 #include <stdint.h>
 #include <string.h>
 #include "cmagic/vector.h"
@@ -63,42 +62,38 @@ cmagic_vector_free(void **vector_ptr) {
     vector_descriptor->alloc_packet->free_function(vector_descriptor);
 }
 
-static int _change_capacity(vector_descriptor_t *vector_descriptor,
+static bool _change_capacity(vector_descriptor_t *vector_descriptor,
                             size_t new_capacity) {
     assert(vector_descriptor->size <= new_capacity);
     void *new_data_begin = vector_descriptor->alloc_packet->realloc_function(
         vector_descriptor->data_begin, new_capacity * vector_descriptor->member_size);
     if (!new_data_begin) {
-        return -1;
+        return false;
     }
 
     vector_descriptor->capacity = new_capacity;
     vector_descriptor->data_begin = new_data_begin;
-    return 0;
+    return true;
 }
 
-int
+bool
 cmagic_vector_allocate_back(void **vector_ptr) {
     vector_descriptor_t *vector_descriptor = _get_vector_descriptor(vector_ptr);
 
-    if (vector_descriptor->size == vector_descriptor->capacity) {
-        int change_capacity_result = _change_capacity(vector_descriptor,
-            2 * vector_descriptor->capacity);
-        if (change_capacity_result) {
-            return change_capacity_result;
-        }
+    if (vector_descriptor->size == vector_descriptor->capacity
+        && !_change_capacity(vector_descriptor, 2 * vector_descriptor->capacity)) {
+        return false;
     }
 
     assert(vector_descriptor->size < vector_descriptor->capacity);
     vector_descriptor->size++;
-    return 0;
+    return true;
 }
 
-int
+bool
 cmagic_vector_push_back(void **vector_ptr, const void *new_element_ptr) {
-    int allocate_result = cmagic_vector_allocate_back(vector_ptr);
-    if (allocate_result) {
-        return allocate_result;
+    if (!cmagic_vector_allocate_back(vector_ptr)) {
+        return false;
     }
 
     vector_descriptor_t *vector_descriptor = _get_vector_descriptor(vector_ptr);
@@ -106,7 +101,7 @@ cmagic_vector_push_back(void **vector_ptr, const void *new_element_ptr) {
         + (vector_descriptor->size - 1) * vector_descriptor->member_size;
     memcpy(last_element, new_element_ptr, vector_descriptor->member_size);
 
-    return 0;
+    return true;
 }
 
 void

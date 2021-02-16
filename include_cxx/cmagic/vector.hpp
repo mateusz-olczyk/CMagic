@@ -86,7 +86,7 @@ public:
 
     bool push_back(const value_type &val) {
         assert(*this);
-        if (CMAGIC_VECTOR_ALLOCATE_BACK(vector_handle)) {
+        if (!CMAGIC_VECTOR_ALLOCATE_BACK(vector_handle)) {
             return false;
         }
 
@@ -97,7 +97,7 @@ public:
     template<typename... Args>
     bool emplace_back(Args&&... args) {
         assert(*this);
-        if (CMAGIC_VECTOR_ALLOCATE_BACK(vector_handle)) {
+        if (!CMAGIC_VECTOR_ALLOCATE_BACK(vector_handle)) {
             return false;
         }
 
