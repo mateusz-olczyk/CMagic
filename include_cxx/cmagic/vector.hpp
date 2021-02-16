@@ -74,6 +74,10 @@ public:
         return CMAGIC_VECTOR_SIZE(vector_handle);
     }
 
+    bool empty() const {
+        return size() == 0;
+    }
+
     value_type &operator[](size_type pos) {
         assert(pos <= size());
         return CMAGIC_VECTOR_DATA(vector_handle)[pos];

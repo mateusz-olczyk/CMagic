@@ -12,7 +12,9 @@ namespace {
 static void test_push_back_int() {
     cmagic::vector<int> vec;
     TEST_ASSERT_TRUE(vec);
+    TEST_ASSERT_TRUE(vec.empty());
     TEST_ASSERT_TRUE(vec.push_back(1));
+    TEST_ASSERT_FALSE(vec.empty());
     TEST_ASSERT_TRUE(vec.push_back(2));
     TEST_ASSERT_TRUE(vec.push_back(3));
     TEST_ASSERT_TRUE(vec.push_back(5));
