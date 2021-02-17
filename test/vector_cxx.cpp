@@ -59,18 +59,22 @@ struct object {
     std::shared_ptr<mem_mgmt> owner;
 
     object &operator=(const object &) = default;
-    object(object &&x) = delete;
 
     // Dummy move assignment just copies
     object &operator=(object &&x) {
         return operator=(x);
     }
 
-    object(int val, std::shared_ptr<mem_mgmt> owner) : val(val), owner(owner) {
+    object(const object &x) : val(x.val), owner(x.owner) {
         owner->allocations++;
     }
 
-    object(const object &x) : val(x.val), owner(x.owner) {
+    // Dummy move constructor just copies
+    object(object &&x) : val(x.val), owner(x.owner) {
+        owner->allocations++;
+    }
+
+    object(int val, std::shared_ptr<mem_mgmt> owner) : val(val), owner(owner) {
         owner->allocations++;
     }
 
