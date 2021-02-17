@@ -3,6 +3,7 @@
 
 #include <assert.h>
 #include <stdbool.h>
+#include <stddef.h>
 #include "cmagic/memory.h"
 
 #ifdef __cplusplus
@@ -34,6 +35,9 @@ cmagic_avl_tree_insert(void **avl_tree, const void *key, void *value);
 void
 cmagic_avl_tree_erase(void **avl_tree, const void *key);
 
+size_t
+cmagic_avl_tree_size(void **avl_tree);
+
 cmagic_avl_tree_iterator_t
 cmagic_avl_tree_first(void **avl_tree);
 
@@ -63,6 +67,8 @@ cmagic_avl_tree_find(void **avl_tree, const void *key);
 #define CMAGIC_AVL_TREE_ERASE(avl_tree, key) \
     (CMAGIC_UTILS_ASSERT_SAME_TYPE(**(avl_tree), *(key)), \
     cmagic_avl_tree_erase((void**)(avl_tree), (key)))
+
+#define CMAGIC_AVL_TREE_SIZE(avl_tree) cmagic_avl_tree_size((void**)(avl_tree))
 
 #define CMAGIC_AVL_TREE_FIRST(avl_tree) cmagic_avl_tree_first((void**)(avl_tree))
 

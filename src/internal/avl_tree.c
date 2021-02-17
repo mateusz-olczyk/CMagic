@@ -22,6 +22,7 @@ typedef struct {
 #endif
     cmagic_avl_tree_key_comparator_t key_comparator;
     const cmagic_memory_alloc_packet_t *alloc_packet;
+    size_t tree_size;
     tree_node_t *root;
 } tree_descriptor_t;
 
@@ -43,6 +44,7 @@ cmagic_avl_tree_new(cmagic_avl_tree_key_comparator_t key_comparator,
 #endif
         .key_comparator = key_comparator,
         .alloc_packet = alloc_packet,
+        .tree_size = 0,
         .root = NULL
     };
 
@@ -147,6 +149,7 @@ static cmagic_avl_tree_insert_result_t _internal_insert(tree_descriptor_t *tree,
 
     if (!*node_ptr) {
         *node_ptr = _new_node(tree, node_parent, key, value);
+        tree->tree_size++;
         return (cmagic_avl_tree_insert_result_t) {
             .inserted_or_existing = (cmagic_avl_tree_iterator_t)*node_ptr,
             .already_exists = false
@@ -269,6 +272,7 @@ static void _internal_erase(tree_descriptor_t *tree, tree_node_t **node_ptr, con
             successor->left_kid = node->left_kid;
             *node_ptr = successor;
             tree->alloc_packet->free_function(node);
+            tree->tree_size--;
         } else {
             tree_node_t *kid = node->left_kid ? node->left_kid : node->right_kid;
             if (kid) {
@@ -276,6 +280,7 @@ static void _internal_erase(tree_descriptor_t *tree, tree_node_t **node_ptr, con
             }
             *node_ptr = kid;
             tree->alloc_packet->free_function(node);
+            tree->tree_size--;
         }
     }
 
@@ -356,6 +361,12 @@ cmagic_avl_tree_erase(void **avl_tree, const void *key) {
     assert(key);
     tree_descriptor_t *tree = _get_avl_tree_descriptor(avl_tree);
     _internal_erase(tree, &tree->root, key);
+}
+
+size_t
+cmagic_avl_tree_size(void **avl_tree) {
+    tree_descriptor_t *tree = _get_avl_tree_descriptor(avl_tree);
+    return tree->tree_size;
 }
 
 static void _internal_free(tree_descriptor_t *tree, tree_node_t *node) {
