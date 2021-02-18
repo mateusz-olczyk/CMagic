@@ -59,9 +59,10 @@ static const cmagic_memory_alloc_packet_t *_get_alloc_packet(set_descriptor_t *s
 void
 cmagic_set_free(void *set_ptr) {
     set_descriptor_t *set_desc = _get_set_descriptor(set_ptr);
+    const cmagic_memory_alloc_packet_t *alloc_packet = _get_alloc_packet(set_desc);
     cmagic_set_clear(set_ptr);
     cmagic_avl_tree_free(set_desc->internal_avl_tree);
-    _get_alloc_packet(set_desc)->free_function(set_desc);
+    alloc_packet->free_function(set_desc);
 }
 
 cmagic_set_insert_result_t

@@ -70,7 +70,7 @@ cmagic_set_find(void *set_ptr, const void *key);
 #define CMAGIC_SET_NEW(key_type, key_comparator, alloc_packet) \
     ((CMAGIC_SET(key_type))cmagic_set_new(sizeof(key_type), (key_comparator), (alloc_packet)))
 
-#define CMAGIC_SET_FREE(cmagic_set) cmagic_set_free((void**)(cmagic_set))
+#define CMAGIC_SET_FREE(cmagic_set) cmagic_set_free((void*)(cmagic_set))
 
 #define CMAGIC_SET_ALLOCATE(cmagic_set, key) \
     (CMAGIC_UTILS_ASSERT_SAME_TYPE(*(cmagic_set), *(key)), \
@@ -97,7 +97,7 @@ cmagic_set_find(void *set_ptr, const void *key);
 #define CMAGIC_SET_ITERATOR_PREV(iterator) cmagic_set_iterator_prev(iterator)
 
 #define CMAGIC_SET_FIND(cmagic_set, key) (CMAGIC_UTILS_ASSERT_SAME_TYPE(*(cmagic_set), *(key)), \
-    cmagic_set_find((void**)(cmagic_set), (key)))
+    cmagic_set_find((void*)(cmagic_set), (key)))
 
 #define CMAGIC_SET_GET_KEY(key_type, iterator) \
     (assert(iterator), assert((iterator)->key), *((const key_type*)(iterator)->key))
