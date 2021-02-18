@@ -363,12 +363,6 @@ cmagic_avl_tree_erase(void **avl_tree, const void *key) {
     _internal_erase(tree, &tree->root, key);
 }
 
-size_t
-cmagic_avl_tree_size(void **avl_tree) {
-    tree_descriptor_t *tree = _get_avl_tree_descriptor(avl_tree);
-    return tree->tree_size;
-}
-
 static void _internal_free(tree_descriptor_t *tree, tree_node_t *node) {
     assert(tree);
     if (!node) {
@@ -378,6 +372,20 @@ static void _internal_free(tree_descriptor_t *tree, tree_node_t *node) {
     _internal_free(tree, node->left_kid);
     _internal_free(tree, node->right_kid);
     tree->alloc_packet->free_function(node);
+}
+
+void
+cmagic_avl_tree_clear(void **avl_tree) {
+    tree_descriptor_t *tree = _get_avl_tree_descriptor(avl_tree);
+    _internal_free(tree, tree->root);
+    tree->root = NULL;
+    tree->tree_size = 0;
+}
+
+size_t
+cmagic_avl_tree_size(void **avl_tree) {
+    tree_descriptor_t *tree = _get_avl_tree_descriptor(avl_tree);
+    return tree->tree_size;
 }
 
 void

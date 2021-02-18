@@ -35,6 +35,9 @@ cmagic_avl_tree_insert(void **avl_tree, const void *key, void *value);
 void
 cmagic_avl_tree_erase(void **avl_tree, const void *key);
 
+void
+cmagic_avl_tree_clear(void **avl_tree);
+
 size_t
 cmagic_avl_tree_size(void **avl_tree);
 
@@ -67,6 +70,8 @@ cmagic_avl_tree_find(void **avl_tree, const void *key);
 #define CMAGIC_AVL_TREE_ERASE(avl_tree, key) \
     (CMAGIC_UTILS_ASSERT_SAME_TYPE(**(avl_tree), *(key)), \
     cmagic_avl_tree_erase((void**)(avl_tree), (key)))
+
+#define CMAGIC_AVL_TREE_CLEAR(avl_tree) cmagic_avl_tree_clear((void**)(avl_tree))
 
 #define CMAGIC_AVL_TREE_SIZE(avl_tree) cmagic_avl_tree_size((void**)(avl_tree))
 
