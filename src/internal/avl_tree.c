@@ -26,7 +26,7 @@ typedef struct {
     tree_node_t *root;
 } tree_descriptor_t;
 
-void **
+void *
 cmagic_avl_tree_new(cmagic_avl_tree_key_comparator_t key_comparator,
                     const cmagic_memory_alloc_packet_t *alloc_packet) {
     assert(key_comparator);
@@ -48,13 +48,12 @@ cmagic_avl_tree_new(cmagic_avl_tree_key_comparator_t key_comparator,
         .root = NULL
     };
 
-    return (void **)&tree_descriptor->root;
+    return (void *)tree_descriptor;
 }
 
-static tree_descriptor_t *_get_avl_tree_descriptor(void **tree_ptr) {
+static tree_descriptor_t *_get_avl_tree_descriptor(void *tree_ptr) {
     assert(tree_ptr);
-    tree_descriptor_t *result = (tree_descriptor_t *)(
-        (const char *)tree_ptr - offsetof(tree_descriptor_t, root));
+    tree_descriptor_t *result = (tree_descriptor_t *)tree_ptr;
     assert(result->magic_value == AVL_TREE_MAGIC_VALUE);
     return result;
 }
@@ -241,7 +240,7 @@ static cmagic_avl_tree_insert_result_t _internal_insert(tree_descriptor_t *tree,
 }
 
 cmagic_avl_tree_insert_result_t
-cmagic_avl_tree_insert(void **avl_tree, const void *key, void *value) {
+cmagic_avl_tree_insert(void *avl_tree, const void *key, void *value) {
     assert(key);
     tree_descriptor_t *tree = _get_avl_tree_descriptor(avl_tree);
     return _internal_insert(tree, NULL, &tree->root, key, value);
@@ -357,7 +356,7 @@ static void _internal_erase(tree_descriptor_t *tree, tree_node_t **node_ptr, con
 }
 
 void
-cmagic_avl_tree_erase(void **avl_tree, const void *key) {
+cmagic_avl_tree_erase(void *avl_tree, const void *key) {
     assert(key);
     tree_descriptor_t *tree = _get_avl_tree_descriptor(avl_tree);
     _internal_erase(tree, &tree->root, key);
@@ -375,7 +374,7 @@ static void _internal_free(tree_descriptor_t *tree, tree_node_t *node) {
 }
 
 void
-cmagic_avl_tree_clear(void **avl_tree) {
+cmagic_avl_tree_clear(void *avl_tree) {
     tree_descriptor_t *tree = _get_avl_tree_descriptor(avl_tree);
     _internal_free(tree, tree->root);
     tree->root = NULL;
@@ -383,20 +382,20 @@ cmagic_avl_tree_clear(void **avl_tree) {
 }
 
 size_t
-cmagic_avl_tree_size(void **avl_tree) {
+cmagic_avl_tree_size(void *avl_tree) {
     tree_descriptor_t *tree = _get_avl_tree_descriptor(avl_tree);
     return tree->tree_size;
 }
 
 void
-cmagic_avl_tree_free(void **avl_tree) {
+cmagic_avl_tree_free(void *avl_tree) {
     tree_descriptor_t *tree = _get_avl_tree_descriptor(avl_tree);
     _internal_free(tree, tree->root);
     tree->alloc_packet->free_function(tree);
 }
 
 cmagic_avl_tree_iterator_t
-cmagic_avl_tree_first(void **avl_tree) {
+cmagic_avl_tree_first(void *avl_tree) {
     tree_descriptor_t *tree = _get_avl_tree_descriptor(avl_tree);
     if (!tree->root) {
         return NULL;
@@ -411,7 +410,7 @@ cmagic_avl_tree_first(void **avl_tree) {
 }
 
 cmagic_avl_tree_iterator_t
-cmagic_avl_tree_last(void **avl_tree) {
+cmagic_avl_tree_last(void *avl_tree) {
     tree_descriptor_t *tree = _get_avl_tree_descriptor(avl_tree);
     if (!tree->root) {
         return NULL;
@@ -468,7 +467,7 @@ cmagic_avl_tree_iterator_prev(cmagic_avl_tree_iterator_t iterator) {
 }
 
 cmagic_avl_tree_iterator_t
-cmagic_avl_tree_find(void **avl_tree, const void *key) {
+cmagic_avl_tree_find(void *avl_tree, const void *key) {
     assert(key);
     tree_descriptor_t *tree = _get_avl_tree_descriptor(avl_tree);
     tree_node_t *node = tree->root;
@@ -488,6 +487,6 @@ cmagic_avl_tree_find(void **avl_tree, const void *key) {
 }
 
 const cmagic_memory_alloc_packet_t *
-cmagic_avl_tree_get_alloc_packet(void **avl_tree) {
+cmagic_avl_tree_get_alloc_packet(void *avl_tree) {
     return _get_avl_tree_descriptor(avl_tree)->alloc_packet;
 }
