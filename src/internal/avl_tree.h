@@ -56,6 +56,9 @@ cmagic_avl_tree_iterator_prev(cmagic_avl_tree_iterator_t iterator);
 cmagic_avl_tree_iterator_t
 cmagic_avl_tree_find(void **avl_tree, const void *key);
 
+const cmagic_memory_alloc_packet_t *
+cmagic_avl_tree_get_alloc_packet(void **avl_tree);
+
 #define CMAGIC_AVL_TREE(key_type) key_type**
 
 #define CMAGIC_AVL_TREE_NEW(key_type, key_comparator, alloc_packet) \
@@ -88,6 +91,9 @@ cmagic_avl_tree_find(void **avl_tree, const void *key);
 
 #define CMAGIC_AVL_TREE_FIND(avl_tree, key) (CMAGIC_UTILS_ASSERT_SAME_TYPE(**(avl_tree), *(key)), \
     cmagic_avl_tree_find((void**)(avl_tree), (key)))
+
+#define CMAGIC_AVL_TREE_GET_ALLOC_PACKET(avl_tree) \
+    cmagic_avl_tree_get_alloc_packet((void**)(avl_tree))
 
 #ifdef __cplusplus
 } // extern "C"

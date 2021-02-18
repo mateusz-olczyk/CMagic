@@ -486,3 +486,8 @@ cmagic_avl_tree_find(void **avl_tree, const void *key) {
 
     return NULL;
 }
+
+const cmagic_memory_alloc_packet_t *
+cmagic_avl_tree_get_alloc_packet(void **avl_tree) {
+    return _get_avl_tree_descriptor(avl_tree)->alloc_packet;
+}
