@@ -6,14 +6,16 @@
 void setUp(void) {
     static uint8_t memory_pool[600]; 
     cmagic_memory_init(memory_pool, sizeof(memory_pool));
-}
-
-void tearDown(void) {}
-
-static void test_String(void) {
     TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocated_bytes());
     TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocations());
+}
 
+void tearDown(void) {
+    TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocated_bytes());
+    TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocations());
+}
+
+static void test_String(void) {
     const char *string = "Hello World!";
     const size_t string_size = strlen(string) + 1;
 
@@ -40,27 +42,17 @@ static void test_String(void) {
 
     TEST_ASSERT_EQUAL_STRING(string, allocated_string2);
     TEST_ASSERT_EQUAL(CMAGIC_MEMORY_FREE_RESULT_OK, cmagic_memory_free_ext(allocated_string2));
-    TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocated_bytes());
-    TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocations());
     TEST_ASSERT_FALSE(cmagic_memory_is_allocated(allocated_string1));
     TEST_ASSERT_FALSE(cmagic_memory_is_allocated(allocated_string2));
 }
 
 static void test_Fail(void) {
-    TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocated_bytes());
-    TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocations());
-
     void *fail_ptr = cmagic_memory_malloc(4000000000);
     TEST_ASSERT_NULL(fail_ptr);
     TEST_ASSERT_FALSE(cmagic_memory_is_allocated(fail_ptr));
-    TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocated_bytes());
-    TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocations());
 }
 
 static void test_MemoryFull(void) {
-    TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocated_bytes());
-    TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocations());
-
     void *memory_blocks[100];
     size_t successful_allocations = 0;
     for (size_t i = 0; i < CMAGIC_UTILS_ARRAY_SIZE(memory_blocks); i++) {
@@ -92,9 +84,6 @@ static void test_MemoryFull(void) {
     TEST_ASSERT_TRUE(cmagic_memory_is_allocated(memory_blocks[0]));
     TEST_ASSERT_EQUAL(CMAGIC_MEMORY_FREE_RESULT_OK, cmagic_memory_free_ext(memory_blocks[0]));
     TEST_ASSERT_FALSE(cmagic_memory_is_allocated(memory_blocks[0]));
-
-    TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocated_bytes());
-    TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocations());
 }
 
 static void test_Errors(void) {
@@ -111,8 +100,6 @@ static void test_Errors(void) {
 }
 
 static void test_realloc(void) {
-    TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocated_bytes());
-
     void *memptr = cmagic_memory_malloc(70);
     TEST_ASSERT_NOT_NULL(memptr);
     TEST_ASSERT_EQUAL_size_t(70, cmagic_memory_get_allocated_bytes());
@@ -135,7 +122,6 @@ static void test_realloc(void) {
     TEST_ASSERT_TRUE(cmagic_memory_is_allocated(memptr));
 
     TEST_ASSERT_EQUAL(CMAGIC_MEMORY_FREE_RESULT_OK, cmagic_memory_free_ext(memptr));
-    TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocations());
     TEST_ASSERT_FALSE(cmagic_memory_is_allocated(memptr));
 }
 

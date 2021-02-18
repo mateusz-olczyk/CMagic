@@ -7,9 +7,12 @@
 void setUp(void) {
     static uint8_t memory_pool[3200];
     cmagic_memory_init(memory_pool, sizeof(memory_pool));
+    TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocated_bytes());
 }
 
-void tearDown(void) {}
+void tearDown(void) {
+    TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocated_bytes());
+}
 
 static int string_ptr_comparator(const void *key1, const void *key2) {
     TEST_ASSERT_NOT_NULL(key1);
@@ -22,8 +25,6 @@ static int string_ptr_comparator(const void *key1, const void *key2) {
 }
 
 static void test_StringTree(void) {
-    TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocated_bytes());
-
     CMAGIC_AVL_TREE(const char *) tree = CMAGIC_AVL_TREE_NEW(
         const char *, string_ptr_comparator, &CMAGIC_MEMORY_ALLOC_PACKET_CUSTOM_CMAGIC);
     TEST_ASSERT_NOT_NULL(tree);
@@ -67,7 +68,6 @@ static void test_StringTree(void) {
     TEST_ASSERT_EQUAL_size_t(CMAGIC_UTILS_ARRAY_SIZE(keys), CMAGIC_AVL_TREE_SIZE(tree));
 
     CMAGIC_AVL_TREE_FREE(tree);
-    TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocated_bytes());
 }
 
 static int int_ptr_comparator(const void *key1, const void *key2) {
@@ -79,8 +79,6 @@ static int int_ptr_comparator(const void *key1, const void *key2) {
 }
 
 static void test_IntTree(void) {
-    TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocated_bytes());
-
     CMAGIC_AVL_TREE(int) tree = CMAGIC_AVL_TREE_NEW(int, int_ptr_comparator,
                                                     &CMAGIC_MEMORY_ALLOC_PACKET_CUSTOM_CMAGIC);
     TEST_ASSERT_NOT_NULL(tree);
@@ -135,7 +133,6 @@ static void test_IntTree(void) {
     TEST_ASSERT_EQUAL_size_t(CMAGIC_UTILS_ARRAY_SIZE(keys), CMAGIC_AVL_TREE_SIZE(tree));
 
     CMAGIC_AVL_TREE_FREE(tree);
-    TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocated_bytes());
 }
 
 static void test_FindValue(void) {
@@ -176,8 +173,6 @@ static void test_FindValue(void) {
 }
 
 static void test_InsertOneDeleteOne(void) {
-    TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocated_bytes());
-
     CMAGIC_AVL_TREE(int) tree = CMAGIC_AVL_TREE_NEW(int, int_ptr_comparator,
                                                     &CMAGIC_MEMORY_ALLOC_PACKET_CUSTOM_CMAGIC);
     TEST_ASSERT_NOT_NULL(tree);
@@ -209,12 +204,9 @@ static void test_InsertOneDeleteOne(void) {
     TEST_ASSERT_EQUAL_size_t(1, CMAGIC_AVL_TREE_SIZE(tree));
 
     CMAGIC_AVL_TREE_FREE(tree);
-    TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocated_bytes());
 }
 
 static void test_InsertManyDeleteOne(void) {
-    TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocated_bytes());
-
     CMAGIC_AVL_TREE(int) tree = CMAGIC_AVL_TREE_NEW(int, int_ptr_comparator,
                                                     &CMAGIC_MEMORY_ALLOC_PACKET_CUSTOM_CMAGIC);
     TEST_ASSERT_NOT_NULL(tree);
@@ -247,12 +239,9 @@ static void test_InsertManyDeleteOne(void) {
     }
 
     CMAGIC_AVL_TREE_FREE(tree);
-    TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocated_bytes());
 }
 
 static void test_Clear(void) {
-    TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocated_bytes());
-
     CMAGIC_AVL_TREE(int) tree = CMAGIC_AVL_TREE_NEW(int, int_ptr_comparator,
                                                     &CMAGIC_MEMORY_ALLOC_PACKET_CUSTOM_CMAGIC);
     TEST_ASSERT_NOT_NULL(tree);
@@ -280,7 +269,6 @@ static void test_Clear(void) {
     TEST_ASSERT_EQUAL_size_t(CMAGIC_UTILS_ARRAY_SIZE(keys), CMAGIC_AVL_TREE_SIZE(tree));
 
     CMAGIC_AVL_TREE_FREE(tree);
-    TEST_ASSERT_EQUAL_size_t(0, cmagic_memory_get_allocated_bytes());
 }
 
 int main(void) {
