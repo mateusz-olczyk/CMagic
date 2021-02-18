@@ -4,6 +4,7 @@ include(config)
 
 add_library(cmagic
     memory.c
+    set.c
     utils.c
     vector.c
 )
@@ -23,3 +24,7 @@ if(CMAGIC_WITH_EXTRA_WARNINGS)
 endif()
 
 add_subdirectory(internal)
+
+target_link_libraries(cmagic
+    PRIVATE cmagic_internals
+)
