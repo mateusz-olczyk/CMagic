@@ -12,6 +12,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include "cmagic/memory.h"
+#include "cmagic/utils.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -65,6 +66,9 @@ cmagic_set_iterator_prev(cmagic_set_iterator_t iterator);
 cmagic_set_iterator_t
 cmagic_set_find(void *set_ptr, const void *key);
 
+const cmagic_memory_alloc_packet_t *
+cmagic_set_get_alloc_packet(void *set_ptr);
+
 #define CMAGIC_SET(key_type) key_type*
 
 #define CMAGIC_SET_NEW(key_type, key_comparator, alloc_packet) \
@@ -101,6 +105,9 @@ cmagic_set_find(void *set_ptr, const void *key);
 
 #define CMAGIC_SET_GET_KEY(key_type, iterator) \
     (assert(iterator), assert((iterator)->key), *((const key_type*)(iterator)->key))
+
+#define CMAGIC_SET_GET_ALLOC_PACKET(cmagic_set) \
+    cmagic_set_get_alloc_packet((void*)(cmagic_set))
 
 #ifdef __cplusplus
 } // extern "C"

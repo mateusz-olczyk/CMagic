@@ -159,3 +159,8 @@ cmagic_set_find(void *set_ptr, const void *key) {
     return (cmagic_set_iterator_t)
         cmagic_avl_tree_find(_get_set_descriptor(set_ptr)->internal_avl_tree, key);
 }
+
+const cmagic_memory_alloc_packet_t *
+cmagic_set_get_alloc_packet(void *set_ptr) {
+    return _get_alloc_packet(_get_set_descriptor(set_ptr));
+}
