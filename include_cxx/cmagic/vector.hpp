@@ -49,6 +49,17 @@ private:
         return CMAGIC_VECTOR_ALLOCATE_BACK(vector_handle);
     }
 
+    template <typename URef>
+    bool push_back_template(URef &&val) {
+        assert(*this);
+        if (!allocate_back()) {
+            return false;
+        }
+
+        new(CMAGIC_VECTOR_BACK(vector_handle)) value_type {std::forward<URef>(val)};
+        return true;
+    }
+
 public:
     /**
      * @brief   Constructs an empty vector with standard memory allocation.
@@ -155,26 +166,14 @@ public:
      * @param   val value to be copied (or moved) to the new element
      */
     bool push_back(const value_type &val) {
-        assert(*this);
-        if (!allocate_back()) {
-            return false;
-        }
-
-        new(CMAGIC_VECTOR_BACK(vector_handle)) value_type {val};
-        return true;
+        return push_back_template(val);
     }
 
     /**
      * @copydoc vector::push_back
      */
     bool push_back(value_type &&val) {
-        assert(*this);
-        if (!allocate_back()) {
-            return false;
-        }
-
-        new(CMAGIC_VECTOR_BACK(vector_handle)) value_type {std::move(val)};
-        return true;
+        return push_back_template(std::move(val));
     }
 
     /**
