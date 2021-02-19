@@ -185,6 +185,11 @@ public:
         return insert_template(std::move(val));
     }
 
+    void erase(const value_type &key) {
+        assert(*this);
+        CMAGIC_SET_ERASE(set_handle, &key);
+    }
+
     size_type size() const {
         assert(*this);
         return CMAGIC_SET_SIZE(set_handle);

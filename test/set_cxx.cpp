@@ -55,10 +55,43 @@ void test_Sorting() {
     }
 }
 
+void test_Erase() {
+    cmagic::set<int> str_set {cmagic::set<int>::custom_allocation_set()};
+    std::vector<int> numbers {
+        16, 3, 11, 6, 5, 17, 4, 19, 15, 10, 20, 12, 9, 13, 2, 18, 1, 8, 14, 7
+    };
+
+    TEST_ASSERT_TRUE(str_set.empty());
+
+    for (int number : numbers) {
+        auto result = str_set.insert(number);
+        TEST_ASSERT_FALSE(result.first == str_set.end());
+        TEST_ASSERT_TRUE(result.second);
+        TEST_ASSERT_FALSE(str_set.empty());
+    }
+    
+    TEST_ASSERT_EQUAL_size_t(numbers.size(), str_set.size());
+
+    str_set.erase(10);
+    TEST_ASSERT_EQUAL_size_t(numbers.size() - 1, str_set.size());
+    {
+        size_t iteration = 1;
+        for (int number : str_set) {
+            if (iteration < 10) {
+                TEST_ASSERT_EQUAL_INT(iteration, number);
+            } else {
+                TEST_ASSERT_EQUAL_INT(iteration + 1, number);
+            }
+            iteration++;
+        }
+    }
+}
+
 } // namespace
 
 int main() {
     UNITY_BEGIN();
     RUN_TEST(test_Sorting);
+    RUN_TEST(test_Erase);
     return UNITY_END();
 }
