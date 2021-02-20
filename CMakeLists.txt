@@ -18,27 +18,30 @@ option(CMAGIC_WITH_CXX_BINDINGS "Add C++ bindings headers to the library interfa
 
 add_subdirectory(src)
 
-# Enable tests only if this is top level project
+# Things enabled only if this is top level project
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+    # Tests
     enable_testing()
     add_subdirectory(deps/unity)
     add_subdirectory(test)
-endif()
 
-find_package(Doxygen)
-if(DOXYGEN_FOUND)
-    set(DOXYGEN_OUTPUT_DIRECTORY doc)
-    set(DOXYGEN_ALWAYS_DETAILED_SEC YES)
-    set(DOXYGEN_EXTRACT_STATIC YES)
-    set(DOXYGEN_HIDE_UNDOC_MEMBERS YES)
-    set(DOXYGEN_USE_MDFILE_AS_MAINPAGE README.md)
-    set(DOXYGEN_STRIP_FROM_PATH include)
-
-    set(CMAGIC_DOC_DIRS README.md include/cmagic)
-    if(CMAGIC_WITH_CXX_BINDINGS)
-        list(APPEND CMAGIC_DOC_DIRS include_cxx/cmagic)
-        list(APPEND DOXYGEN_STRIP_FROM_PATH include_cxx)
+    # Docs
+    find_package(Doxygen)
+    if(DOXYGEN_FOUND)
+        set(DOXYGEN_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/doc")
+        set(DOXYGEN_ALWAYS_DETAILED_SEC YES)
+        set(DOXYGEN_EXTRACT_STATIC YES)
+        set(DOXYGEN_HIDE_UNDOC_MEMBERS YES)
+        set(DOXYGEN_USE_MDFILE_AS_MAINPAGE README.md)
+        set(DOXYGEN_STRIP_FROM_PATH include)
+    
+        set(CMAGIC_DOC_DIRS README.md include/cmagic)
+        if(CMAGIC_WITH_CXX_BINDINGS)
+            list(APPEND CMAGIC_DOC_DIRS include_cxx/cmagic)
+            list(APPEND DOXYGEN_STRIP_FROM_PATH include_cxx)
+        endif()
+    
+        doxygen_add_docs(doc ${CMAGIC_DOC_DIRS})
     endif()
-
-    doxygen_add_docs(doc ${CMAGIC_DOC_DIRS})
 endif()
+
