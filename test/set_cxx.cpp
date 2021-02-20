@@ -5,8 +5,6 @@
 #include "cmagic/set.hpp"
 #include "unity.h"
 
-//remove later!!!!
-#include<iostream>
 
 void setUp() {
     static uint8_t memory_pool[5000];

@@ -12,6 +12,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include "cmagic/memory.h"
+#include "cmagic/utils.h"
 
 #ifdef __cplusplus
 extern "C" {
