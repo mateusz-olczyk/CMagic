@@ -178,6 +178,7 @@ public:
         map_handle = x.map_handle;
         x.map_handle = CMAGIC_MAP_NEW(key_type, mapped_type, key_comparator,
                                       CMAGIC_MAP_GET_ALLOC_PACKET(x.map_handle));
+        return *this;
     }
 
     map(map &&x) : map_handle(x.map_handle) {

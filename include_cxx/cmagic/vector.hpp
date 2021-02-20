@@ -107,6 +107,7 @@ public:
         vector_handle = x.vector_handle;
         x.vector_handle = CMAGIC_VECTOR_NEW(value_type,
                                             CMAGIC_VECTOR_GET_ALLOC_PACKET(x.vector_handle));
+        return *this;
     }
 
     vector(vector &&x) : vector_handle(x.vector_handle) {

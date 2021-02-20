@@ -148,6 +148,7 @@ public:
         set_handle = x.set_handle;
         x.set_handle = CMAGIC_SET_NEW(value_type, key_comparator,
                                       CMAGIC_SET_GET_ALLOC_PACKET(x.set_handle));
+        return *this;
     }
 
     set(set &&x) : set_handle(x.set_handle) {
