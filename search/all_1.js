@@ -1,6 +1,8 @@
 var searchData=
 [
   ['clear',['clear',['../classcmagic_1_1vector.html#a906f60bf45f6feec28858e9fdf9088b9',1,'cmagic::vector']]],
+  ['cmagic_5fmap_5finsert_5fresult_5ft',['cmagic_map_insert_result_t',['../structcmagic__map__insert__result__t.html',1,'']]],
+  ['cmagic_5fmap_5fiterator_5ft',['cmagic_map_iterator_t',['../structcmagic__map__iterator__t.html',1,'']]],
   ['cmagic_5fmemory_5falloc_5fpacket_5fcustom_5fcmagic',['CMAGIC_MEMORY_ALLOC_PACKET_CUSTOM_CMAGIC',['../memory_8h.html#a14630b7ef3ab5e3a0938200b08178de4',1,'memory.h']]],
   ['cmagic_5fmemory_5falloc_5fpacket_5fstd',['CMAGIC_MEMORY_ALLOC_PACKET_STD',['../memory_8h.html#a65b6e69a55a497faf1a7908c9b01997a',1,'memory.h']]],
   ['cmagic_5fmemory_5falloc_5fpacket_5ft',['cmagic_memory_alloc_packet_t',['../structcmagic__memory__alloc__packet__t.html',1,'']]],

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['set',['set',['../classcmagic_1_1set.html',1,'cmagic']]]
+  ['map',['map',['../classcmagic_1_1map.html',1,'cmagic']]]
 ];
