@@ -6,6 +6,7 @@ on:
       - master
 
 jobs:
+
   build:
     name: Build and test
 
@@ -14,23 +15,49 @@ jobs:
         build-type: [Debug, Release]
         os: [ubuntu-latest, windows-latest]
 
-    runs-on: ${{matrix.os}}
+    runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout the repository
+      uses: actions/checkout@v2
       with:
         submodules: recursive
 
-    - name: Create Build Environment
-      run: cmake -E make_directory ${{github.workspace}}/build
-
     - name: Configure CMake
-      run: cmake -S "${{github.workspace}}" -B "${{github.workspace}}/build" -DCMAKE_BUILD_TYPE=${{matrix.build-type}}
+      run: cmake -S "${{ github.workspace }}" -B "${{ github.workspace }}/build" \
+        -D CMAKE_BUILD_TYPE=${{ matrix.build-type }}
 
     - name: Build
-      working-directory: ${{github.workspace}}/build
-      run: cmake --build . --config ${{matrix.build-type}} --parallel
+      working-directory: ${{ github.workspace }}/build
+      run: cmake --build . --config ${{ matrix.build-type }} --parallel
 
     - name: Test
-      working-directory: ${{github.workspace}}/build
-      run: ctest -C ${{matrix.build-type}} --parallel --output-on-failure
+      working-directory: ${{ github.workspace }}/build
+      run: ctest -C ${{ matrix.build-type }} --parallel --output-on-failure
+
+  make-docs:
+    name: Generate Doxygen documentation
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install Doxygen
+      run: sudo apt install doxygen
+
+    - name: Configure CMake
+      run: cmake -S "${{ github.workspace }}" -B "${{ github.workspace }}/build"
+
+    - name: Create documentation
+      working-directory: ${{ github.workspace }}/build
+      run: cmake --build . --target doc
+
+    - name: Ensure index.html exists
+      uses: andstor/file-existence-action@v1
+      with:
+        files: "${{ github.workspace }}/build/doc/html/index.html"
+
+    - name: Push the documentation to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ${{ github.workspace }}/build/doc/html
