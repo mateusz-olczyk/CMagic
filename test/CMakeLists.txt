@@ -28,6 +28,7 @@ function(cmagic_add_test_case TEST_SOURCE_PATH)
 endfunction()
 
 cmagic_add_test_case(avl_tree.c)
+cmagic_add_test_case(map.c)
 cmagic_add_test_case(memory.c)
 cmagic_add_test_case(memory_cxx.cpp)
 cmagic_add_test_case(set.c)

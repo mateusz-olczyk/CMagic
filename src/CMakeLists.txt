@@ -3,6 +3,7 @@ include(utils)
 include(config)
 
 add_library(cmagic
+    map.c
     memory.c
     set.c
     utils.c
