@@ -44,16 +44,22 @@ public:
                                   *static_cast<mapped_type *>(internal_iterator->value));
         }
 
+        void update_adapter() {
+            if (internal_iterator) {
+                adapter = make_adapter();
+            }
+        }
+
         void increment() {
             assert(internal_iterator);
             internal_iterator = CMAGIC_MAP_ITERATOR_NEXT(internal_iterator);
-            adapter = make_adapter();
+            update_adapter();
         }
 
         void decrement() {
             assert(internal_iterator);
             internal_iterator = CMAGIC_MAP_ITERATOR_PREV(internal_iterator);
-            adapter = make_adapter();
+            update_adapter();
         }
 
     public:
@@ -62,9 +68,7 @@ public:
         bool operator!=(const iterator &other) const { return !(*this == other); }
 
         iterator(cmagic_map_iterator_t initializer) : internal_iterator(initializer) {
-            if (initializer) {
-                adapter = make_adapter();
-            }
+            update_adapter();
         }
 
         iterator &operator++() {
