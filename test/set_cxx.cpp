@@ -67,11 +67,13 @@ void test_Erase() {
         TEST_ASSERT_TRUE(result.second);
         TEST_ASSERT_FALSE(str_set.empty());
     }
-    
+
     TEST_ASSERT_EQUAL_size_t(numbers.size(), str_set.size());
+    TEST_ASSERT_FALSE(str_set.find(10) == str_set.end());
 
     str_set.erase(10);
     TEST_ASSERT_EQUAL_size_t(numbers.size() - 1, str_set.size());
+    TEST_ASSERT_TRUE(str_set.find(10) == str_set.end());
     {
         size_t iteration = 1;
         for (int number : str_set) {

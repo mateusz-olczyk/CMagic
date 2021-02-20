@@ -199,6 +199,10 @@ public:
         return size() == 0;
     }
 
+    iterator find(const value_type &key) const {
+        return CMAGIC_SET_FIND(set_handle, &key);
+    }
+
     ~set() {
         if (*this) {
             clear();

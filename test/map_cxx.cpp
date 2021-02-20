@@ -52,9 +52,11 @@ void test_Erase() {
     auto c_result = str_int_map.insert(val_type("Claudia", 300));
     auto d_result = str_int_map.insert(val_type("David", 400));
     TEST_ASSERT_EQUAL_size_t(4, str_int_map.size());
+    TEST_ASSERT_FALSE(str_int_map.find("Claudia") == str_int_map.end());
 
     str_int_map.erase("Claudia");
     TEST_ASSERT_EQUAL_size_t(3, str_int_map.size());
+    TEST_ASSERT_TRUE(str_int_map.find("Claudia") == str_int_map.end());
 }
 
 } // namespace

@@ -24,7 +24,7 @@ class map {
 public:
     using key_type = Key;
     using mapped_type = Value;
-    using value_type = std::pair<const key_type, mapped_type>;
+    using value_type = std::pair<key_type, mapped_type>;
     using size_type = size_t;
 
     class iterator {
@@ -39,6 +39,7 @@ public:
         value_type adapter;
 
         constexpr value_type make_adapter() {
+            assert(internal_iterator);
             return std::make_pair(*static_cast<const key_type *>(internal_iterator->key),
                                   *static_cast<mapped_type *>(internal_iterator->value));
         }
@@ -60,8 +61,11 @@ public:
         const_reference operator*() const { return *this->operator->(); }
         bool operator!=(const iterator &other) const { return !(*this == other); }
 
-        iterator(cmagic_map_iterator_t initializer) : internal_iterator(initializer),
-                                                      adapter(make_adapter()) {}
+        iterator(cmagic_map_iterator_t initializer) : internal_iterator(initializer) {
+            if (initializer) {
+                adapter = make_adapter();
+            }
+        }
 
         iterator &operator++() {
             increment();
@@ -224,6 +228,10 @@ public:
 
     bool empty() const {
         return size() == 0;
+    }
+
+    iterator find(const key_type &key) const {
+        return CMAGIC_MAP_FIND(map_handle, &key);
     }
 
     ~map() {
