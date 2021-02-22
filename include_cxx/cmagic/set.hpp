@@ -17,11 +17,24 @@
 
 namespace cmagic {
 
+/**
+ * @brief   A container that stores unique elements following a specific order.
+ * @details Each value in the set is unique. The value of the elements in a set cannot be modified
+ *          once in the container but they can be inserted or removed from the container. Set is
+ *          implemented as an AVL tree.
+ */
 template<typename T>
 class set {
 
 public:
+    /**
+     * @brief   Type of set elements.
+     */
     using value_type = T;
+
+    /**
+     * @brief   Type used to measure element size.
+     */
     using size_type = size_t;
 
     class iterator {
@@ -108,9 +121,16 @@ private:
     }
 
 public:
-
+    /**
+     * @brief   Constructs an empty set with standard memory allocation.
+     * @return  a new empty set
+     */
     set() : set(&CMAGIC_MEMORY_ALLOC_PACKET_STD) {}
 
+    /**
+     * @brief   Constructs an empty set using custom @e CMagic memory allocation from @ref memory.h
+     * @return  a new empty set
+     */
     static set custom_allocation_set() {
         return set(&CMAGIC_MEMORY_ALLOC_PACKET_CUSTOM_CMAGIC);
     }
@@ -156,20 +176,49 @@ public:
                                       CMAGIC_SET_GET_ALLOC_PACKET(x.set_handle));
     }
 
+    /**
+     * @brief   Checks if the set is properly initialized
+     * @details Example usage:
+     *          @code
+     *          cmagic::set<int> set;
+     *          if (set) {
+     *              set.insert(123);
+     *          } else {
+     *              std::cerr << "Set allocation failed!\n";
+     *          }
+     *          @endcode
+     * @return  @c true if set is initialized, @c false if set allocation has failed and no
+     *          operation should be made on it
+     */
     operator bool() const {
         return static_cast<bool>(set_handle);
     }
 
+    /**
+     * @brief   Return iterator to beginning
+     * @details Returns an iterator pointing to the first element in the set. If the container is
+     *          empty, the returned iterator value shall not be dereferenced.
+     * @return  an iterator to the beginning of the container
+     */
     iterator begin() const {
         assert(set_handle);
         return CMAGIC_SET_FIRST(set_handle);
     }
 
+    /**
+     * @brief   Return iterator to end
+     * @details It does not point to any element, and thus shall not be dereferenced.
+     * @return  an iterator to the element past the end of the sequence
+     */
     iterator end() const {
         assert(set_handle);
         return nullptr;
     }
 
+    /**
+     * @brief   Removes all elements from the set (which are destroyed), leaving the container
+     *          with a size of 0.
+     */
     void clear() {
         assert(*this);
         for (const value_type &key : *this) {
@@ -178,30 +227,67 @@ public:
         CMAGIC_SET_CLEAR(set_handle);
     }
 
+    /**
+     * @brief   Inserts a new element to the set if it is not equivalent to any element already
+     *          contained in the set.
+     * @details Because elements in a set are unique, the insertion operation checks whether an
+     *          inserted element is equivalent to an element already in the container, and if so,
+     *          the element is not inserted, returning an iterator to this existing element.
+     * @param   val value to be copied (or moved) to the set
+     * @return  a pair, with its member @c pair::first set to an iterator pointing to either the
+     *          newly inserted element or to the equivalent element already in the set or @ref end
+     *          if allocation of the new element has failed. The @c pair::second element in the pair
+     *          is set to @c true if a new element was inserted or @c false if an equivalent element
+     *          already existed (or could not be inserted due to allocation failure).
+     */
     std::pair<iterator, bool> insert(const value_type &val) {
         return insert_template(val);
     }
 
+    /**
+     * @copydoc set::insert
+     */
     std::pair<iterator, bool> insert(value_type &&val) {
         return insert_template(std::move(val));
     }
 
-    void erase(const value_type &key) {
+    /**
+     * @brief   Removes a single element from the set
+     * @param   val value to be removed from the set. Function does nothing if the element doesn't
+     *          exist in the set.
+     */
+    void erase(const value_type &val) {
         assert(*this);
-        CMAGIC_SET_ERASE(set_handle, &key);
+        CMAGIC_SET_ERASE(set_handle, &val);
     }
 
+    /**
+     * @brief   Returns the number of elements in the set.
+     * @return  number of elements in the set
+     */
     size_type size() const {
         assert(*this);
         return CMAGIC_SET_SIZE(set_handle);
     }
 
+    /**
+     * @brief   Returns whether the set is empty (i.e. whether its size is 0).
+     * @details This function does not modify the container in any way. To clear the content of a
+     *          set, see @ref set::clear.
+     * @return  @c true if the container size is 0, @c false otherwise
+     */
     bool empty() const {
         return size() == 0;
     }
 
-    iterator find(const value_type &key) const {
-        return CMAGIC_SET_FIND(set_handle, &key);
+    /**
+     * @brief   Searches the container for an element equivalent to @p val and returns an iterator
+     *          to it if found, otherwise it returns @ref set::end.
+     * @param   val value to be searched for
+     * @return  an iterator to the element, if @p val is found, or @ref set::end otherwise
+     */
+    iterator find(const value_type &val) const {
+        return CMAGIC_SET_FIND(set_handle, &val);
     }
 
     ~set() {
