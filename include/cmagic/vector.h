@@ -92,6 +92,7 @@ cmagic_vector_get_alloc_packet(void **vector_ptr);
  * @brief   Allocates space for a new element and initializes it with data under @p new_element_ptr
  * @details The new element can be accessed by @ref CMAGIC_VECTOR_BACK
  * @param   cmagic_vector a vector allocated before with @ref CMAGIC_VECTOR_NEW
+ * @param   new_element_ptr pointer to a value to be copied into the new element
  * @return  @c true if allocation and initialization of the a new element was successful,
  *          @c false if there's not sufficient memory space and the vector was not modified
  */
