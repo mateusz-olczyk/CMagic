@@ -138,6 +138,80 @@ static int _get_balance(const tree_node_t *node) {
     return node ? _get_height(node->left_kid) - _get_height(node->right_kid) : 0;
 }
 
+static void _rebalance(tree_descriptor_t *tree, tree_node_t **node_ptr,
+                       const void *inserted_or_erased_key) {
+    assert(tree);
+    assert(node_ptr && *node_ptr);
+    assert(inserted_or_erased_key);
+
+    tree_node_t *node = *node_ptr;
+    node->subtree_height = 1 + CMAGIC_UTILS_MAX(_get_height(node->left_kid),
+                                                _get_height(node->right_kid));
+
+    // Handle balance violation cases, see https://en.wikipedia.org/wiki/AVL_tree#Rebalancing
+    int balance = _get_balance(node);
+
+    /* Left-Left case
+     *         z
+     *         / \
+     *        y   T4
+     *       / \
+     *      x   T3
+     *     / \
+     *   T1   T2
+     */
+    if (balance > 1 && tree->key_comparator(inserted_or_erased_key, node->left_kid->key) < 0) {
+        _rotate_right(node_ptr);
+        return;
+    }
+
+    /* Right-Right case
+     *     z
+     *    /  \
+     *   T1   y
+     *       /  \
+     *      T2   x
+     *          / \
+     *        T3  T4
+     */
+    if (balance < -1 && tree->key_comparator(inserted_or_erased_key, node->right_kid->key) > 0) {
+        _rotate_left(node_ptr);
+        return;
+    }
+
+    /* Left-Right case
+     *        z
+     *       / \
+     *      y   T4
+     *     / \
+     *   T1   x
+     *       / \
+     *     T2   T3
+     */
+    if (balance > 1 && tree->key_comparator(inserted_or_erased_key, node->left_kid->key) > 0) {
+        _rotate_left(&node->left_kid);
+        _rotate_right(node_ptr);
+        return;
+    }
+
+    /* Right-Left case
+     *      z
+     *     / \
+     *   T1   y
+     *       / \
+     *      x   T4
+     *     / \
+     *   T2   T3
+     */
+    if (balance < -1 && tree->key_comparator(inserted_or_erased_key, node->right_kid->key) < 0) {
+        _rotate_right(&node->right_kid);
+        _rotate_left(node_ptr);
+        return;
+    }
+
+    // Already balanced
+}
+
 static cmagic_avl_tree_insert_result_t _internal_insert(tree_descriptor_t *tree,
                                                         tree_node_t *node_parent,
                                                         tree_node_t **node_ptr,
@@ -171,71 +245,7 @@ static cmagic_avl_tree_insert_result_t _internal_insert(tree_descriptor_t *tree,
         return insert_result;
     }
 
-    node->subtree_height = 1 + CMAGIC_UTILS_MAX(_get_height(node->left_kid),
-                                                _get_height(node->right_kid));
-
-    // Handle balance violation cases, see https://en.wikipedia.org/wiki/AVL_tree#Rebalancing
-    int balance = _get_balance(node);
-
-    /* Left-Left case
-     *         z
-     *         / \
-     *        y   T4
-     *       / \
-     *      x   T3
-     *     / \
-     *   T1   T2
-     */
-    if (balance > 1 && tree->key_comparator(key, node->left_kid->key) < 0) {
-        _rotate_right(node_ptr);
-        return insert_result;
-    }
-
-    /* Right-Right case
-     *     z
-     *    /  \
-     *   T1   y
-     *       /  \
-     *      T2   x
-     *          / \
-     *        T3  T4
-     */
-    if (balance < -1 && tree->key_comparator(key, node->right_kid->key) > 0) {
-        _rotate_left(node_ptr);
-        return insert_result;
-    }
-
-    /* Left-Right case
-     *        z
-     *       / \
-     *      y   T4
-     *     / \
-     *   T1   x
-     *       / \
-     *     T2   T3
-     */
-    if (balance > 1 && tree->key_comparator(key, node->left_kid->key) > 0) {
-        _rotate_left(&node->left_kid);
-        _rotate_right(node_ptr);
-        return insert_result;
-    }
-
-    /* Right-Left case
-     *      z
-     *     / \
-     *   T1   y
-     *       / \
-     *      x   T4
-     *     / \
-     *   T2   T3
-     */
-    if (balance < -1 && tree->key_comparator(key, node->right_kid->key) < 0) {
-        _rotate_right(&node->right_kid);
-        _rotate_left(node_ptr);
-        return insert_result;
-    }
-
-    // Already balanced
+    _rebalance(tree, node_ptr, key);
     return insert_result;
 }
 
@@ -287,72 +297,7 @@ static void _internal_erase(tree_descriptor_t *tree, tree_node_t **node_ptr, con
     if (!node) {
         return;
     }
-
-    node->subtree_height = 1 + CMAGIC_UTILS_MAX(_get_height(node->left_kid),
-                                                _get_height(node->right_kid));
-
-    // Handle balance violation cases, see https://en.wikipedia.org/wiki/AVL_tree#Rebalancing
-    int balance = _get_balance(node);
-
-    /* Left-Left case
-     *         z
-     *         / \
-     *        y   T4
-     *       / \
-     *      x   T3
-     *     / \
-     *   T1   T2
-     */
-    if (balance > 1 && tree->key_comparator(key, node->left_kid->key) < 0) {
-        _rotate_right(node_ptr);
-        return;
-    }
-
-    /* Right-Right case
-     *     z
-     *    /  \
-     *   T1   y
-     *       /  \
-     *      T2   x
-     *          / \
-     *        T3  T4
-     */
-    if (balance < -1 && tree->key_comparator(key, node->right_kid->key) > 0) {
-        _rotate_left(node_ptr);
-        return;
-    }
-
-    /* Left-Right case
-     *        z
-     *       / \
-     *      y   T4
-     *     / \
-     *   T1   x
-     *       / \
-     *     T2   T3
-     */
-    if (balance > 1 && tree->key_comparator(key, node->left_kid->key) > 0) {
-        _rotate_left(&node->left_kid);
-        _rotate_right(node_ptr);
-        return;
-    }
-
-    /* Right-Left case
-     *      z
-     *     / \
-     *   T1   y
-     *       / \
-     *      x   T4
-     *     / \
-     *   T2   T3
-     */
-    if (balance < -1 && tree->key_comparator(key, node->right_kid->key) < 0) {
-        _rotate_right(&node->right_kid);
-        _rotate_left(node_ptr);
-        return;
-    }
-
-    // Already balanced
+    _rebalance(tree, node_ptr, key);
 }
 
 void
