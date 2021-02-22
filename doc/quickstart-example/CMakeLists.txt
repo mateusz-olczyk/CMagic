@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.16)
+project(cmagic_helloworld)
+add_subdirectory(cmagic)
+add_executable(hello_c hello.c)
+add_executable(hello_cpp hello.cpp)
+target_link_libraries(hello_c PRIVATE cmagic)
+target_link_libraries(hello_cpp PRIVATE cmagic)
