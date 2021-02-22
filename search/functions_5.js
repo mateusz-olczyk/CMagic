@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['size',['size',['../classcmagic_1_1vector.html#a71d99bd9137d0707aa9836142d55d9f0',1,'cmagic::vector']]]
+  ['map',['map',['../classcmagic_1_1map.html#a51c9593fb4ebc9a94de43fba00801b1f',1,'cmagic::map']]]
 ];

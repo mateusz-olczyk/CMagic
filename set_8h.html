@@ -65,7 +65,9 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#define-members">Macros</a> &#124;
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
 <div class="title">set.h File Reference</div>  </div>
 </div><!--header-->
@@ -86,12 +88,655 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcmagic__set__iterator__t.html">cmagic_set_iterator_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcmagic__set__insert__result__t.html">cmagic_set_insert_result_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set insertion result.  <a href="structcmagic__set__insert__result__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ac3673cc56bff50d041592096dba9d7ad"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="set_8h.html#ac3673cc56bff50d041592096dba9d7ad">CMAGIC_SET</a>(key_type)&#160;&#160;&#160;key_type*</td></tr>
+<tr class="memdesc:ac3673cc56bff50d041592096dba9d7ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenient alias for <code>type*</code>. Returned type of <a class="el" href="set_8h.html#afab8230a08e12c4283bc1c9913f02e50">CMAGIC_SET_NEW</a>.  <a href="#ac3673cc56bff50d041592096dba9d7ad">More...</a><br /></td></tr>
+<tr class="separator:ac3673cc56bff50d041592096dba9d7ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afab8230a08e12c4283bc1c9913f02e50"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="set_8h.html#afab8230a08e12c4283bc1c9913f02e50">CMAGIC_SET_NEW</a>(key_type,  key_comparator,  alloc_packet)&#160;&#160;&#160;((<a class="el" href="set_8h.html#ac3673cc56bff50d041592096dba9d7ad">CMAGIC_SET</a>(key_type))cmagic_set_new(sizeof(key_type), (key_comparator), (alloc_packet)))</td></tr>
+<tr class="memdesc:afab8230a08e12c4283bc1c9913f02e50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates and returns an address of a newly created empty set.  <a href="#afab8230a08e12c4283bc1c9913f02e50">More...</a><br /></td></tr>
+<tr class="separator:afab8230a08e12c4283bc1c9913f02e50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c82a7e83ed14d18422dc3b45efcd83c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="set_8h.html#a0c82a7e83ed14d18422dc3b45efcd83c">CMAGIC_SET_FREE</a>(cmagic_set)&#160;&#160;&#160;cmagic_set_free((void*)(cmagic_set))</td></tr>
+<tr class="memdesc:a0c82a7e83ed14d18422dc3b45efcd83c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees the resources allocated by the set before.  <a href="#a0c82a7e83ed14d18422dc3b45efcd83c">More...</a><br /></td></tr>
+<tr class="separator:a0c82a7e83ed14d18422dc3b45efcd83c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83b758e393eab0677d09d964e2177400"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="set_8h.html#a83b758e393eab0677d09d964e2177400">CMAGIC_SET_ALLOCATE</a>(cmagic_set,  key)</td></tr>
+<tr class="memdesc:a83b758e393eab0677d09d964e2177400"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates space for a new element but does not initialize it.  <a href="#a83b758e393eab0677d09d964e2177400">More...</a><br /></td></tr>
+<tr class="separator:a83b758e393eab0677d09d964e2177400"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfc2d022ffc24e8ae906e10532abebc7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="set_8h.html#acfc2d022ffc24e8ae906e10532abebc7">CMAGIC_SET_INSERT</a>(cmagic_set,  key)</td></tr>
+<tr class="memdesc:acfc2d022ffc24e8ae906e10532abebc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates space for a new element and initializes it with data under <code>key</code>.  <a href="#acfc2d022ffc24e8ae906e10532abebc7">More...</a><br /></td></tr>
+<tr class="separator:acfc2d022ffc24e8ae906e10532abebc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb3e8ca9e2c11982e14fe7a8f30a9d6f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="set_8h.html#aeb3e8ca9e2c11982e14fe7a8f30a9d6f">CMAGIC_SET_ERASE_EXT</a>(cmagic_set,  key,  destructor)</td></tr>
+<tr class="memdesc:aeb3e8ca9e2c11982e14fe7a8f30a9d6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extended version of <a class="el" href="set_8h.html#a561df661b159698c56bc08e70df73e97">CMAGIC_SET_ERASE</a>.  <a href="#aeb3e8ca9e2c11982e14fe7a8f30a9d6f">More...</a><br /></td></tr>
+<tr class="separator:aeb3e8ca9e2c11982e14fe7a8f30a9d6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a561df661b159698c56bc08e70df73e97"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="set_8h.html#a561df661b159698c56bc08e70df73e97">CMAGIC_SET_ERASE</a>(cmagic_set,  key)&#160;&#160;&#160;<a class="el" href="set_8h.html#aeb3e8ca9e2c11982e14fe7a8f30a9d6f">CMAGIC_SET_ERASE_EXT</a>(cmagic_set, key, NULL)</td></tr>
+<tr class="memdesc:a561df661b159698c56bc08e70df73e97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a single element from the set.  <a href="#a561df661b159698c56bc08e70df73e97">More...</a><br /></td></tr>
+<tr class="separator:a561df661b159698c56bc08e70df73e97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3990ae4437a4840058f7926780215322"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="set_8h.html#a3990ae4437a4840058f7926780215322">CMAGIC_SET_CLEAR</a>(cmagic_set)&#160;&#160;&#160;cmagic_set_clear((void*)(cmagic_set))</td></tr>
+<tr class="memdesc:a3990ae4437a4840058f7926780215322"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all elements from the set.  <a href="#a3990ae4437a4840058f7926780215322">More...</a><br /></td></tr>
+<tr class="separator:a3990ae4437a4840058f7926780215322"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b20152b0fa00c213a8a42857bfcb513"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="set_8h.html#a7b20152b0fa00c213a8a42857bfcb513">CMAGIC_SET_SIZE</a>(cmagic_set)&#160;&#160;&#160;cmagic_set_size((void*)(cmagic_set))</td></tr>
+<tr class="memdesc:a7b20152b0fa00c213a8a42857bfcb513"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of elements in the set.  <a href="#a7b20152b0fa00c213a8a42857bfcb513">More...</a><br /></td></tr>
+<tr class="separator:a7b20152b0fa00c213a8a42857bfcb513"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5c01a5d5964a44239a2adc5bc30ad98"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="set_8h.html#ad5c01a5d5964a44239a2adc5bc30ad98">CMAGIC_SET_FIRST</a>(cmagic_set)&#160;&#160;&#160;cmagic_set_first((void*)(cmagic_set))</td></tr>
+<tr class="memdesc:ad5c01a5d5964a44239a2adc5bc30ad98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return iterator to the first element in set.  <a href="#ad5c01a5d5964a44239a2adc5bc30ad98">More...</a><br /></td></tr>
+<tr class="separator:ad5c01a5d5964a44239a2adc5bc30ad98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42d4efbb857ed87137e75cdda6db82ef"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="set_8h.html#a42d4efbb857ed87137e75cdda6db82ef">CMAGIC_SET_LAST</a>(cmagic_set)&#160;&#160;&#160;cmagic_set_last((void*)(cmagic_set))</td></tr>
+<tr class="memdesc:a42d4efbb857ed87137e75cdda6db82ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return iterator to the last element in set.  <a href="#a42d4efbb857ed87137e75cdda6db82ef">More...</a><br /></td></tr>
+<tr class="separator:a42d4efbb857ed87137e75cdda6db82ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2afd3bb9d8a91fbe81f9eda3f54357d9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="set_8h.html#a2afd3bb9d8a91fbe81f9eda3f54357d9">CMAGIC_SET_ITERATOR_NEXT</a>(iterator)&#160;&#160;&#160;cmagic_set_iterator_next(iterator)</td></tr>
+<tr class="memdesc:a2afd3bb9d8a91fbe81f9eda3f54357d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns iterator to the next element in container.  <a href="#a2afd3bb9d8a91fbe81f9eda3f54357d9">More...</a><br /></td></tr>
+<tr class="separator:a2afd3bb9d8a91fbe81f9eda3f54357d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c6fef5f2ff662b2c990dc2eae23fc93"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="set_8h.html#a5c6fef5f2ff662b2c990dc2eae23fc93">CMAGIC_SET_ITERATOR_PREV</a>(iterator)&#160;&#160;&#160;cmagic_set_iterator_prev(iterator)</td></tr>
+<tr class="memdesc:a5c6fef5f2ff662b2c990dc2eae23fc93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns iterator to the previous element in container.  <a href="#a5c6fef5f2ff662b2c990dc2eae23fc93">More...</a><br /></td></tr>
+<tr class="separator:a5c6fef5f2ff662b2c990dc2eae23fc93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c40290d558e8e860e17bcb929a7e91f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="set_8h.html#a9c40290d558e8e860e17bcb929a7e91f">CMAGIC_SET_FIND</a>(cmagic_set,  key)</td></tr>
+<tr class="memdesc:a9c40290d558e8e860e17bcb929a7e91f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches the container for an element equivalent to <code>key</code> and returns an iterator to it if found, otherwise it returns <code>NULL</code>.  <a href="#a9c40290d558e8e860e17bcb929a7e91f">More...</a><br /></td></tr>
+<tr class="separator:a9c40290d558e8e860e17bcb929a7e91f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27e59e685490ac8757225bf34081c6e1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="set_8h.html#a27e59e685490ac8757225bf34081c6e1">CMAGIC_SET_GET_KEY</a>(key_type,  iterator)&#160;&#160;&#160;(assert(iterator), assert((iterator)-&gt;key), *((const key_type*)(iterator)-&gt;key))</td></tr>
+<tr class="memdesc:a27e59e685490ac8757225bf34081c6e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper macro for retrieving the key value from the iterator.  <a href="#a27e59e685490ac8757225bf34081c6e1">More...</a><br /></td></tr>
+<tr class="separator:a27e59e685490ac8757225bf34081c6e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e5ff5d79c0fa81fc4bc04a5727ecd34"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="set_8h.html#a5e5ff5d79c0fa81fc4bc04a5727ecd34">CMAGIC_SET_GET_ALLOC_PACKET</a>(cmagic_set)&#160;&#160;&#160;cmagic_set_get_alloc_packet((void*)(cmagic_set))</td></tr>
+<tr class="memdesc:a5e5ff5d79c0fa81fc4bc04a5727ecd34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves <a class="el" href="structcmagic__memory__alloc__packet__t.html">cmagic_memory_alloc_packet_t</a> associated with the set.  <a href="#a5e5ff5d79c0fa81fc4bc04a5727ecd34">More...</a><br /></td></tr>
+<tr class="separator:a5e5ff5d79c0fa81fc4bc04a5727ecd34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a0cfccc6d1d6b80d8f4a64ecaea80ad3d"><td class="memItemLeft" align="right" valign="top">typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="set_8h.html#a0cfccc6d1d6b80d8f4a64ecaea80ad3d">cmagic_set_key_comparator_t</a>) (const void *key1, const void *key2)</td></tr>
+<tr class="memdesc:a0cfccc6d1d6b80d8f4a64ecaea80ad3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to a function that compares two elements.  <a href="#a0cfccc6d1d6b80d8f4a64ecaea80ad3d">More...</a><br /></td></tr>
+<tr class="separator:a0cfccc6d1d6b80d8f4a64ecaea80ad3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18c454eac8cbb0220dfbcc02f881597f"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="set_8h.html#a18c454eac8cbb0220dfbcc02f881597f">cmagic_set_erase_destructor_t</a>) (void *key)</td></tr>
+<tr class="memdesc:a18c454eac8cbb0220dfbcc02f881597f"><td class="mdescLeft">&#160;</td><td class="mdescRight">User defined additional tasks to be executed right before key deletion.  <a href="#a18c454eac8cbb0220dfbcc02f881597f">More...</a><br /></td></tr>
+<tr class="separator:a18c454eac8cbb0220dfbcc02f881597f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Implementation of a <b>set</b> container. </p>
 <p>Please <b>use provided macros</b> instead of raw functions to gain additional type checks. </p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="ac3673cc56bff50d041592096dba9d7ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3673cc56bff50d041592096dba9d7ad">&#9670;&nbsp;</a></span>CMAGIC_SET</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CMAGIC_SET</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">key_type</td><td>)</td>
+          <td>&#160;&#160;&#160;key_type*</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convenient alias for <code>type*</code>. Returned type of <a class="el" href="set_8h.html#afab8230a08e12c4283bc1c9913f02e50">CMAGIC_SET_NEW</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>type of set elements </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a83b758e393eab0677d09d964e2177400"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83b758e393eab0677d09d964e2177400">&#9670;&nbsp;</a></span>CMAGIC_SET_ALLOCATE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CMAGIC_SET_ALLOCATE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">cmagic_set, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">key&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">(<a class="code" href="utils_8h.html#a86672027d244cc8753e35649097d33da">CMAGIC_UTILS_ASSERT_SAME_TYPE</a>(*(cmagic_set), *(key)), \</div><div class="line">    cmagic_set_allocate((<span class="keywordtype">void</span>*)(cmagic_set), (key)))</div><div class="ttc" id="utils_8h_html_a86672027d244cc8753e35649097d33da"><div class="ttname"><a href="utils_8h.html#a86672027d244cc8753e35649097d33da">CMAGIC_UTILS_ASSERT_SAME_TYPE</a></div><div class="ttdeci">#define CMAGIC_UTILS_ASSERT_SAME_TYPE(expr1, expr2)</div><div class="ttdoc">Checks if two L-value expressions have the same type. </div><div class="ttdef"><b>Definition:</b> utils.h:33</div></div>
+</div><!-- fragment -->
+<p>Allocates space for a new element but does not initialize it. </p>
+<p>New element is allocated only if it doesn't already exist in the set. </p><dl class="section warning"><dt>Warning</dt><dd>The new element must be initialized right after calling this function. Especially it must be ready then to call <a class="el" href="set_8h.html#a0cfccc6d1d6b80d8f4a64ecaea80ad3d">cmagic_set_key_comparator_t</a> on it and return the same value as for <code>key</code>. Otherwise the set will be in an undefined state. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cmagic_set</td><td>a set allocated before with <a class="el" href="set_8h.html#afab8230a08e12c4283bc1c9913f02e50">CMAGIC_SET_NEW</a> </td></tr>
+    <tr><td class="paramname">key</td><td>pointer to the key value, needed to place a new element in the right place in the internal binary tree </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structcmagic__set__insert__result__t.html">cmagic_set_insert_result_t</a> pointing to the new or already existing element </dd></dl>
+
+</div>
+</div>
+<a id="a3990ae4437a4840058f7926780215322"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3990ae4437a4840058f7926780215322">&#9670;&nbsp;</a></span>CMAGIC_SET_CLEAR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CMAGIC_SET_CLEAR</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">cmagic_set</td><td>)</td>
+          <td>&#160;&#160;&#160;cmagic_set_clear((void*)(cmagic_set))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Removes all elements from the set. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cmagic_set</td><td>a set allocated before with <a class="el" href="set_8h.html#afab8230a08e12c4283bc1c9913f02e50">CMAGIC_SET_NEW</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a561df661b159698c56bc08e70df73e97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a561df661b159698c56bc08e70df73e97">&#9670;&nbsp;</a></span>CMAGIC_SET_ERASE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CMAGIC_SET_ERASE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">cmagic_set, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">key&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="set_8h.html#aeb3e8ca9e2c11982e14fe7a8f30a9d6f">CMAGIC_SET_ERASE_EXT</a>(cmagic_set, key, NULL)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Removes a single element from the set. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cmagic_set</td><td>a set allocated before with <a class="el" href="set_8h.html#afab8230a08e12c4283bc1c9913f02e50">CMAGIC_SET_NEW</a> </td></tr>
+    <tr><td class="paramname">key</td><td>pointer to a value to be removed from the set. This function compares by a value, the <code>key</code> doesn't have to be an address of the original key. Does nothing if the element doesn't exist in the set. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aeb3e8ca9e2c11982e14fe7a8f30a9d6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb3e8ca9e2c11982e14fe7a8f30a9d6f">&#9670;&nbsp;</a></span>CMAGIC_SET_ERASE_EXT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CMAGIC_SET_ERASE_EXT</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">cmagic_set, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">key, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">destructor&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">(<a class="code" href="utils_8h.html#a86672027d244cc8753e35649097d33da">CMAGIC_UTILS_ASSERT_SAME_TYPE</a>(*(cmagic_set), *(key)), \</div><div class="line">    cmagic_set_erase((<span class="keywordtype">void</span>*)(cmagic_set), (key), (destructor)))</div><div class="ttc" id="utils_8h_html_a86672027d244cc8753e35649097d33da"><div class="ttname"><a href="utils_8h.html#a86672027d244cc8753e35649097d33da">CMAGIC_UTILS_ASSERT_SAME_TYPE</a></div><div class="ttdeci">#define CMAGIC_UTILS_ASSERT_SAME_TYPE(expr1, expr2)</div><div class="ttdoc">Checks if two L-value expressions have the same type. </div><div class="ttdef"><b>Definition:</b> utils.h:33</div></div>
+</div><!-- fragment -->
+<p>Extended version of <a class="el" href="set_8h.html#a561df661b159698c56bc08e70df73e97">CMAGIC_SET_ERASE</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cmagic_set</td><td>a set allocated before with <a class="el" href="set_8h.html#afab8230a08e12c4283bc1c9913f02e50">CMAGIC_SET_NEW</a> </td></tr>
+    <tr><td class="paramname">key</td><td>pointer to a value to be removed from the set. This function compares by a value, the <code>key</code> doesn't have to be an address of the original key. Does nothing if the element doesn't exist in the set. </td></tr>
+    <tr><td class="paramname">destructor</td><td>function of type <a class="el" href="set_8h.html#a18c454eac8cbb0220dfbcc02f881597f">cmagic_set_erase_destructor_t</a> to be called on the <code>key</code> right before deleting it </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9c40290d558e8e860e17bcb929a7e91f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c40290d558e8e860e17bcb929a7e91f">&#9670;&nbsp;</a></span>CMAGIC_SET_FIND</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CMAGIC_SET_FIND</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">cmagic_set, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">key&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">(<a class="code" href="utils_8h.html#a86672027d244cc8753e35649097d33da">CMAGIC_UTILS_ASSERT_SAME_TYPE</a>(*(cmagic_set), *(key)), \</div><div class="line">    cmagic_set_find((<span class="keywordtype">void</span>*)(cmagic_set), (key)))</div><div class="ttc" id="utils_8h_html_a86672027d244cc8753e35649097d33da"><div class="ttname"><a href="utils_8h.html#a86672027d244cc8753e35649097d33da">CMAGIC_UTILS_ASSERT_SAME_TYPE</a></div><div class="ttdeci">#define CMAGIC_UTILS_ASSERT_SAME_TYPE(expr1, expr2)</div><div class="ttdoc">Checks if two L-value expressions have the same type. </div><div class="ttdef"><b>Definition:</b> utils.h:33</div></div>
+</div><!-- fragment -->
+<p>Searches the container for an element equivalent to <code>key</code> and returns an iterator to it if found, otherwise it returns <code>NULL</code>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>pointer to a value to be searched for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>an iterator to the element, if <code>key</code> is found, or <code>NULL</code> otherwise </dd></dl>
+
+</div>
+</div>
+<a id="ad5c01a5d5964a44239a2adc5bc30ad98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5c01a5d5964a44239a2adc5bc30ad98">&#9670;&nbsp;</a></span>CMAGIC_SET_FIRST</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CMAGIC_SET_FIRST</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">cmagic_set</td><td>)</td>
+          <td>&#160;&#160;&#160;cmagic_set_first((void*)(cmagic_set))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return iterator to the first element in set. </p>
+<p>Returns an iterator pointing to the first element in the set according to the order defined by <a class="el" href="set_8h.html#a0cfccc6d1d6b80d8f4a64ecaea80ad3d">cmagic_set_key_comparator_t</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cmagic_set</td><td>a set allocated before with <a class="el" href="set_8h.html#afab8230a08e12c4283bc1c9913f02e50">CMAGIC_SET_NEW</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>an iterator to the first element or <code>NULL</code> if the set is empty </dd></dl>
+
+</div>
+</div>
+<a id="a0c82a7e83ed14d18422dc3b45efcd83c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c82a7e83ed14d18422dc3b45efcd83c">&#9670;&nbsp;</a></span>CMAGIC_SET_FREE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CMAGIC_SET_FREE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">cmagic_set</td><td>)</td>
+          <td>&#160;&#160;&#160;cmagic_set_free((void*)(cmagic_set))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Frees the resources allocated by the set before. </p>
+<p>Must not use <code>cmagic_set</code> after free. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cmagic_set</td><td>a set allocated before with <a class="el" href="set_8h.html#afab8230a08e12c4283bc1c9913f02e50">CMAGIC_SET_NEW</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5e5ff5d79c0fa81fc4bc04a5727ecd34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e5ff5d79c0fa81fc4bc04a5727ecd34">&#9670;&nbsp;</a></span>CMAGIC_SET_GET_ALLOC_PACKET</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CMAGIC_SET_GET_ALLOC_PACKET</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">cmagic_set</td><td>)</td>
+          <td>&#160;&#160;&#160;cmagic_set_get_alloc_packet((void*)(cmagic_set))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieves <a class="el" href="structcmagic__memory__alloc__packet__t.html">cmagic_memory_alloc_packet_t</a> associated with the set. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cmagic_set</td><td>a set allocated before with <a class="el" href="set_8h.html#afab8230a08e12c4283bc1c9913f02e50">CMAGIC_SET_NEW</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structcmagic__memory__alloc__packet__t.html">cmagic_memory_alloc_packet_t</a> associated with the set </dd></dl>
+
+</div>
+</div>
+<a id="a27e59e685490ac8757225bf34081c6e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27e59e685490ac8757225bf34081c6e1">&#9670;&nbsp;</a></span>CMAGIC_SET_GET_KEY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CMAGIC_SET_GET_KEY</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">key_type, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">iterator&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;(assert(iterator), assert((iterator)-&gt;key), *((const key_type*)(iterator)-&gt;key))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Helper macro for retrieving the key value from the iterator. </p>
+<dl class="section warning"><dt>Warning</dt><dd><code>iterator</code> must not be <code>NULL</code> </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key_type</td><td>type of set elements to which the iterator points to </td></tr>
+    <tr><td class="paramname">iterator</td><td><a class="el" href="structcmagic__set__iterator__t.html">cmagic_set_iterator_t</a> object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value of the key </dd></dl>
+
+</div>
+</div>
+<a id="acfc2d022ffc24e8ae906e10532abebc7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfc2d022ffc24e8ae906e10532abebc7">&#9670;&nbsp;</a></span>CMAGIC_SET_INSERT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CMAGIC_SET_INSERT</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">cmagic_set, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">key&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">(<a class="code" href="utils_8h.html#a86672027d244cc8753e35649097d33da">CMAGIC_UTILS_ASSERT_SAME_TYPE</a>(*(cmagic_set), *(key)), \</div><div class="line">    cmagic_set_insert((<span class="keywordtype">void</span>*)(cmagic_set), (key)))</div><div class="ttc" id="utils_8h_html_a86672027d244cc8753e35649097d33da"><div class="ttname"><a href="utils_8h.html#a86672027d244cc8753e35649097d33da">CMAGIC_UTILS_ASSERT_SAME_TYPE</a></div><div class="ttdeci">#define CMAGIC_UTILS_ASSERT_SAME_TYPE(expr1, expr2)</div><div class="ttdoc">Checks if two L-value expressions have the same type. </div><div class="ttdef"><b>Definition:</b> utils.h:33</div></div>
+</div><!-- fragment -->
+<p>Allocates space for a new element and initializes it with data under <code>key</code>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cmagic_set</td><td>a set allocated before with <a class="el" href="set_8h.html#afab8230a08e12c4283bc1c9913f02e50">CMAGIC_SET_NEW</a> </td></tr>
+    <tr><td class="paramname">key</td><td>pointer to the key value </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structcmagic__set__insert__result__t.html">cmagic_set_insert_result_t</a> pointing to the new or already existing element </dd></dl>
+
+</div>
+</div>
+<a id="a2afd3bb9d8a91fbe81f9eda3f54357d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2afd3bb9d8a91fbe81f9eda3f54357d9">&#9670;&nbsp;</a></span>CMAGIC_SET_ITERATOR_NEXT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CMAGIC_SET_ITERATOR_NEXT</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">iterator</td><td>)</td>
+          <td>&#160;&#160;&#160;cmagic_set_iterator_next(iterator)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns iterator to the next element in container. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">iterator</td><td><a class="el" href="structcmagic__set__iterator__t.html">cmagic_set_iterator_t</a> object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>iterator to the next element or <code>NULL</code> if <code>iterator</code> was the last element in container </dd></dl>
+
+</div>
+</div>
+<a id="a5c6fef5f2ff662b2c990dc2eae23fc93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c6fef5f2ff662b2c990dc2eae23fc93">&#9670;&nbsp;</a></span>CMAGIC_SET_ITERATOR_PREV</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CMAGIC_SET_ITERATOR_PREV</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">iterator</td><td>)</td>
+          <td>&#160;&#160;&#160;cmagic_set_iterator_prev(iterator)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns iterator to the previous element in container. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">iterator</td><td><a class="el" href="structcmagic__set__iterator__t.html">cmagic_set_iterator_t</a> object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>iterator to the previous element or <code>NULL</code> if <code>iterator</code> was the first element in container </dd></dl>
+
+</div>
+</div>
+<a id="a42d4efbb857ed87137e75cdda6db82ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42d4efbb857ed87137e75cdda6db82ef">&#9670;&nbsp;</a></span>CMAGIC_SET_LAST</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CMAGIC_SET_LAST</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">cmagic_set</td><td>)</td>
+          <td>&#160;&#160;&#160;cmagic_set_last((void*)(cmagic_set))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return iterator to the last element in set. </p>
+<p>Returns an iterator pointing to the last element in the set according to the order defined by <a class="el" href="set_8h.html#a0cfccc6d1d6b80d8f4a64ecaea80ad3d">cmagic_set_key_comparator_t</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cmagic_set</td><td>a set allocated before with <a class="el" href="set_8h.html#afab8230a08e12c4283bc1c9913f02e50">CMAGIC_SET_NEW</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>an iterator to the last element or <code>NULL</code> if the set is empty </dd></dl>
+
+</div>
+</div>
+<a id="afab8230a08e12c4283bc1c9913f02e50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afab8230a08e12c4283bc1c9913f02e50">&#9670;&nbsp;</a></span>CMAGIC_SET_NEW</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CMAGIC_SET_NEW</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">key_type, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">key_comparator, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">alloc_packet&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;((<a class="el" href="set_8h.html#ac3673cc56bff50d041592096dba9d7ad">CMAGIC_SET</a>(key_type))cmagic_set_new(sizeof(key_type), (key_comparator), (alloc_packet)))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Allocates and returns an address of a newly created empty set. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key_type</td><td>type of set elements </td></tr>
+    <tr><td class="paramname">key_comparator</td><td>function of type <a class="el" href="set_8h.html#a0cfccc6d1d6b80d8f4a64ecaea80ad3d">cmagic_set_key_comparator_t</a> determining the order of the elements </td></tr>
+    <tr><td class="paramname">alloc_packet</td><td><a class="el" href="structcmagic__memory__alloc__packet__t.html">cmagic_memory_alloc_packet_t</a> suite of dynamic memory managing functions </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a new empty set </dd></dl>
+
+</div>
+</div>
+<a id="a7b20152b0fa00c213a8a42857bfcb513"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b20152b0fa00c213a8a42857bfcb513">&#9670;&nbsp;</a></span>CMAGIC_SET_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CMAGIC_SET_SIZE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">cmagic_set</td><td>)</td>
+          <td>&#160;&#160;&#160;cmagic_set_size((void*)(cmagic_set))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the number of elements in the set. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cmagic_set</td><td>a set allocated before with <a class="el" href="set_8h.html#afab8230a08e12c4283bc1c9913f02e50">CMAGIC_SET_NEW</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>number of elements in the set </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="a18c454eac8cbb0220dfbcc02f881597f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18c454eac8cbb0220dfbcc02f881597f">&#9670;&nbsp;</a></span>cmagic_set_erase_destructor_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* cmagic_set_erase_destructor_t) (void *key)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>User defined additional tasks to be executed right before key deletion. </p>
+<dl class="section warning"><dt>Warning</dt><dd>Do not call <code>free</code> function on the <code>key</code>. It's called later internally by set implementation </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>pointer to key to be deleted </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0cfccc6d1d6b80d8f4a64ecaea80ad3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cfccc6d1d6b80d8f4a64ecaea80ad3d">&#9670;&nbsp;</a></span>cmagic_set_key_comparator_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef int(* cmagic_set_key_comparator_t) (const void *key1, const void *key2)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pointer to a function that compares two elements. </p>
+<p>This function is called by the set implementation to compare two elements, which is necessary to properly construct and move inside its internal binary tree. Both arguments must be manually casted to a type corresponding to the type of the set. This function defines the order of the elements. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key1</td><td>pointer to the first key value </td></tr>
+    <tr><td class="paramname">key2</td><td>pointer to the second first key value </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><table class="doxtable">
+<tr>
+<th align="center">value </th><th>meaning  </th></tr>
+<tr>
+<td align="center">&lt;0 </td><td>The element pointed to by <code>key1</code> goes before the element pointed to by <code>key2</code> </td></tr>
+<tr>
+<td align="center">0 </td><td>The element pointed to by <code>key1</code> is equivalent to the element pointed to <code>key2</code> </td></tr>
+<tr>
+<td align="center">&gt;0 </td><td>The element pointed to by <code>key1</code> goes after the element pointed to by <code>key2</code> </td></tr>
+</table>
+</dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['begin',['begin',['../classcmagic_1_1vector.html#a1157e468dcf5b92724fa899d16eccb11',1,'cmagic::vector::begin()'],['../classcmagic_1_1vector.html#ab933e1ae2e4f94a78a922a231dce847c',1,'cmagic::vector::begin() const']]]
+  ['already_5fexists',['already_exists',['../structcmagic__set__insert__result__t.html#a9daa946bbf6a9cb99760982531e655a7',1,'cmagic_set_insert_result_t']]]
 ];

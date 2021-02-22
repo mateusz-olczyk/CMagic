@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['pop_5fback',['pop_back',['../classcmagic_1_1vector.html#a5e523ad629dd2de698667732106ea589',1,'cmagic::vector']]],
-  ['push_5fback',['push_back',['../classcmagic_1_1vector.html#a804d1b71946a26ac4a3e7ddfeea7c61b',1,'cmagic::vector::push_back(const value_type &amp;val)'],['../classcmagic_1_1vector.html#a5bfdaa05f17003c92c4a6109cffc073e',1,'cmagic::vector::push_back(value_type &amp;&amp;val)']]]
+  ['insert',['insert',['../classcmagic_1_1map.html#a280cf307a7a0d544c43d51266149471c',1,'cmagic::map::insert(const value_type &amp;val)'],['../classcmagic_1_1map.html#a5888c803cb89f718cdbe2a137c719c1e',1,'cmagic::map::insert(value_type &amp;&amp;val)'],['../classcmagic_1_1set.html#acd23012eec50be196cd9318937d14134',1,'cmagic::set::insert(const value_type &amp;val)'],['../classcmagic_1_1set.html#acc04b6bfeb3845905593d243d71163c7',1,'cmagic::set::insert(value_type &amp;&amp;val)']]]
 ];

@@ -66,17 +66,507 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classcmagic_1_1set-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">cmagic::set&lt; T &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>A container that stores unique elements following a specific order.  
+ <a href="classcmagic_1_1set.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="set_8hpp_source.html">set.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcmagic_1_1set_1_1iterator.html">iterator</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a80697fbd0d84df0b4d30522925952b7e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcmagic_1_1set.html#a80697fbd0d84df0b4d30522925952b7e">value_type</a> = T</td></tr>
+<tr class="memdesc:a80697fbd0d84df0b4d30522925952b7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of set elements.  <a href="#a80697fbd0d84df0b4d30522925952b7e">More...</a><br /></td></tr>
+<tr class="separator:a80697fbd0d84df0b4d30522925952b7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e9c7d1568276bffddae458209333762"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcmagic_1_1set.html#a1e9c7d1568276bffddae458209333762">size_type</a> = size_t</td></tr>
+<tr class="memdesc:a1e9c7d1568276bffddae458209333762"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type used to measure element size.  <a href="#a1e9c7d1568276bffddae458209333762">More...</a><br /></td></tr>
+<tr class="separator:a1e9c7d1568276bffddae458209333762"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:af29a2994f350b19957073da44a19d220"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcmagic_1_1set.html#af29a2994f350b19957073da44a19d220">set</a> ()</td></tr>
+<tr class="memdesc:af29a2994f350b19957073da44a19d220"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an empty set with standard memory allocation.  <a href="#af29a2994f350b19957073da44a19d220">More...</a><br /></td></tr>
+<tr class="separator:af29a2994f350b19957073da44a19d220"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24c159c33cfc1563bd1e137092cc47d3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcmagic_1_1set.html#a24c159c33cfc1563bd1e137092cc47d3">operator bool</a> () const</td></tr>
+<tr class="memdesc:a24c159c33cfc1563bd1e137092cc47d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the set is properly initialized.  <a href="#a24c159c33cfc1563bd1e137092cc47d3">More...</a><br /></td></tr>
+<tr class="separator:a24c159c33cfc1563bd1e137092cc47d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad76b29cae58934af55e2f8a0e8d02dc5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcmagic_1_1set_1_1iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcmagic_1_1set.html#ad76b29cae58934af55e2f8a0e8d02dc5">begin</a> () const</td></tr>
+<tr class="memdesc:ad76b29cae58934af55e2f8a0e8d02dc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return iterator to beginning.  <a href="#ad76b29cae58934af55e2f8a0e8d02dc5">More...</a><br /></td></tr>
+<tr class="separator:ad76b29cae58934af55e2f8a0e8d02dc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f69f3668c5d9e353ae2aabf55163d2c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcmagic_1_1set_1_1iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcmagic_1_1set.html#a4f69f3668c5d9e353ae2aabf55163d2c">end</a> () const</td></tr>
+<tr class="memdesc:a4f69f3668c5d9e353ae2aabf55163d2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return iterator to end.  <a href="#a4f69f3668c5d9e353ae2aabf55163d2c">More...</a><br /></td></tr>
+<tr class="separator:a4f69f3668c5d9e353ae2aabf55163d2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5f22e35a561337aac611e585e137e65"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcmagic_1_1set.html#ac5f22e35a561337aac611e585e137e65">clear</a> ()</td></tr>
+<tr class="memdesc:ac5f22e35a561337aac611e585e137e65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all elements from the set, leaving the container with a size of 0.  <a href="#ac5f22e35a561337aac611e585e137e65">More...</a><br /></td></tr>
+<tr class="separator:ac5f22e35a561337aac611e585e137e65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd23012eec50be196cd9318937d14134"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="classcmagic_1_1set_1_1iterator.html">iterator</a>, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcmagic_1_1set.html#acd23012eec50be196cd9318937d14134">insert</a> (const <a class="el" href="classcmagic_1_1set.html#a80697fbd0d84df0b4d30522925952b7e">value_type</a> &amp;val)</td></tr>
+<tr class="memdesc:acd23012eec50be196cd9318937d14134"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a new element to the set if it is not equivalent to any element already contained in the set.  <a href="#acd23012eec50be196cd9318937d14134">More...</a><br /></td></tr>
+<tr class="separator:acd23012eec50be196cd9318937d14134"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc04b6bfeb3845905593d243d71163c7"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="classcmagic_1_1set_1_1iterator.html">iterator</a>, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcmagic_1_1set.html#acc04b6bfeb3845905593d243d71163c7">insert</a> (<a class="el" href="classcmagic_1_1set.html#a80697fbd0d84df0b4d30522925952b7e">value_type</a> &amp;&amp;val)</td></tr>
+<tr class="memdesc:acc04b6bfeb3845905593d243d71163c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a new element to the set if it is not equivalent to any element already contained in the set.  <a href="#acc04b6bfeb3845905593d243d71163c7">More...</a><br /></td></tr>
+<tr class="separator:acc04b6bfeb3845905593d243d71163c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a767636a3f260f46aef35cfbf46fb6449"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcmagic_1_1set.html#a767636a3f260f46aef35cfbf46fb6449">erase</a> (const <a class="el" href="classcmagic_1_1set.html#a80697fbd0d84df0b4d30522925952b7e">value_type</a> &amp;val)</td></tr>
+<tr class="memdesc:a767636a3f260f46aef35cfbf46fb6449"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a single element from the set.  <a href="#a767636a3f260f46aef35cfbf46fb6449">More...</a><br /></td></tr>
+<tr class="separator:a767636a3f260f46aef35cfbf46fb6449"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6c4eded67dfb5db378366b3d6e59fd8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcmagic_1_1set.html#a1e9c7d1568276bffddae458209333762">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcmagic_1_1set.html#ab6c4eded67dfb5db378366b3d6e59fd8">size</a> () const</td></tr>
+<tr class="memdesc:ab6c4eded67dfb5db378366b3d6e59fd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of elements in the set.  <a href="#ab6c4eded67dfb5db378366b3d6e59fd8">More...</a><br /></td></tr>
+<tr class="separator:ab6c4eded67dfb5db378366b3d6e59fd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaff3db26f811479a2091ef6acff6d27f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcmagic_1_1set.html#aaff3db26f811479a2091ef6acff6d27f">empty</a> () const</td></tr>
+<tr class="memdesc:aaff3db26f811479a2091ef6acff6d27f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether the set is empty (i.e. whether its size is 0).  <a href="#aaff3db26f811479a2091ef6acff6d27f">More...</a><br /></td></tr>
+<tr class="separator:aaff3db26f811479a2091ef6acff6d27f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83994ad0cf98ad07557ba41ba4b42a46"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcmagic_1_1set_1_1iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcmagic_1_1set.html#a83994ad0cf98ad07557ba41ba4b42a46">find</a> (const <a class="el" href="classcmagic_1_1set.html#a80697fbd0d84df0b4d30522925952b7e">value_type</a> &amp;val) const</td></tr>
+<tr class="memdesc:a83994ad0cf98ad07557ba41ba4b42a46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches the container for an element equivalent to <code>val</code> and returns an iterator to it if found, otherwise it returns <a class="el" href="classcmagic_1_1set.html#a4f69f3668c5d9e353ae2aabf55163d2c">set::end</a>.  <a href="#a83994ad0cf98ad07557ba41ba4b42a46">More...</a><br /></td></tr>
+<tr class="separator:a83994ad0cf98ad07557ba41ba4b42a46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a9375b33affbd4bca80717167ad68c5d7"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classcmagic_1_1set.html">set</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcmagic_1_1set.html#a9375b33affbd4bca80717167ad68c5d7">custom_allocation_set</a> ()</td></tr>
+<tr class="memdesc:a9375b33affbd4bca80717167ad68c5d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an empty set using custom <em>CMagic</em> memory allocation from <a class="el" href="memory_8h.html">memory.h</a>.  <a href="#a9375b33affbd4bca80717167ad68c5d7">More...</a><br /></td></tr>
+<tr class="separator:a9375b33affbd4bca80717167ad68c5d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+class cmagic::set&lt; T &gt;</h3>
+
+<p>A container that stores unique elements following a specific order. </p>
+<p>Each value in the set is unique. The value of the elements in a set cannot be modified once in the container but they can be inserted or removed from the container. Set is implemented as an AVL tree. </p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a1e9c7d1568276bffddae458209333762"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e9c7d1568276bffddae458209333762">&#9670;&nbsp;</a></span>size_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classcmagic_1_1set.html">cmagic::set</a>&lt; T &gt;::<a class="el" href="classcmagic_1_1set.html#a1e9c7d1568276bffddae458209333762">size_type</a> =  size_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Type used to measure element size. </p>
+
+</div>
+</div>
+<a id="a80697fbd0d84df0b4d30522925952b7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80697fbd0d84df0b4d30522925952b7e">&#9670;&nbsp;</a></span>value_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classcmagic_1_1set.html">cmagic::set</a>&lt; T &gt;::<a class="el" href="classcmagic_1_1set.html#a80697fbd0d84df0b4d30522925952b7e">value_type</a> =  T</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Type of set elements. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="af29a2994f350b19957073da44a19d220"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af29a2994f350b19957073da44a19d220">&#9670;&nbsp;</a></span>set()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcmagic_1_1set.html">cmagic::set</a>&lt; T &gt;::<a class="el" href="classcmagic_1_1set.html">set</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructs an empty set with standard memory allocation. </p>
+<dl class="section return"><dt>Returns</dt><dd>a new empty set </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad76b29cae58934af55e2f8a0e8d02dc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad76b29cae58934af55e2f8a0e8d02dc5">&#9670;&nbsp;</a></span>begin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcmagic_1_1set_1_1iterator.html">iterator</a> <a class="el" href="classcmagic_1_1set.html">cmagic::set</a>&lt; T &gt;::begin </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Return iterator to beginning. </p>
+<p>Returns an iterator pointing to the first element in the set. If the container is empty, the returned iterator value shall not be dereferenced. </p><dl class="section return"><dt>Returns</dt><dd>an iterator to the beginning of the container </dd></dl>
+
+</div>
+</div>
+<a id="ac5f22e35a561337aac611e585e137e65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5f22e35a561337aac611e585e137e65">&#9670;&nbsp;</a></span>clear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classcmagic_1_1set.html">cmagic::set</a>&lt; T &gt;::clear </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Removes all elements from the set, leaving the container with a size of 0. </p>
+
+</div>
+</div>
+<a id="a9375b33affbd4bca80717167ad68c5d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9375b33affbd4bca80717167ad68c5d7">&#9670;&nbsp;</a></span>custom_allocation_set()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classcmagic_1_1set.html">set</a> <a class="el" href="classcmagic_1_1set.html">cmagic::set</a>&lt; T &gt;::custom_allocation_set </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructs an empty set using custom <em>CMagic</em> memory allocation from <a class="el" href="memory_8h.html">memory.h</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>a new empty set </dd></dl>
+
+</div>
+</div>
+<a id="aaff3db26f811479a2091ef6acff6d27f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaff3db26f811479a2091ef6acff6d27f">&#9670;&nbsp;</a></span>empty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classcmagic_1_1set.html">cmagic::set</a>&lt; T &gt;::empty </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether the set is empty (i.e. whether its size is 0). </p>
+<p>This function does not modify the container in any way. To clear the content of a set, see <a class="el" href="classcmagic_1_1set.html#ac5f22e35a561337aac611e585e137e65">set::clear</a>. </p><dl class="section return"><dt>Returns</dt><dd><code>true</code> if the container size is 0, <code>false</code> otherwise </dd></dl>
+
+</div>
+</div>
+<a id="a4f69f3668c5d9e353ae2aabf55163d2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f69f3668c5d9e353ae2aabf55163d2c">&#9670;&nbsp;</a></span>end()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcmagic_1_1set_1_1iterator.html">iterator</a> <a class="el" href="classcmagic_1_1set.html">cmagic::set</a>&lt; T &gt;::end </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Return iterator to end. </p>
+<p>It does not point to any element, and thus shall not be dereferenced. </p><dl class="section return"><dt>Returns</dt><dd>an iterator to the element past the end of the sequence </dd></dl>
+
+</div>
+</div>
+<a id="a767636a3f260f46aef35cfbf46fb6449"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a767636a3f260f46aef35cfbf46fb6449">&#9670;&nbsp;</a></span>erase()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classcmagic_1_1set.html">cmagic::set</a>&lt; T &gt;::erase </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcmagic_1_1set.html#a80697fbd0d84df0b4d30522925952b7e">value_type</a> &amp;&#160;</td>
+          <td class="paramname"><em>val</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Removes a single element from the set. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">val</td><td>value to be removed from the set. Function does nothing if the element doesn't exist in the set. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a83994ad0cf98ad07557ba41ba4b42a46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83994ad0cf98ad07557ba41ba4b42a46">&#9670;&nbsp;</a></span>find()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcmagic_1_1set_1_1iterator.html">iterator</a> <a class="el" href="classcmagic_1_1set.html">cmagic::set</a>&lt; T &gt;::find </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcmagic_1_1set.html#a80697fbd0d84df0b4d30522925952b7e">value_type</a> &amp;&#160;</td>
+          <td class="paramname"><em>val</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Searches the container for an element equivalent to <code>val</code> and returns an iterator to it if found, otherwise it returns <a class="el" href="classcmagic_1_1set.html#a4f69f3668c5d9e353ae2aabf55163d2c">set::end</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">val</td><td>value to be searched for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>an iterator to the element, if <code>val</code> is found, or <a class="el" href="classcmagic_1_1set.html#a4f69f3668c5d9e353ae2aabf55163d2c">set::end</a> otherwise </dd></dl>
+
+</div>
+</div>
+<a id="acd23012eec50be196cd9318937d14134"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd23012eec50be196cd9318937d14134">&#9670;&nbsp;</a></span>insert() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::pair&lt;<a class="el" href="classcmagic_1_1set_1_1iterator.html">iterator</a>, bool&gt; <a class="el" href="classcmagic_1_1set.html">cmagic::set</a>&lt; T &gt;::insert </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcmagic_1_1set.html#a80697fbd0d84df0b4d30522925952b7e">value_type</a> &amp;&#160;</td>
+          <td class="paramname"><em>val</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Inserts a new element to the set if it is not equivalent to any element already contained in the set. </p>
+<p>Because elements in a set are unique, the insertion operation checks whether an inserted element is equivalent to an element already in the container, and if so, the element is not inserted, returning an iterator to this existing element. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">val</td><td>value to be copied (or moved) to the set </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a pair, with its member <code>pair::first</code> set to an iterator pointing to either the newly inserted element or to the equivalent element already in the set or <a class="el" href="classcmagic_1_1set.html#a4f69f3668c5d9e353ae2aabf55163d2c">end</a> if allocation of the new element has failed. The <code>pair::second</code> element in the pair is set to <code>true</code> if a new element was inserted or <code>false</code> if an equivalent element already existed (or could not be inserted due to allocation failure). </dd></dl>
+
+</div>
+</div>
+<a id="acc04b6bfeb3845905593d243d71163c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc04b6bfeb3845905593d243d71163c7">&#9670;&nbsp;</a></span>insert() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::pair&lt;<a class="el" href="classcmagic_1_1set_1_1iterator.html">iterator</a>, bool&gt; <a class="el" href="classcmagic_1_1set.html">cmagic::set</a>&lt; T &gt;::insert </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classcmagic_1_1set.html#a80697fbd0d84df0b4d30522925952b7e">value_type</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>val</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Inserts a new element to the set if it is not equivalent to any element already contained in the set. </p>
+<p>Because elements in a set are unique, the insertion operation checks whether an inserted element is equivalent to an element already in the container, and if so, the element is not inserted, returning an iterator to this existing element. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">val</td><td>value to be copied (or moved) to the set </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a pair, with its member <code>pair::first</code> set to an iterator pointing to either the newly inserted element or to the equivalent element already in the set or <a class="el" href="classcmagic_1_1set.html#a4f69f3668c5d9e353ae2aabf55163d2c">end</a> if allocation of the new element has failed. The <code>pair::second</code> element in the pair is set to <code>true</code> if a new element was inserted or <code>false</code> if an equivalent element already existed (or could not be inserted due to allocation failure). </dd></dl>
+
+</div>
+</div>
+<a id="a24c159c33cfc1563bd1e137092cc47d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24c159c33cfc1563bd1e137092cc47d3">&#9670;&nbsp;</a></span>operator bool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcmagic_1_1set.html">cmagic::set</a>&lt; T &gt;::operator bool </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks if the set is properly initialized. </p>
+<p>Example usage: </p><div class="fragment"><div class="line"><a class="code" href="classcmagic_1_1set.html">cmagic::set&lt;int&gt;</a> <span class="keyword">set</span>;</div><div class="line"><span class="keywordflow">if</span> (<span class="keyword">set</span>) {</div><div class="line">    <span class="keyword">set</span>.<a class="code" href="classcmagic_1_1set.html#acd23012eec50be196cd9318937d14134">insert</a>(123);</div><div class="line">} <span class="keywordflow">else</span> {</div><div class="line">    std::cerr &lt;&lt; <span class="stringliteral">&quot;Set allocation failed!\n&quot;</span>;</div><div class="line">}</div></div><!-- fragment --> <dl class="section return"><dt>Returns</dt><dd><code>true</code> if set is initialized, <code>false</code> if set allocation has failed and no operation should be made on it </dd></dl>
+
+</div>
+</div>
+<a id="ab6c4eded67dfb5db378366b3d6e59fd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6c4eded67dfb5db378366b3d6e59fd8">&#9670;&nbsp;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcmagic_1_1set.html#a1e9c7d1568276bffddae458209333762">size_type</a> <a class="el" href="classcmagic_1_1set.html">cmagic::set</a>&lt; T &gt;::size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the number of elements in the set. </p>
+<dl class="section return"><dt>Returns</dt><dd>number of elements in the set </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>cmagic/<a class="el" href="set_8hpp_source.html">set.hpp</a></li>
 </ul>

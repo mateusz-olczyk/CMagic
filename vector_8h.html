@@ -186,7 +186,7 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(assert(<a class="code" href="vector_8h.html#a40b92f4c4d0c948cf2007c5d6adbf7bc">CMAGIC_VECTOR_SIZE</a>(cmagic_vector) &gt; 0), \</div><div class="line">    CMAGIC_VECTOR_DATA(cmagic_vector) + <a class="code" href="vector_8h.html#a40b92f4c4d0c948cf2007c5d6adbf7bc">CMAGIC_VECTOR_SIZE</a>(cmagic_vector) - 1)</div><div class="ttc" id="vector_8h_html_a40b92f4c4d0c948cf2007c5d6adbf7bc"><div class="ttname"><a href="vector_8h.html#a40b92f4c4d0c948cf2007c5d6adbf7bc">CMAGIC_VECTOR_SIZE</a></div><div class="ttdeci">#define CMAGIC_VECTOR_SIZE(cmagic_vector)</div><div class="ttdoc">Deallocates the last element in the vector. </div><div class="ttdef"><b>Definition:</b> vector.h:114</div></div>
+<b>Value:</b><div class="fragment"><div class="line">(assert(<a class="code" href="vector_8h.html#a40b92f4c4d0c948cf2007c5d6adbf7bc">CMAGIC_VECTOR_SIZE</a>(cmagic_vector) &gt; 0), \</div><div class="line">    CMAGIC_VECTOR_DATA(cmagic_vector) + <a class="code" href="vector_8h.html#a40b92f4c4d0c948cf2007c5d6adbf7bc">CMAGIC_VECTOR_SIZE</a>(cmagic_vector) - 1)</div><div class="ttc" id="vector_8h_html_a40b92f4c4d0c948cf2007c5d6adbf7bc"><div class="ttname"><a href="vector_8h.html#a40b92f4c4d0c948cf2007c5d6adbf7bc">CMAGIC_VECTOR_SIZE</a></div><div class="ttdeci">#define CMAGIC_VECTOR_SIZE(cmagic_vector)</div><div class="ttdoc">Deallocates the last element in the vector. </div><div class="ttdef"><b>Definition:</b> vector.h:115</div></div>
 </div><!-- fragment -->
 <p>Gets an address of the last element in the vector. </p>
 <dl class="section warning"><dt>Warning</dt><dd>Do not use this without ensuring the vector is not empty. </dd></dl>
@@ -376,6 +376,7 @@ Macros</h2></td></tr>
 <p>The new element can be accessed by <a class="el" href="vector_8h.html#a02fcef2c1d20e12e0adcbed19b3bdf0a">CMAGIC_VECTOR_BACK</a> </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">cmagic_vector</td><td>a vector allocated before with <a class="el" href="vector_8h.html#a35d67b2afd396968991ece36b03a7576">CMAGIC_VECTOR_NEW</a> </td></tr>
+    <tr><td class="paramname">new_element_ptr</td><td>pointer to a value to be copied into the new element </td></tr>
   </table>
   </dd>
 </dl>

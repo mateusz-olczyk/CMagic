@@ -66,6 +66,9 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classcmagic_1_1map-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">cmagic::map&lt; Key, Value &gt; Class Template Reference</div>  </div>
@@ -76,7 +79,525 @@ $(function() {
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcmagic_1_1map_1_1iterator.html">iterator</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:afade53eafb74ae9d29452f9b4079b4d1"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcmagic_1_1map.html#afade53eafb74ae9d29452f9b4079b4d1">key_type</a> = Key</td></tr>
+<tr class="memdesc:afade53eafb74ae9d29452f9b4079b4d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of map keys.  <a href="#afade53eafb74ae9d29452f9b4079b4d1">More...</a><br /></td></tr>
+<tr class="separator:afade53eafb74ae9d29452f9b4079b4d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a468fa929d97dc3b4d05d08d69c92ab74"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcmagic_1_1map.html#a468fa929d97dc3b4d05d08d69c92ab74">mapped_type</a> = Value</td></tr>
+<tr class="memdesc:a468fa929d97dc3b4d05d08d69c92ab74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of map values.  <a href="#a468fa929d97dc3b4d05d08d69c92ab74">More...</a><br /></td></tr>
+<tr class="separator:a468fa929d97dc3b4d05d08d69c92ab74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf5d0674772d82cbba787cbc6af656a7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcmagic_1_1map.html#acf5d0674772d82cbba787cbc6af656a7">value_type</a> = std::pair&lt; <a class="el" href="classcmagic_1_1map.html#afade53eafb74ae9d29452f9b4079b4d1">key_type</a>, <a class="el" href="classcmagic_1_1map.html#a468fa929d97dc3b4d05d08d69c92ab74">mapped_type</a> &gt;</td></tr>
+<tr class="memdesc:acf5d0674772d82cbba787cbc6af656a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of map elements.  <a href="#acf5d0674772d82cbba787cbc6af656a7">More...</a><br /></td></tr>
+<tr class="separator:acf5d0674772d82cbba787cbc6af656a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a974ee2a38e584b71bbe9d288242884ec"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcmagic_1_1map.html#a974ee2a38e584b71bbe9d288242884ec">size_type</a> = size_t</td></tr>
+<tr class="memdesc:a974ee2a38e584b71bbe9d288242884ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type used to measure element size.  <a href="#a974ee2a38e584b71bbe9d288242884ec">More...</a><br /></td></tr>
+<tr class="separator:a974ee2a38e584b71bbe9d288242884ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a51c9593fb4ebc9a94de43fba00801b1f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcmagic_1_1map.html#a51c9593fb4ebc9a94de43fba00801b1f">map</a> ()</td></tr>
+<tr class="memdesc:a51c9593fb4ebc9a94de43fba00801b1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an empty map with standard memory allocation.  <a href="#a51c9593fb4ebc9a94de43fba00801b1f">More...</a><br /></td></tr>
+<tr class="separator:a51c9593fb4ebc9a94de43fba00801b1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a239ba60e4ae93ab5e7fbc9e6095e9ace"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcmagic_1_1map.html#a239ba60e4ae93ab5e7fbc9e6095e9ace">operator bool</a> () const</td></tr>
+<tr class="memdesc:a239ba60e4ae93ab5e7fbc9e6095e9ace"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the map is properly initialized.  <a href="#a239ba60e4ae93ab5e7fbc9e6095e9ace">More...</a><br /></td></tr>
+<tr class="separator:a239ba60e4ae93ab5e7fbc9e6095e9ace"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf89aef253193e4402d634b1ce0ad140"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcmagic_1_1map_1_1iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcmagic_1_1map.html#acf89aef253193e4402d634b1ce0ad140">begin</a> () const</td></tr>
+<tr class="memdesc:acf89aef253193e4402d634b1ce0ad140"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return iterator to beginning.  <a href="#acf89aef253193e4402d634b1ce0ad140">More...</a><br /></td></tr>
+<tr class="separator:acf89aef253193e4402d634b1ce0ad140"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46d2178eae682c4a9894bc0b0a2b41da"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcmagic_1_1map_1_1iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcmagic_1_1map.html#a46d2178eae682c4a9894bc0b0a2b41da">end</a> () const</td></tr>
+<tr class="memdesc:a46d2178eae682c4a9894bc0b0a2b41da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return iterator to end.  <a href="#a46d2178eae682c4a9894bc0b0a2b41da">More...</a><br /></td></tr>
+<tr class="separator:a46d2178eae682c4a9894bc0b0a2b41da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91c1086141fae1839f3a3a59d8cef8b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcmagic_1_1map.html#a91c1086141fae1839f3a3a59d8cef8b6">clear</a> ()</td></tr>
+<tr class="memdesc:a91c1086141fae1839f3a3a59d8cef8b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all elements from the map, leaving the container with a size of 0.  <a href="#a91c1086141fae1839f3a3a59d8cef8b6">More...</a><br /></td></tr>
+<tr class="separator:a91c1086141fae1839f3a3a59d8cef8b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a280cf307a7a0d544c43d51266149471c"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="classcmagic_1_1map_1_1iterator.html">iterator</a>, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcmagic_1_1map.html#a280cf307a7a0d544c43d51266149471c">insert</a> (const <a class="el" href="classcmagic_1_1map.html#acf5d0674772d82cbba787cbc6af656a7">value_type</a> &amp;val)</td></tr>
+<tr class="memdesc:a280cf307a7a0d544c43d51266149471c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a new element to the map if its key is not equivalent to any element already contained in the map.  <a href="#a280cf307a7a0d544c43d51266149471c">More...</a><br /></td></tr>
+<tr class="separator:a280cf307a7a0d544c43d51266149471c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5888c803cb89f718cdbe2a137c719c1e"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="classcmagic_1_1map_1_1iterator.html">iterator</a>, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcmagic_1_1map.html#a5888c803cb89f718cdbe2a137c719c1e">insert</a> (<a class="el" href="classcmagic_1_1map.html#acf5d0674772d82cbba787cbc6af656a7">value_type</a> &amp;&amp;val)</td></tr>
+<tr class="memdesc:a5888c803cb89f718cdbe2a137c719c1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a new element to the map if its key is not equivalent to any element already contained in the map.  <a href="#a5888c803cb89f718cdbe2a137c719c1e">More...</a><br /></td></tr>
+<tr class="separator:a5888c803cb89f718cdbe2a137c719c1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29d69975825e41529bb60536cf33b5bb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcmagic_1_1map.html#a29d69975825e41529bb60536cf33b5bb">erase</a> (const <a class="el" href="classcmagic_1_1map.html#afade53eafb74ae9d29452f9b4079b4d1">key_type</a> &amp;key)</td></tr>
+<tr class="memdesc:a29d69975825e41529bb60536cf33b5bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a single element from the map.  <a href="#a29d69975825e41529bb60536cf33b5bb">More...</a><br /></td></tr>
+<tr class="separator:a29d69975825e41529bb60536cf33b5bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae605cb885e2a7fb92e83a84f05d54d4c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcmagic_1_1map.html#a974ee2a38e584b71bbe9d288242884ec">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcmagic_1_1map.html#ae605cb885e2a7fb92e83a84f05d54d4c">size</a> () const</td></tr>
+<tr class="memdesc:ae605cb885e2a7fb92e83a84f05d54d4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of elements in the map.  <a href="#ae605cb885e2a7fb92e83a84f05d54d4c">More...</a><br /></td></tr>
+<tr class="separator:ae605cb885e2a7fb92e83a84f05d54d4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4588f9220d56a1e233461f1ad534904"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcmagic_1_1map.html#aa4588f9220d56a1e233461f1ad534904">empty</a> () const</td></tr>
+<tr class="memdesc:aa4588f9220d56a1e233461f1ad534904"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether the map is empty (i.e. whether its size is 0).  <a href="#aa4588f9220d56a1e233461f1ad534904">More...</a><br /></td></tr>
+<tr class="separator:aa4588f9220d56a1e233461f1ad534904"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c20ed9ee357cd631d8d99378916dc2c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcmagic_1_1map_1_1iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcmagic_1_1map.html#a8c20ed9ee357cd631d8d99378916dc2c">find</a> (const <a class="el" href="classcmagic_1_1map.html#afade53eafb74ae9d29452f9b4079b4d1">key_type</a> &amp;key) const</td></tr>
+<tr class="memdesc:a8c20ed9ee357cd631d8d99378916dc2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches the container for an element with a key equivalent to <code>key</code> and returns an iterator to it if found, otherwise it returns <a class="el" href="classcmagic_1_1map.html#a46d2178eae682c4a9894bc0b0a2b41da">map::end</a>.  <a href="#a8c20ed9ee357cd631d8d99378916dc2c">More...</a><br /></td></tr>
+<tr class="separator:a8c20ed9ee357cd631d8d99378916dc2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a959fea95977b4cfaf6ed7f61c21f6f4a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classcmagic_1_1map.html">map</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcmagic_1_1map.html#a959fea95977b4cfaf6ed7f61c21f6f4a">custom_allocation_map</a> ()</td></tr>
+<tr class="memdesc:a959fea95977b4cfaf6ed7f61c21f6f4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an empty map using custom <em>CMagic</em> memory allocation from <a class="el" href="memory_8h.html">memory.h</a>.  <a href="#a959fea95977b4cfaf6ed7f61c21f6f4a">More...</a><br /></td></tr>
+<tr class="separator:a959fea95977b4cfaf6ed7f61c21f6f4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="afade53eafb74ae9d29452f9b4079b4d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afade53eafb74ae9d29452f9b4079b4d1">&#9670;&nbsp;</a></span>key_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Key , typename Value &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classcmagic_1_1map.html">cmagic::map</a>&lt; Key, Value &gt;::<a class="el" href="classcmagic_1_1map.html#afade53eafb74ae9d29452f9b4079b4d1">key_type</a> =  Key</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Type of map keys. </p>
+
+</div>
+</div>
+<a id="a468fa929d97dc3b4d05d08d69c92ab74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a468fa929d97dc3b4d05d08d69c92ab74">&#9670;&nbsp;</a></span>mapped_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Key , typename Value &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classcmagic_1_1map.html">cmagic::map</a>&lt; Key, Value &gt;::<a class="el" href="classcmagic_1_1map.html#a468fa929d97dc3b4d05d08d69c92ab74">mapped_type</a> =  Value</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Type of map values. </p>
+
+</div>
+</div>
+<a id="a974ee2a38e584b71bbe9d288242884ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a974ee2a38e584b71bbe9d288242884ec">&#9670;&nbsp;</a></span>size_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Key , typename Value &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classcmagic_1_1map.html">cmagic::map</a>&lt; Key, Value &gt;::<a class="el" href="classcmagic_1_1map.html#a974ee2a38e584b71bbe9d288242884ec">size_type</a> =  size_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Type used to measure element size. </p>
+
+</div>
+</div>
+<a id="acf5d0674772d82cbba787cbc6af656a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf5d0674772d82cbba787cbc6af656a7">&#9670;&nbsp;</a></span>value_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Key , typename Value &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classcmagic_1_1map.html">cmagic::map</a>&lt; Key, Value &gt;::<a class="el" href="classcmagic_1_1map.html#acf5d0674772d82cbba787cbc6af656a7">value_type</a> =  std::pair&lt;<a class="el" href="classcmagic_1_1map.html#afade53eafb74ae9d29452f9b4079b4d1">key_type</a>, <a class="el" href="classcmagic_1_1map.html#a468fa929d97dc3b4d05d08d69c92ab74">mapped_type</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Type of map elements. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a51c9593fb4ebc9a94de43fba00801b1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51c9593fb4ebc9a94de43fba00801b1f">&#9670;&nbsp;</a></span>map()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Key , typename Value &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcmagic_1_1map.html">cmagic::map</a>&lt; Key, Value &gt;::<a class="el" href="classcmagic_1_1map.html">map</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructs an empty map with standard memory allocation. </p>
+<dl class="section return"><dt>Returns</dt><dd>a new empty map </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="acf89aef253193e4402d634b1ce0ad140"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf89aef253193e4402d634b1ce0ad140">&#9670;&nbsp;</a></span>begin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Key , typename Value &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcmagic_1_1map_1_1iterator.html">iterator</a> <a class="el" href="classcmagic_1_1map.html">cmagic::map</a>&lt; Key, Value &gt;::begin </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Return iterator to beginning. </p>
+<p>Returns an iterator pointing to the first element in the map. If the container is empty, the returned iterator value shall not be dereferenced. </p><dl class="section return"><dt>Returns</dt><dd>an iterator to the beginning of the container </dd></dl>
+
+</div>
+</div>
+<a id="a91c1086141fae1839f3a3a59d8cef8b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91c1086141fae1839f3a3a59d8cef8b6">&#9670;&nbsp;</a></span>clear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Key , typename Value &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classcmagic_1_1map.html">cmagic::map</a>&lt; Key, Value &gt;::clear </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Removes all elements from the map, leaving the container with a size of 0. </p>
+
+</div>
+</div>
+<a id="a959fea95977b4cfaf6ed7f61c21f6f4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a959fea95977b4cfaf6ed7f61c21f6f4a">&#9670;&nbsp;</a></span>custom_allocation_map()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Key , typename Value &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classcmagic_1_1map.html">map</a> <a class="el" href="classcmagic_1_1map.html">cmagic::map</a>&lt; Key, Value &gt;::custom_allocation_map </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructs an empty map using custom <em>CMagic</em> memory allocation from <a class="el" href="memory_8h.html">memory.h</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>a new empty map </dd></dl>
+
+</div>
+</div>
+<a id="aa4588f9220d56a1e233461f1ad534904"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4588f9220d56a1e233461f1ad534904">&#9670;&nbsp;</a></span>empty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Key , typename Value &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classcmagic_1_1map.html">cmagic::map</a>&lt; Key, Value &gt;::empty </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether the map is empty (i.e. whether its size is 0). </p>
+<p>This function does not modify the container in any way. To clear the content of a map, see <a class="el" href="classcmagic_1_1map.html#a91c1086141fae1839f3a3a59d8cef8b6">map::clear</a>. </p><dl class="section return"><dt>Returns</dt><dd><code>true</code> if the container size is 0, <code>false</code> otherwise </dd></dl>
+
+</div>
+</div>
+<a id="a46d2178eae682c4a9894bc0b0a2b41da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46d2178eae682c4a9894bc0b0a2b41da">&#9670;&nbsp;</a></span>end()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Key , typename Value &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcmagic_1_1map_1_1iterator.html">iterator</a> <a class="el" href="classcmagic_1_1map.html">cmagic::map</a>&lt; Key, Value &gt;::end </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Return iterator to end. </p>
+<p>It does not point to any element, and thus shall not be dereferenced. </p><dl class="section return"><dt>Returns</dt><dd>an iterator to the element past the end of the sequence </dd></dl>
+
+</div>
+</div>
+<a id="a29d69975825e41529bb60536cf33b5bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29d69975825e41529bb60536cf33b5bb">&#9670;&nbsp;</a></span>erase()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Key , typename Value &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classcmagic_1_1map.html">cmagic::map</a>&lt; Key, Value &gt;::erase </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcmagic_1_1map.html#afade53eafb74ae9d29452f9b4079b4d1">key_type</a> &amp;&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Removes a single element from the map. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>key of the value to be removed from the map. Function does nothing if the key doesn't exist in the map. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8c20ed9ee357cd631d8d99378916dc2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c20ed9ee357cd631d8d99378916dc2c">&#9670;&nbsp;</a></span>find()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Key , typename Value &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcmagic_1_1map_1_1iterator.html">iterator</a> <a class="el" href="classcmagic_1_1map.html">cmagic::map</a>&lt; Key, Value &gt;::find </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcmagic_1_1map.html#afade53eafb74ae9d29452f9b4079b4d1">key_type</a> &amp;&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Searches the container for an element with a key equivalent to <code>key</code> and returns an iterator to it if found, otherwise it returns <a class="el" href="classcmagic_1_1map.html#a46d2178eae682c4a9894bc0b0a2b41da">map::end</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>key to be searched for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>an iterator to the element, if <code>key</code> is found, or <a class="el" href="classcmagic_1_1map.html#a46d2178eae682c4a9894bc0b0a2b41da">map::end</a> otherwise </dd></dl>
+
+</div>
+</div>
+<a id="a280cf307a7a0d544c43d51266149471c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a280cf307a7a0d544c43d51266149471c">&#9670;&nbsp;</a></span>insert() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Key , typename Value &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::pair&lt;<a class="el" href="classcmagic_1_1map_1_1iterator.html">iterator</a>, bool&gt; <a class="el" href="classcmagic_1_1map.html">cmagic::map</a>&lt; Key, Value &gt;::insert </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcmagic_1_1map.html#acf5d0674772d82cbba787cbc6af656a7">value_type</a> &amp;&#160;</td>
+          <td class="paramname"><em>val</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Inserts a new element to the map if its key is not equivalent to any element already contained in the map. </p>
+<p>Because keys in a map are unique, the insertion operation checks whether an inserted element is equivalent to an element already in the container, and if so, the element is not inserted, returning an iterator to this existing element. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">val</td><td>value to be copied (or moved) to the map </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a pair, with its member <code>pair::first</code> map to an iterator pointing to either the newly inserted element or to the equivalent element already in the map or <a class="el" href="classcmagic_1_1map.html#a46d2178eae682c4a9894bc0b0a2b41da">end</a> if allocation of the new element has failed. The <code>pair::second</code> element in the pair is set to <code>true</code> if a new element was inserted or <code>false</code> if an equivalent element already existed (or could not be inserted due to allocation failure). </dd></dl>
+
+</div>
+</div>
+<a id="a5888c803cb89f718cdbe2a137c719c1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5888c803cb89f718cdbe2a137c719c1e">&#9670;&nbsp;</a></span>insert() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Key , typename Value &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::pair&lt;<a class="el" href="classcmagic_1_1map_1_1iterator.html">iterator</a>, bool&gt; <a class="el" href="classcmagic_1_1map.html">cmagic::map</a>&lt; Key, Value &gt;::insert </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classcmagic_1_1map.html#acf5d0674772d82cbba787cbc6af656a7">value_type</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>val</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Inserts a new element to the map if its key is not equivalent to any element already contained in the map. </p>
+<p>Because keys in a map are unique, the insertion operation checks whether an inserted element is equivalent to an element already in the container, and if so, the element is not inserted, returning an iterator to this existing element. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">val</td><td>value to be copied (or moved) to the map </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a pair, with its member <code>pair::first</code> map to an iterator pointing to either the newly inserted element or to the equivalent element already in the map or <a class="el" href="classcmagic_1_1map.html#a46d2178eae682c4a9894bc0b0a2b41da">end</a> if allocation of the new element has failed. The <code>pair::second</code> element in the pair is set to <code>true</code> if a new element was inserted or <code>false</code> if an equivalent element already existed (or could not be inserted due to allocation failure). </dd></dl>
+
+</div>
+</div>
+<a id="a239ba60e4ae93ab5e7fbc9e6095e9ace"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a239ba60e4ae93ab5e7fbc9e6095e9ace">&#9670;&nbsp;</a></span>operator bool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Key , typename Value &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcmagic_1_1map.html">cmagic::map</a>&lt; Key, Value &gt;::operator bool </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks if the map is properly initialized. </p>
+<p>Example usage: </p><div class="fragment"><div class="line"><a class="code" href="classcmagic_1_1map.html">cmagic::map&lt;std::string, int&gt;</a> <a class="code" href="classcmagic_1_1map.html#a51c9593fb4ebc9a94de43fba00801b1f">map</a>;</div><div class="line"><span class="keywordflow">if</span> (map) {</div><div class="line">    map.<a class="code" href="classcmagic_1_1map.html#a280cf307a7a0d544c43d51266149471c">insert</a>({ <span class="stringliteral">&quot;key&quot;</span>, 123 });</div><div class="line">} <span class="keywordflow">else</span> {</div><div class="line">    std::cerr &lt;&lt; <span class="stringliteral">&quot;Map allocation failed!\n&quot;</span>;</div><div class="line">}</div></div><!-- fragment --> <dl class="section return"><dt>Returns</dt><dd><code>true</code> if map is initialized, <code>false</code> if map allocation has failed and no operation should be made on it </dd></dl>
+
+</div>
+</div>
+<a id="ae605cb885e2a7fb92e83a84f05d54d4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae605cb885e2a7fb92e83a84f05d54d4c">&#9670;&nbsp;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Key, typename Value&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcmagic_1_1map.html#a974ee2a38e584b71bbe9d288242884ec">size_type</a> <a class="el" href="classcmagic_1_1map.html">cmagic::map</a>&lt; Key, Value &gt;::size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the number of elements in the map. </p>
+<dl class="section return"><dt>Returns</dt><dd>number of elements in the map </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>cmagic/<a class="el" href="map_8hpp_source.html">map.hpp</a></li>
 </ul>

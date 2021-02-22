@@ -65,7 +65,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
 <div class="title">map.h File Reference</div>  </div>
 </div><!--header-->
@@ -87,11 +88,79 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcmagic__map__insert__result__t.html">cmagic_map_insert_result_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ad3fdaaf0adb2c7f765f6bbe1dd4543ae"><td class="memItemLeft" align="right" valign="top">typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="map_8h.html#ad3fdaaf0adb2c7f765f6bbe1dd4543ae">cmagic_map_key_comparator_t</a>) (const void *key1, const void *key2)</td></tr>
+<tr class="memdesc:ad3fdaaf0adb2c7f765f6bbe1dd4543ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to a function that compares two keys.  <a href="#ad3fdaaf0adb2c7f765f6bbe1dd4543ae">More...</a><br /></td></tr>
+<tr class="separator:ad3fdaaf0adb2c7f765f6bbe1dd4543ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ef924d3b6806f338829534b1b3030c3"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="map_8h.html#a0ef924d3b6806f338829534b1b3030c3">cmagic_map_erase_destructor_t</a>) (void *key, void *value)</td></tr>
+<tr class="memdesc:a0ef924d3b6806f338829534b1b3030c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">User defined additional tasks to be executed right before map element deletion.  <a href="#a0ef924d3b6806f338829534b1b3030c3">More...</a><br /></td></tr>
+<tr class="separator:a0ef924d3b6806f338829534b1b3030c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Implementation of a <b>map</b> container. </p>
 <p>Please <b>use provided macros</b> instead of raw functions to gain additional type checks. </p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Typedef Documentation</h2>
+<a id="a0ef924d3b6806f338829534b1b3030c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ef924d3b6806f338829534b1b3030c3">&#9670;&nbsp;</a></span>cmagic_map_erase_destructor_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* cmagic_map_erase_destructor_t) (void *key, void *value)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>User defined additional tasks to be executed right before map element deletion. </p>
+<dl class="section warning"><dt>Warning</dt><dd>Do not call <code>free</code> function on the <code>key</code> or <code>value</code>. It's called later internally by map implementation </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>pointer to key to be deleted </td></tr>
+    <tr><td class="paramname">value</td><td>pointer to the value to be deleted </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad3fdaaf0adb2c7f765f6bbe1dd4543ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3fdaaf0adb2c7f765f6bbe1dd4543ae">&#9670;&nbsp;</a></span>cmagic_map_key_comparator_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef int(* cmagic_map_key_comparator_t) (const void *key1, const void *key2)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pointer to a function that compares two keys. </p>
+<p>This function is called by the map implementation to compare two kes, which is necessary to properly construct and move inside its internal binary tree. Both arguments must be manually casted to a type corresponding to the type of the map key. This function defines the order of the elements. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key1</td><td>pointer to the first key value </td></tr>
+    <tr><td class="paramname">key2</td><td>pointer to the second first key value </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><table class="doxtable">
+<tr>
+<th align="center">value </th><th>meaning  </th></tr>
+<tr>
+<td align="center">&lt;0 </td><td>The element pointed to by <code>key1</code> goes before the element pointed to by <code>key2</code> </td></tr>
+<tr>
+<td align="center">0 </td><td>The element pointed to by <code>key1</code> is equivalent to the element pointed to <code>key2</code> </td></tr>
+<tr>
+<td align="center">&gt;0 </td><td>The element pointed to by <code>key1</code> goes after the element pointed to by <code>key2</code> </td></tr>
+</table>
+</dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">
