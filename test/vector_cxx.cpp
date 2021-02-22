@@ -1,5 +1,8 @@
+#include <algorithm>
+#include <iterator>
 #include <memory>
 #include <string>
+#include <vector>
 #include "cmagic/vector.hpp"
 #include "unity.h"
 
@@ -264,6 +267,16 @@ void test_emplace_back() {
 
 }
 
+void test_back_inserter() {
+    std::vector<std::string> std_vec { "A", "B", "C" };
+    cmagic::vector<std::string> c_vec;
+    std::copy(std_vec.begin(), std_vec.end(), std::back_inserter(c_vec));
+    TEST_ASSERT_EQUAL_size_t(3, c_vec.size());
+    TEST_ASSERT_EQUAL_STRING("A", c_vec[0].c_str());
+    TEST_ASSERT_EQUAL_STRING("B", c_vec[1].c_str());
+    TEST_ASSERT_EQUAL_STRING("C", c_vec[2].c_str());
+}
+
 } // namespace
 
 int main() {
@@ -274,5 +287,6 @@ int main() {
     RUN_TEST(test_moving_semantics);
     RUN_TEST(test_custom_alloc_vector);
     RUN_TEST(test_emplace_back);
+    RUN_TEST(test_back_inserter);
     return UNITY_END();
 }
