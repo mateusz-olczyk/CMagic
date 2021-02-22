@@ -104,12 +104,15 @@ cmagic_set_insert(void *set_ptr, const void *key) {
 }
 
 void
-cmagic_set_erase(void *set_ptr, const void *key) {
+cmagic_set_erase(void *set_ptr, const void *key, cmagic_set_erase_destructor_t destructor) {
     set_descriptor_t *set_desc = _get_set_descriptor(set_ptr);
     cmagic_avl_tree_iterator_t found = cmagic_avl_tree_find(set_desc->internal_avl_tree, key);
     if (found) {
         const void *key_to_delete = found->key;
         cmagic_avl_tree_erase(set_desc->internal_avl_tree, key);
+        if (destructor) {
+            destructor((void *)key_to_delete);
+        }
         _get_alloc_packet(set_desc)->free_function((void *)key_to_delete);
     }
 }

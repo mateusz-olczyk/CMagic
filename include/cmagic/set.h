@@ -35,6 +35,14 @@ extern "C" {
  */
 typedef int (*cmagic_set_key_comparator_t)(const void *key1, const void *key2);
 
+/**
+ * @brief   User defined additional tasks to be executed right before key deletion
+ * @warning Do not call @c free function on the @c key. It's called later internally by set
+ *          implementation
+ * @param   key pointer to key to be deleted
+ */
+typedef void (*cmagic_set_erase_destructor_t)(void *key);
+
 void *
 cmagic_set_new(size_t key_size, cmagic_set_key_comparator_t key_comparator,
                const cmagic_memory_alloc_packet_t *alloc_packet);
@@ -72,7 +80,7 @@ cmagic_set_insert_result_t
 cmagic_set_insert(void *set_ptr, const void *key);
 
 void
-cmagic_set_erase(void *set_ptr, const void *key);
+cmagic_set_erase(void *set_ptr, const void *key, cmagic_set_erase_destructor_t destructor);
 
 void
 cmagic_set_clear(void *set_ptr);
@@ -149,15 +157,26 @@ cmagic_set_get_alloc_packet(void *set_ptr);
     cmagic_set_insert((void*)(cmagic_set), (key)))
 
 /**
+ * @brief   Extended version of @ref CMAGIC_SET_ERASE
+ * @param   cmagic_set a set allocated before with @ref CMAGIC_SET_NEW
+ * @param   key pointer to a value to be removed from the set. This function compares by a value,
+ *          the @p key doesn't have to be an address of the original key. Does nothing if the
+ *          element doesn't exist in the set.
+ * @param   destructor function of type @ref cmagic_set_erase_destructor_t to be called on the
+ *          @p key right before deleting it
+ */
+#define CMAGIC_SET_ERASE_EXT(cmagic_set, key, destructor) \
+    (CMAGIC_UTILS_ASSERT_SAME_TYPE(*(cmagic_set), *(key)), \
+    cmagic_set_erase((void*)(cmagic_set), (key), (destructor)))
+
+/**
  * @brief   Removes a single element from the set
  * @param   cmagic_set a set allocated before with @ref CMAGIC_SET_NEW
  * @param   key pointer to a value to be removed from the set. This function compares by a value,
  *          the @p key doesn't have to be an address of the original key. Does nothing if the
  *          element doesn't exist in the set.
  */
-#define CMAGIC_SET_ERASE(cmagic_set, key) \
-    (CMAGIC_UTILS_ASSERT_SAME_TYPE(*(cmagic_set), *(key)), \
-    cmagic_set_erase((void*)(cmagic_set), (key)))
+#define CMAGIC_SET_ERASE(cmagic_set, key) CMAGIC_SET_ERASE_EXT(cmagic_set, key, NULL)
 
 /**
  * @brief   Removes all elements from the set

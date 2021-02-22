@@ -258,11 +258,9 @@ public:
      */
     void erase(const value_type &val) {
         assert(*this);
-        iterator val_to_delete = find(val);
-        if (val_to_delete != end()) {
-            CMAGIC_SET_ERASE(set_handle, &val);
-            val_to_delete->~value_type();
-        }
+        CMAGIC_SET_ERASE_EXT(set_handle, &val, [](void *key) {
+            static_cast<value_type *>(key)->~value_type();
+        });
     }
 
     /**
