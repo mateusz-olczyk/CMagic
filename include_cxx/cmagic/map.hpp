@@ -223,7 +223,10 @@ public:
 
     void erase(const key_type &key) {
         assert(*this);
-        CMAGIC_MAP_ERASE(map_handle, &key);
+        CMAGIC_MAP_ERASE_EXT(map_handle, &key, [](void *key, void *value) {
+            static_cast<key_type *>(key)->~key_type();
+            static_cast<mapped_type *>(value)->~mapped_type();
+        });
     }
 
     size_type size() const {

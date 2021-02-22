@@ -120,13 +120,16 @@ cmagic_map_insert(void *map_ptr, const void *key, const void *value) {
 }
 
 void
-cmagic_map_erase(void *map_ptr, const void *key) {
+cmagic_map_erase(void *map_ptr, const void *key, cmagic_map_erase_destructor_t destructor) {
     map_descriptor_t *map_desc = _get_map_descriptor(map_ptr);
     cmagic_avl_tree_iterator_t found = cmagic_avl_tree_find(map_desc->internal_avl_tree, key);
     if (found) {
         const void *key_to_delete = found->key;
         void *value_to_delete = found->value;
         cmagic_avl_tree_erase(map_desc->internal_avl_tree, key);
+        if (destructor) {
+            destructor((void *)key_to_delete, value_to_delete);
+        }
         const cmagic_memory_alloc_packet_t *alloc_packet = _get_alloc_packet(map_desc);
         alloc_packet->free_function((void *)key_to_delete);
         alloc_packet->free_function(value_to_delete);
