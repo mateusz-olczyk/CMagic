@@ -24,8 +24,8 @@ compiler extensions. Works both on PC and embedded systems.
     array
 - **Containers**
   - **Vector** (*cmagic/vector.h* and *cmagic/vector.hpp*)
-  - **Map** (*cmagic/map.h* and *cmagic/vector.h*)
-  - **Set** (*cmagic/set.h* and *cmagic/vector.h*)
+  - **Map** (*cmagic/map.h* and *cmagic/map.hpp*)
+  - **Set** (*cmagic/set.h* and *cmagic/set.hpp*)
   - The containers behave similarly as their equivalents known from C++ STL.
   - Allow to specify allocators: standard `malloc()`/`free()` or custom CMagic allocation.
   - Can hold any primitive or custom type elements. Special macros provide basic type checking when
@@ -49,7 +49,8 @@ Prepare a directory for your project:
 > cd cmagic_helloworld
 > git clone --recurse-submodules https://github.com/mateusz-olczyk/CMagic.git cmagic
 ```
-Prepare sources **hello.c** and **hello.cpp** and put them in **cmagic_helloworld** directory:
+Prepare sources [**hello.c**](doc/quickstart-example/hello.c) and
+[**hello.cpp**](doc/quickstart-example/hello.cpp) and put them in **cmagic_helloworld** directory:
 ```c
 // hello.c
 
@@ -106,7 +107,8 @@ int main() {
     std::cout << "\n";
 }
 ```
-Eventually prepare a **CMakeLists.txt** file and compile the sources:
+Eventually prepare a [**CMakeLists.txt**](doc/quickstart-example/CMakeLists.txt) file and compile
+the sources:
 ```cmake
 cmake_minimum_required(VERSION 3.16)
 project(cmagic_helloworld)
