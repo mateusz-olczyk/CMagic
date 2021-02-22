@@ -22,9 +22,24 @@ template<typename Key, typename Value>
 class map {
 
 public:
+    /**
+     * @brief   Type of map keys
+     */
     using key_type = Key;
+
+    /**
+     * @brief   Type of map values
+     */
     using mapped_type = Value;
+
+    /**
+     * @brief   Type of map elements
+     */
     using value_type = std::pair<key_type, mapped_type>;
+
+    /**
+     * @brief   Type used to measure element size
+     */
     using size_type = size_t;
 
     class iterator {
@@ -138,9 +153,16 @@ private:
     }
 
 public:
-
+    /**
+     * @brief   Constructs an empty map with standard memory allocation.
+     * @return  a new empty map
+     */
     map() : map(&CMAGIC_MEMORY_ALLOC_PACKET_STD) {}
 
+    /**
+     * @brief   Constructs an empty map using custom @e CMagic memory allocation from @ref memory.h
+     * @return  a new empty map
+     */
     static map custom_allocation_map() {
         return map(&CMAGIC_MEMORY_ALLOC_PACKET_CUSTOM_CMAGIC);
     }
@@ -186,20 +208,48 @@ public:
                                       CMAGIC_MAP_GET_ALLOC_PACKET(x.map_handle));
     }
 
+    /**
+     * @brief   Checks if the map is properly initialized
+     * @details Example usage:
+     *          @code
+     *          cmagic::map<std::string, int> map;
+     *          if (map) {
+     *              map.insert({ "key", 123 });
+     *          } else {
+     *              std::cerr << "Map allocation failed!\n";
+     *          }
+     *          @endcode
+     * @return  @c true if map is initialized, @c false if map allocation has failed and no
+     *          operation should be made on it
+     */
     operator bool() const {
         return static_cast<bool>(map_handle);
     }
 
+    /**
+     * @brief   Return iterator to beginning
+     * @details Returns an iterator pointing to the first element in the map. If the container is
+     *          empty, the returned iterator value shall not be dereferenced.
+     * @return  an iterator to the beginning of the container
+     */
     iterator begin() const {
         assert(map_handle);
         return CMAGIC_MAP_FIRST(map_handle);
     }
 
+    /**
+     * @brief   Return iterator to end
+     * @details It does not point to any element, and thus shall not be dereferenced.
+     * @return  an iterator to the element past the end of the sequence
+     */
     iterator end() const {
         assert(map_handle);
         return nullptr;
     }
 
+    /**
+     * @brief   Removes all elements from the map, leaving the container with a size of 0.
+     */
     void clear() {
         assert(*this);
         for (cmagic_map_iterator_t it = CMAGIC_MAP_FIRST(map_handle);
@@ -213,14 +263,35 @@ public:
         CMAGIC_MAP_CLEAR(map_handle);
     }
 
+    /**
+     * @brief   Inserts a new element to the map if its key is not equivalent to any element already
+     *          contained in the map.
+     * @details Because keys in a map are unique, the insertion operation checks whether an
+     *          inserted element is equivalent to an element already in the container, and if so,
+     *          the element is not inserted, returning an iterator to this existing element.
+     * @param   val value to be copied (or moved) to the map
+     * @return  a pair, with its member @c pair::first map to an iterator pointing to either the
+     *          newly inserted element or to the equivalent element already in the map or @ref end
+     *          if allocation of the new element has failed. The @c pair::second element in the pair
+     *          is set to @c true if a new element was inserted or @c false if an equivalent element
+     *          already existed (or could not be inserted due to allocation failure).
+     */
     std::pair<iterator, bool> insert(const value_type &val) {
         return insert_template(val.first, val.second);
     }
 
+    /**
+     * @copydoc map::insert
+     */
     std::pair<iterator, bool> insert(value_type &&val) {
         return insert_template(std::move(val.first), std::move(val.second));
     }
 
+    /**
+     * @brief   Removes a single element from the map
+     * @param   key key of the value to be removed from the map. Function does nothing if the key
+     *          doesn't exist in the map.
+     */
     void erase(const key_type &key) {
         assert(*this);
         CMAGIC_MAP_ERASE_EXT(map_handle, &key, [](void *key, void *value) {
@@ -229,15 +300,31 @@ public:
         });
     }
 
+    /**
+     * @brief   Returns the number of elements in the map
+     * @return  number of elements in the map
+     */
     size_type size() const {
         assert(*this);
         return CMAGIC_MAP_SIZE(map_handle);
     }
 
+    /**
+     * @brief   Returns whether the map is empty (i.e. whether its size is 0).
+     * @details This function does not modify the container in any way. To clear the content of a
+     *          map, see @ref map::clear.
+     * @return  @c true if the container size is 0, @c false otherwise
+     */
     bool empty() const {
         return size() == 0;
     }
 
+    /**
+     * @brief   Searches the container for an element with a key equivalent to @p key and returns an
+     *          iterator to it if found, otherwise it returns @ref map::end.
+     * @param   key key to be searched for
+     * @return  an iterator to the element, if @p key is found, or @ref map::end otherwise
+     */
     iterator find(const key_type &key) const {
         return CMAGIC_MAP_FIND(map_handle, &key);
     }

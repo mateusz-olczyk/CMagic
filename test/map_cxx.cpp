@@ -43,14 +43,12 @@ void test_Insert() {
 }
 
 void test_Erase() {
-    using map_type = cmagic::map<std::string, int>;
-    using val_type = map_type::value_type;
-    map_type str_int_map;
+    cmagic::map<std::string, int> str_int_map;
 
-    str_int_map.insert(val_type("Alex", 100));
-    str_int_map.insert(val_type("Barbara", 200));
-    str_int_map.insert(val_type("Claudia", 300));
-    str_int_map.insert(val_type("David", 400));
+    str_int_map.insert({ "Alex", 100 });
+    str_int_map.insert({ "Barbara", 200 });
+    str_int_map.insert({ "Claudia", 300 });
+    str_int_map.insert({ "David", 400 });
     TEST_ASSERT_EQUAL_size_t(4, str_int_map.size());
     TEST_ASSERT_FALSE(str_int_map.find("Claudia") == str_int_map.end());
 
@@ -60,15 +58,13 @@ void test_Erase() {
 }
 
 void test_RangeLoop() {
-    using map_type = cmagic::map<std::string, int>;
-    using val_type = map_type::value_type;
-    map_type str_int_map = map_type::custom_allocation_map();
+    auto str_int_map = cmagic::map<std::string, int>::custom_allocation_map();
     TEST_ASSERT_TRUE(str_int_map);
 
-    str_int_map.insert(val_type("Alex", 100));
-    str_int_map.insert(val_type("Barbara", 200));
-    str_int_map.insert(val_type("Claudia", 300));
-    str_int_map.insert(val_type("David", 400));
+    str_int_map.insert({ "Alex", 100 });
+    str_int_map.insert({ "Barbara", 200 });
+    str_int_map.insert({ "Claudia", 300 });
+    str_int_map.insert({ "David", 400 });
     TEST_ASSERT_EQUAL_size_t(4, str_int_map.size());
 
     char iteration_id {'a'};
@@ -98,21 +94,19 @@ void test_RangeLoop() {
 }
 
 void test_CopyAndMove() {
-    using map_type = cmagic::map<std::string, int>;
-    using val_type = map_type::value_type;
-    map_type str_int_map = map_type::custom_allocation_map();
+    auto str_int_map = cmagic::map<std::string, int>::custom_allocation_map();
     TEST_ASSERT_TRUE(str_int_map);
 
-    str_int_map.insert(val_type("Alex", 100));
-    str_int_map.insert(val_type("Barbara", 200));
-    str_int_map.insert(val_type("Claudia", 300));
-    str_int_map.insert(val_type("David", 400));
+    str_int_map.insert({ "Alex", 100 });
+    str_int_map.insert({ "Barbara", 200 });
+    str_int_map.insert({ "Claudia", 300 });
+    str_int_map.insert({ "David", 400 });
     TEST_ASSERT_EQUAL_size_t(4, str_int_map.size());
 
-    map_type map_copy {str_int_map};
+    cmagic::map<std::string, int> map_copy {str_int_map};
     TEST_ASSERT_EQUAL_size_t(4, str_int_map.size());
     TEST_ASSERT_EQUAL_size_t(4, map_copy.size());
-    map_copy.insert(val_type("Ellen", 500));
+    map_copy.insert({ "Ellen", 500 });
     TEST_ASSERT_EQUAL_size_t(4, str_int_map.size());
     TEST_ASSERT_EQUAL_size_t(5, map_copy.size());
 

@@ -216,8 +216,7 @@ public:
     }
 
     /**
-     * @brief   Removes all elements from the set (which are destroyed), leaving the container
-     *          with a size of 0.
+     * @brief   Removes all elements from the set, leaving the container with a size of 0.
      */
     void clear() {
         assert(*this);
