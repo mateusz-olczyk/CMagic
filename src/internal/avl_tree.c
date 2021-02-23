@@ -212,6 +212,33 @@ static void _rebalance(tree_descriptor_t *tree, tree_node_t **node_ptr,
     // Already balanced
 }
 
+typedef struct {
+    tree_node_t **node_ptr;
+    tree_node_t *node_parent; // needed when *node_ptr == NULL
+} internal_find_result_t;
+
+static internal_find_result_t _internal_find(tree_descriptor_t *tree, const void *key) {
+    assert(tree);
+    assert(key);
+    tree_node_t **node_ptr = &tree->root;
+    tree_node_t *node_parent = NULL;
+
+    while (*node_ptr) {
+        int comparison_result = tree->key_comparator(key, (*node_ptr)->key);
+        if (comparison_result < 0) {
+            node_parent = *node_ptr;
+            node_ptr = &(*node_ptr)->left_kid;
+        } else if (comparison_result > 0) {
+            node_parent = *node_ptr;
+            node_ptr = &(*node_ptr)->right_kid;
+        } else {
+            return (internal_find_result_t) { node_ptr, node_parent };
+        }
+    }
+
+    return (internal_find_result_t) { node_ptr, node_parent };
+}
+
 static cmagic_avl_tree_insert_result_t _internal_insert(tree_descriptor_t *tree,
                                                         tree_node_t *node_parent,
                                                         tree_node_t **node_ptr,
@@ -413,22 +440,9 @@ cmagic_avl_tree_iterator_prev(cmagic_avl_tree_iterator_t iterator) {
 
 cmagic_avl_tree_iterator_t
 cmagic_avl_tree_find(void *avl_tree, const void *key) {
-    assert(key);
-    tree_descriptor_t *tree = _get_avl_tree_descriptor(avl_tree);
-    tree_node_t *node = tree->root;
-
-    while (node) {
-        int comparison_result = tree->key_comparator(key, node->key);
-        if (comparison_result < 0) {
-            node = node->left_kid;
-        } else if (comparison_result > 0) {
-            node = node->right_kid;
-        } else {
-            return (cmagic_avl_tree_iterator_t)node;
-        }
-    }
-
-    return NULL;
+    internal_find_result_t result = _internal_find(_get_avl_tree_descriptor(avl_tree), key);
+    assert(result.node_ptr);
+    return *result.node_ptr ? (cmagic_avl_tree_iterator_t)*result.node_ptr : NULL;
 }
 
 const cmagic_memory_alloc_packet_t *
