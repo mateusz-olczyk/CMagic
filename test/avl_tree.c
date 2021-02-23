@@ -271,6 +271,33 @@ static void test_Clear(void) {
     CMAGIC_AVL_TREE_FREE(tree);
 }
 
+static void test_DeleteNodeWithTwoKids(void) {
+    CMAGIC_AVL_TREE(int) tree = CMAGIC_AVL_TREE_NEW(int, int_ptr_comparator,
+                                                    &CMAGIC_MEMORY_ALLOC_PACKET_CUSTOM_CMAGIC);
+    TEST_ASSERT_NOT_NULL(tree);
+    TEST_ASSERT_GREATER_THAN_size_t(0, cmagic_memory_get_allocated_bytes());
+
+    const int keys[] = { 2, 1, 3 };
+    for (size_t i = 0; i < CMAGIC_UTILS_ARRAY_SIZE(keys); i++) {
+        cmagic_avl_tree_insert_result_t insert_result = CMAGIC_AVL_TREE_INSERT(tree, &keys[i], NULL);
+        TEST_ASSERT_NOT_NULL(insert_result.inserted_or_existing);
+        TEST_ASSERT_FALSE(insert_result.already_exists);
+    }
+
+    TEST_ASSERT_EQUAL_size_t(CMAGIC_UTILS_ARRAY_SIZE(keys), CMAGIC_AVL_TREE_SIZE(tree));
+    CMAGIC_AVL_TREE_ERASE(tree, &(int){2});
+    TEST_ASSERT_EQUAL_size_t(CMAGIC_UTILS_ARRAY_SIZE(keys) - 1, CMAGIC_AVL_TREE_SIZE(tree));
+
+    cmagic_avl_tree_iterator_t it = CMAGIC_AVL_TREE_FIRST(tree);
+    TEST_ASSERT_EQUAL_INT(1, CMAGIC_AVL_TREE_GET_KEY(int, it));
+    it = CMAGIC_AVL_TREE_ITERATOR_NEXT(it);
+    TEST_ASSERT_EQUAL_INT(3, CMAGIC_AVL_TREE_GET_KEY(int, it));
+    it = CMAGIC_AVL_TREE_ITERATOR_NEXT(it);
+    TEST_ASSERT_NULL(it);
+
+    CMAGIC_AVL_TREE_FREE(tree);
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_StringTree);
@@ -279,5 +306,6 @@ int main(void) {
     RUN_TEST(test_InsertOneDeleteOne);
     RUN_TEST(test_InsertManyDeleteOne);
     RUN_TEST(test_Clear);
+    RUN_TEST(test_DeleteNodeWithTwoKids);
     return UNITY_END();
 }

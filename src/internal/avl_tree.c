@@ -303,17 +303,31 @@ cmagic_avl_tree_erase(void *avl_tree, const void *key) {
             (tree_node_t *)cmagic_avl_tree_iterator_next((cmagic_avl_tree_iterator_t)node);
         assert(successor);
         assert(!successor->left_kid);
-        successor->parent = node->parent;
-        successor->left_kid = node->left_kid;
-        *node_ptr = successor;
-        tree->alloc_packet->free_function(node);
+
+        // Unlink successor from the tree
+        if (successor->right_kid) {
+            successor->right_kid->parent = successor->parent;
+        }
+        node_ptr = _get_node_ptr(tree, successor);
+        *node_ptr = successor->right_kid;
+
+        // Move key and value
+        node->key = successor->key;
+        node->value = successor->value;
+
+        // Delete successor
+        tree->alloc_packet->free_function(successor);
         tree->tree_size--;
     } else {
         tree_node_t *kid = node->left_kid ? node->left_kid : node->right_kid;
+
+        // Unlink node from the tree
         if (kid) {
             kid->parent = node->parent;
         }
         *node_ptr = kid;
+
+        // Delete node
         tree->alloc_packet->free_function(node);
         tree->tree_size--;
     }
