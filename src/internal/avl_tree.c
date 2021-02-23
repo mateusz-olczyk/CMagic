@@ -239,48 +239,51 @@ static internal_find_result_t _internal_find(tree_descriptor_t *tree, const void
     return (internal_find_result_t) { node_ptr, node_parent };
 }
 
-static cmagic_avl_tree_insert_result_t _internal_insert(tree_descriptor_t *tree,
-                                                        tree_node_t *node_parent,
-                                                        tree_node_t **node_ptr,
-                                                        const void *key, void *value) {
+static tree_node_t **_get_node_ptr(tree_descriptor_t *tree, tree_node_t *node) {
     assert(tree);
-    assert(node_ptr);
-    assert(key);
-
-    if (!*node_ptr) {
-        *node_ptr = _new_node(tree, node_parent, key, value);
-        tree->tree_size++;
-        return (cmagic_avl_tree_insert_result_t) {
-            .inserted_or_existing = (cmagic_avl_tree_iterator_t)*node_ptr,
-            .already_exists = false
-        };
+    assert(node);
+    if (!node->parent) {
+        return &tree->root;
     }
 
-    tree_node_t *node = *node_ptr;
-    int comparison_result = tree->key_comparator(key, node->key);
-    if (comparison_result == 0) {
-        return (cmagic_avl_tree_insert_result_t) {
-            .inserted_or_existing = (cmagic_avl_tree_iterator_t)node,
-            .already_exists = true
-        };
-    }
-
-    cmagic_avl_tree_insert_result_t insert_result = comparison_result < 0
-        ? _internal_insert(tree, node, &node->left_kid, key, value)
-        : _internal_insert(tree, node, &node->right_kid, key, value);
-    if (!insert_result.inserted_or_existing || insert_result.already_exists) {
-        return insert_result;
-    }
-
-    _rebalance(tree, node_ptr, key);
-    return insert_result;
+    assert(node->parent->left_kid == node || node->parent->right_kid == node);
+    return node->parent->left_kid == node ? &node->parent->left_kid : &node->parent->right_kid;
 }
 
 cmagic_avl_tree_insert_result_t
 cmagic_avl_tree_insert(void *avl_tree, const void *key, void *value) {
     assert(key);
     tree_descriptor_t *tree = _get_avl_tree_descriptor(avl_tree);
-    return _internal_insert(tree, NULL, &tree->root, key, value);
+    internal_find_result_t find_result = _internal_find(tree, key);
+    assert(find_result.node_ptr);
+
+    if (*find_result.node_ptr) {
+        return (cmagic_avl_tree_insert_result_t) {
+            .inserted_or_existing = (cmagic_avl_tree_iterator_t)*find_result.node_ptr,
+            .already_exists = true
+        };
+    }
+
+    tree_node_t *new_node = *find_result.node_ptr =
+        _new_node(tree, find_result.node_parent, key, value);
+    if (!new_node) {
+        return (cmagic_avl_tree_insert_result_t) {
+            .inserted_or_existing = NULL,
+            .already_exists = false
+        };
+    }
+    tree->tree_size++;
+
+    for (tree_node_t *node = new_node->parent; node; node = node->parent) {
+        tree_node_t **node_ptr = _get_node_ptr(tree, node);
+        _rebalance(tree, node_ptr, key);
+        node = *node_ptr;
+    }
+
+    return (cmagic_avl_tree_insert_result_t) {
+        .inserted_or_existing = (cmagic_avl_tree_iterator_t)new_node,
+        .already_exists = false
+    };
 }
 
 static void _internal_erase(tree_descriptor_t *tree, tree_node_t **node_ptr, const void *key) {
