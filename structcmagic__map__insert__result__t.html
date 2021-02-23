@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">CMagic
-   &#160;<span id="projectnumber">0.1.0</span>
+   &#160;<span id="projectnumber">0.5.0</span>
    </div>
    <div id="projectbrief">Portable C library of utilities and data structures</div>
   </td>
@@ -61,11 +61,62 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="structcmagic__map__insert__result__t-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">cmagic_map_insert_result_t Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Map insertion result.  
+ <a href="structcmagic__map__insert__result__t.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="map_8h_source.html">map.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:ad193ab81da6e93d97dd8ede921d6b937"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcmagic__map__iterator__t.html">cmagic_map_iterator_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcmagic__map__insert__result__t.html#ad193ab81da6e93d97dd8ede921d6b937">inserted_or_existing</a></td></tr>
+<tr class="memdesc:ad193ab81da6e93d97dd8ede921d6b937"><td class="mdescLeft">&#160;</td><td class="mdescRight">iterator pointing to a new or already existing element or <code>NULL</code> if the allocation of a new element has failed  <a href="#ad193ab81da6e93d97dd8ede921d6b937">More...</a><br /></td></tr>
+<tr class="separator:ad193ab81da6e93d97dd8ede921d6b937"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac50495692b59425549ca5b02e9b3dd29"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcmagic__map__insert__result__t.html#ac50495692b59425549ca5b02e9b3dd29">already_exists</a></td></tr>
+<tr class="memdesc:ac50495692b59425549ca5b02e9b3dd29"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>true</code> if the element already exists in the map and the map was not modified, <code>false</code> if a new element has been allocated  <a href="#ac50495692b59425549ca5b02e9b3dd29">More...</a><br /></td></tr>
+<tr class="separator:ac50495692b59425549ca5b02e9b3dd29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Map insertion result. </p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="ac50495692b59425549ca5b02e9b3dd29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac50495692b59425549ca5b02e9b3dd29">&#9670;&nbsp;</a></span>already_exists</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool cmagic_map_insert_result_t::already_exists</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>true</code> if the element already exists in the map and the map was not modified, <code>false</code> if a new element has been allocated </p>
+
+</div>
+</div>
+<a id="ad193ab81da6e93d97dd8ede921d6b937"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad193ab81da6e93d97dd8ede921d6b937">&#9670;&nbsp;</a></span>inserted_or_existing</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcmagic__map__iterator__t.html">cmagic_map_iterator_t</a> cmagic_map_insert_result_t::inserted_or_existing</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>iterator pointing to a new or already existing element or <code>NULL</code> if the allocation of a new element has failed </p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>cmagic/<a class="el" href="map_8h_source.html">map.h</a></li>
 </ul>
