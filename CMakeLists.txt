@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 project(CMagic
-        VERSION 0.1.0
+        VERSION 0.5.0
         DESCRIPTION "Portable C library of utilities and data structures"
         HOMEPAGE_URL "https://github.com/mateusz-olczyk/CMagic"
         LANGUAGES C CXX)
