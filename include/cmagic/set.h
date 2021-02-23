@@ -30,7 +30,7 @@ extern "C" {
  *          value | meaning
  *          :----:|---------------------------------------------------------------------------------
  *          <0    | The element pointed to by @p key1 goes before the element pointed to by @p key2
- *          0     | The element pointed to by @p key1 is equivalent to the element pointed to @p key2
+ *          0     | The element pointed to by @p key1 is equivalent to the element pointed to by @p key2
  *          >0    | The element pointed to by @p key1 goes after the element pointed to by @p key2
  */
 typedef int (*cmagic_set_key_comparator_t)(const void *key1, const void *key2);
