@@ -333,7 +333,7 @@ cmagic_avl_tree_erase(void *avl_tree, const void *key) {
     }
 
     for (node = *node_ptr; node; node = node->parent) {
-        tree_node_t **node_ptr = _get_node_ptr(tree, node);
+        node_ptr = _get_node_ptr(tree, node);
         _rebalance(tree, node_ptr, key);
         node = *node_ptr;
     }

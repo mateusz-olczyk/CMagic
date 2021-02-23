@@ -294,9 +294,9 @@ public:
      */
     void erase(const key_type &key) {
         assert(*this);
-        CMAGIC_MAP_ERASE_EXT(map_handle, &key, [](void *key, void *value) {
-            static_cast<key_type *>(key)->~key_type();
-            static_cast<mapped_type *>(value)->~mapped_type();
+        CMAGIC_MAP_ERASE_EXT(map_handle, &key, [](void *raw_key, void *raw_value) {
+            static_cast<key_type *>(raw_key)->~key_type();
+            static_cast<mapped_type *>(raw_value)->~mapped_type();
         });
     }
 

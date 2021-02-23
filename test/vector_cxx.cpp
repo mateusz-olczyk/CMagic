@@ -77,7 +77,7 @@ struct object {
         owner->allocations++;
     }
 
-    object(int val, std::shared_ptr<mem_mgmt> owner) : val(val), owner(owner) {
+    object(int val_, std::shared_ptr<mem_mgmt> owner_) : val(val_), owner(owner_) {
         owner->allocations++;
     }
 
