@@ -286,55 +286,43 @@ cmagic_avl_tree_insert(void *avl_tree, const void *key, void *value) {
     };
 }
 
-static void _internal_erase(tree_descriptor_t *tree, tree_node_t **node_ptr, const void *key) {
-    assert(tree);
-    assert(node_ptr);
-    assert(key);
-
-    if (!*node_ptr) {
-        return;
-    }
-
-    tree_node_t *node = *node_ptr;
-    int comparison_result = tree->key_comparator(key, node->key);
-    if (comparison_result < 0) {
-        _internal_erase(tree, &node->left_kid, key);
-    } else if (comparison_result > 0) {
-        _internal_erase(tree, &node->right_kid, key);
-    } else {
-        if (node->left_kid && node->right_kid) {
-            tree_node_t *successor =
-                (tree_node_t *)cmagic_avl_tree_iterator_next((cmagic_avl_tree_iterator_t)node);
-            assert(successor);
-            assert(!successor->left_kid);
-            successor->parent = node->parent;
-            successor->left_kid = node->left_kid;
-            *node_ptr = successor;
-            tree->alloc_packet->free_function(node);
-            tree->tree_size--;
-        } else {
-            tree_node_t *kid = node->left_kid ? node->left_kid : node->right_kid;
-            if (kid) {
-                kid->parent = node->parent;
-            }
-            *node_ptr = kid;
-            tree->alloc_packet->free_function(node);
-            tree->tree_size--;
-        }
-    }
-
-    node = *node_ptr;
-    if (!node) {
-        return;
-    }
-    _rebalance(tree, node_ptr, key);
-}
-
 void
 cmagic_avl_tree_erase(void *avl_tree, const void *key) {
     assert(key);
     tree_descriptor_t *tree = _get_avl_tree_descriptor(avl_tree);
-    _internal_erase(tree, &tree->root, key);
+    internal_find_result_t find_result = _internal_find(tree, key);
+    assert(find_result.node_ptr);
+    if (!*find_result.node_ptr) {
+        return;
+    }
+
+    tree_node_t **node_ptr = find_result.node_ptr;
+    tree_node_t *node = *node_ptr;
+    if (node->left_kid && node->right_kid) {
+        tree_node_t *successor =
+            (tree_node_t *)cmagic_avl_tree_iterator_next((cmagic_avl_tree_iterator_t)node);
+        assert(successor);
+        assert(!successor->left_kid);
+        successor->parent = node->parent;
+        successor->left_kid = node->left_kid;
+        *node_ptr = successor;
+        tree->alloc_packet->free_function(node);
+        tree->tree_size--;
+    } else {
+        tree_node_t *kid = node->left_kid ? node->left_kid : node->right_kid;
+        if (kid) {
+            kid->parent = node->parent;
+        }
+        *node_ptr = kid;
+        tree->alloc_packet->free_function(node);
+        tree->tree_size--;
+    }
+
+    for (node = *node_ptr; node; node = node->parent) {
+        tree_node_t **node_ptr = _get_node_ptr(tree, node);
+        _rebalance(tree, node_ptr, key);
+        node = *node_ptr;
+    }
 }
 
 static void _internal_free(tree_descriptor_t *tree, tree_node_t *node) {
